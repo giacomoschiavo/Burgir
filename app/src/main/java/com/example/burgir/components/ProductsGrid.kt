@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -21,7 +22,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 
 
 @Composable
-fun Product(modifier: Modifier = Modifier) {
+fun Product(product: ProductUiState, modifier: Modifier = Modifier) {
   Surface(
     modifier = modifier
       .heightIn(220.dp)
@@ -32,21 +33,23 @@ fun Product(modifier: Modifier = Modifier) {
       horizontalAlignment = Alignment.CenterHorizontally,
     ) {
       Image(
-        painter = painterResource(R.drawable.burger),
+        painter = painterResource(product.imageUrl),
         contentDescription = null,
         modifier = Modifier
           .size(120.dp)
           .padding(10.dp))
-      Text(text = "Burger super buono")
+      Text(product.name)
     }
   }
 }
 
 
 @Composable
-fun ProductsGrid() {
-  LazyVerticalGrid(columns = GridCells.Fixed(2)) {
-    repeat(10, { item { Product() } })
+fun ProductsGrid(modifier: Modifier = Modifier) {
+  LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = modifier) {
+    items(products) { product ->
+      Product(product, modifier)
+    }
   }
 }
 
@@ -55,7 +58,7 @@ fun ProductsGrid() {
 @Composable
 fun ProductPreview() {
   BurgirTheme {
-    Product()
+    Product(products[0])
   }
 }
 
