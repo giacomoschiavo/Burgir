@@ -7,7 +7,7 @@ data class Product(
   val id: Int = 0,
   val name: String = "No name",
   @DrawableRes
-  val imageUrl: Int,
+  val imageUrl: Int = R.drawable.burger,
   val price: Long = 0,
   val categoryId: Int = 0,
   val description: String = ""
