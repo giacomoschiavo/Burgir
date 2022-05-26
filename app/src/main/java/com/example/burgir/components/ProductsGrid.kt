@@ -25,7 +25,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 
 
 @Composable
-fun Product(product: ProductUiState, modifier: Modifier = Modifier) {
+fun Product(product: Product, modifier: Modifier = Modifier) {
   Surface(
     modifier = modifier
       .heightIn(220.dp)
@@ -49,12 +49,12 @@ fun Product(product: ProductUiState, modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProductsGrid(modifier: Modifier = Modifier) {
+fun ProductsGrid(chosenCategoryId: Int, modifier: Modifier = Modifier) {
   CompositionLocalProvider(
     LocalOverScrollConfiguration provides null
   ) {
     LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = modifier) {
-      items(products) { product ->
+      items(products.filter {product -> product.categoryId == chosenCategoryId }) { product ->
         Product(product, modifier)
       }
     }
@@ -74,7 +74,7 @@ fun ProductPreview() {
 @Composable
 fun ProductsGridPreview() {
   BurgirTheme {
-    ProductsGrid()
+    ProductsGrid(0)
   }
 }
 

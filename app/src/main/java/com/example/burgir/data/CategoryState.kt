@@ -4,6 +4,7 @@ import com.example.burgir.R
 data class CategoryUiState (
   val id: Int,
   val name: String = "Category $id",
+  var chosen: Boolean = false,
   @DrawableRes val imageRes: Int
 )
 

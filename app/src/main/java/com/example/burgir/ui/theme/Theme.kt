@@ -28,13 +28,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun BurgirTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {
-//  val colors = if (darkTheme) {
-//    DarkColorPalette
-//  } else {
-//    LightColorPalette
-//  }
-
   MaterialTheme(
+    colorScheme = colorScheme,
     typography = Typography,
     shapes = Shapes,
     content = content

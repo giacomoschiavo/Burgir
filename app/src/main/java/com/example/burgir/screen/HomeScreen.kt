@@ -7,6 +7,9 @@ import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -56,7 +59,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
             contentDescription = "Account Icon"
           )
         },
-        modifier = modifier,
+        modifier = Modifier,
         containerColor = MaterialTheme.colorScheme.primary
       )
     },
@@ -64,7 +67,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
       NavHost(
         navController = navController,
         startDestination = "menu_screen",
-        modifier = modifier.padding(innerPadding)
+        modifier = Modifier.padding(innerPadding)
       ) {
         composable("menu_screen") { MenuScreen() }
         composable("profile_screen") { ProfileScreen() }
@@ -76,10 +79,16 @@ fun HomeScreen(modifier: Modifier = Modifier) {
 
 @Composable
 fun MenuScreen(modifier: Modifier = Modifier) {
+
+  var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
+
   Column(modifier = modifier) {
-    CategorySlider()
+    CategorySlider(
+      chosenCategoryId,
+      { newCategoryId -> chosenCategoryId = newCategoryId}
+    )
     Spacer(modifier = Modifier.size(30.dp))
-    ProductsGrid()
+    ProductsGrid(chosenCategoryId)
   }
 }
 
