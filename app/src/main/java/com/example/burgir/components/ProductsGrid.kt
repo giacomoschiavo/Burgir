@@ -26,11 +26,11 @@ import com.example.burgir.ui.theme.BurgirTheme
 
 
 @Composable
-fun ProductItem(product: Product, onClick: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Modifier = Modifier) {
   Surface(
     modifier = modifier
       .heightIn(220.dp)
-      .clickable { onClick(product.id) },
+      .clickable { navigateToProduct(product.id) },
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -52,7 +52,7 @@ fun ProductItem(product: Product, onClick: (Int) -> Unit, modifier: Modifier = M
 @Composable
 fun ProductsGrid(
   chosenCategoryId: Int,
-  handleProductIdNavigation: (Int) -> Unit,
+  navigateToProduct: (Int) -> Unit,
   modifier: Modifier = Modifier
 ) {
   CompositionLocalProvider(
@@ -60,7 +60,7 @@ fun ProductsGrid(
   ) {
     LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = modifier) {
       items(products.filter { product -> product.categoryId == chosenCategoryId }) { product ->
-        ProductItem(product, handleProductIdNavigation, modifier)
+        ProductItem(product, navigateToProduct, modifier)
       }
     }
   }

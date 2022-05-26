@@ -34,8 +34,7 @@ fun MenuScreen(
   navController: NavController,
   modifier: Modifier = Modifier
 ) {
-
-  val navControllerMenu = rememberNavController()
+  var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
 
   Scaffold(
     modifier = modifier,
@@ -77,49 +76,30 @@ fun MenuScreen(
       )
     },
     content = { innerPadding ->
-      NavHost(
-        navController = navControllerMenu,
-        startDestination = MainActivity.MENU_SCREEN_ROUTE,
-        modifier = Modifier.padding(innerPadding)
-      ) {
-        composable(MainActivity.MENU_SCREEN_ROUTE) {
-          MenuScreen({ productId ->
-            navControllerMenu.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
-              popUpTo(
-                MainActivity.MENU_SCREEN_ROUTE
-              )
+      Column(modifier = Modifier.padding(innerPadding)) {
+        CategorySlider(
+          chosenCategoryId,
+          { newCategoryId -> chosenCategoryId = newCategoryId }
+        )
+        Spacer(modifier = Modifier.size(30.dp))
+        ProductsGrid(
+          chosenCategoryId,
+          { productId ->
+            navController.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
+              popUpTo(MainActivity.MENU_SCREEN_ROUTE)
             }
-          })
-        }
-        composable(MainActivity.PROFILE_SCREEN_ROUTE) { ProfileScreen() }
-        composable(MainActivity.CART_SCREEN_ROUTE) { CartScreen() }
-        composable("${MainActivity.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
-          ProductScreen(backStackEntry.arguments?.getString("productId")!!.toInt())
-        }
+          }
+        )
       }
-    },
+    }
   )
 }
 
-@Composable
-fun MenuScreen(handleProductIdNavigation: (Int) -> Unit, modifier: Modifier = Modifier) {
-
-  var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
-
-  Column(modifier = modifier) {
-    CategorySlider(
-      chosenCategoryId,
-      { newCategoryId -> chosenCategoryId = newCategoryId }
-    )
-    Spacer(modifier = Modifier.size(30.dp))
-    ProductsGrid(chosenCategoryId, handleProductIdNavigation)
-  }
-}
 
 @Preview(showBackground = true, widthDp = 320, heightDp = 600)
 @Composable
 fun ScreenPreview() {
   BurgirTheme {
-    MenuScreen({})
+    MenuScreen(rememberNavController())
   }
 }

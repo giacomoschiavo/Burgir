@@ -9,6 +9,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.burgir.screen.CartScreen
+import com.example.burgir.screen.ProductScreen
+import com.example.burgir.screen.ProfileScreen
 import com.example.burgir.screen.SplashScreen
 import com.example.burgir.ui.theme.BurgirTheme
 
@@ -40,6 +43,15 @@ fun Navigation() {
   NavHost(navController = navController, startDestination = MainActivity.SPLASH_SCREEN_ROUTE) {
     composable(MainActivity.SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
     composable(MainActivity.MENU_SCREEN_ROUTE) { MenuScreen(navController = navController) }
+    composable(MainActivity.MENU_SCREEN_ROUTE) { MenuScreen(navController = navController) }
+    composable(MainActivity.PROFILE_SCREEN_ROUTE) { ProfileScreen() }
+    composable(MainActivity.CART_SCREEN_ROUTE) { CartScreen() }
+    composable("${MainActivity.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
+      ProductScreen(
+        navController = navController,
+        backStackEntry.arguments?.getString("productId")!!.toInt()
+      )
+    }
   }
 }
 
