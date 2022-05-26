@@ -20,16 +20,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.burgir.R
 import com.example.burgir.ui.theme.BurgirTheme
 
 
 @Composable
-fun Product(product: Product, modifier: Modifier = Modifier) {
+fun ProductItem(product: Product, onClick: (Int) -> Unit, modifier: Modifier = Modifier) {
   Surface(
     modifier = modifier
       .heightIn(220.dp)
-      .clickable { },
+      .clickable { onClick(product.id) },
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -49,24 +50,29 @@ fun Product(product: Product, modifier: Modifier = Modifier) {
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProductsGrid(chosenCategoryId: Int, modifier: Modifier = Modifier) {
+fun ProductsGrid(
+  chosenCategoryId: Int,
+  handleProductIdNavigation: (Int) -> Unit,
+  modifier: Modifier = Modifier
+) {
   CompositionLocalProvider(
     LocalOverScrollConfiguration provides null
   ) {
     LazyVerticalGrid(columns = GridCells.Fixed(2), modifier = modifier) {
-      items(products.filter {product -> product.categoryId == chosenCategoryId }) { product ->
-        Product(product, modifier)
+      items(products.filter { product -> product.categoryId == chosenCategoryId }) { product ->
+        ProductItem(product, handleProductIdNavigation, modifier)
       }
     }
   }
 }
 
 
+
 @Preview(showBackground = true)
 @Composable
 fun ProductPreview() {
   BurgirTheme {
-    Product(products[0])
+    ProductItem(products[0], {})
   }
 }
 
@@ -74,7 +80,7 @@ fun ProductPreview() {
 @Composable
 fun ProductsGridPreview() {
   BurgirTheme {
-    ProductsGrid(0)
+    ProductsGrid(0, {})
   }
 }
 

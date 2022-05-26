@@ -21,6 +21,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.R
 import com.example.burgir.screen.CartScreen
+import com.example.burgir.screen.ProductScreen
 import com.example.burgir.screen.ProfileScreen
 import com.example.burgir.ui.theme.BurgirTheme
 
@@ -56,7 +57,7 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         icon = {
           Icon(
             imageVector = Icons.Filled.ShoppingCart,
-            contentDescription = "Account Icon"
+            contentDescription = "Shopping Cart Icon"
           )
         },
         modifier = Modifier,
@@ -69,26 +70,33 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         startDestination = "menu_screen",
         modifier = Modifier.padding(innerPadding)
       ) {
-        composable("menu_screen") { MenuScreen() }
+        composable("menu_screen") {
+          MenuScreen({ productId ->
+            navController.navigate("product_screen/$productId") { popUpTo("menu_screen") }
+          })
+        }
         composable("profile_screen") { ProfileScreen() }
         composable("cart_screen") { CartScreen() }
+        composable("product_screen/{productId}") { backStackEntry ->
+          ProductScreen(backStackEntry.arguments?.getString("productId")!!.toInt())
+        }
       }
     },
   )
 }
 
 @Composable
-fun MenuScreen(modifier: Modifier = Modifier) {
+fun MenuScreen(handleProductIdNavigation: (Int) -> Unit, modifier: Modifier = Modifier) {
 
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
 
   Column(modifier = modifier) {
     CategorySlider(
       chosenCategoryId,
-      { newCategoryId -> chosenCategoryId = newCategoryId}
+      { newCategoryId -> chosenCategoryId = newCategoryId }
     )
     Spacer(modifier = Modifier.size(30.dp))
-    ProductsGrid(chosenCategoryId)
+    ProductsGrid(chosenCategoryId, handleProductIdNavigation)
   }
 }
 
@@ -96,6 +104,6 @@ fun MenuScreen(modifier: Modifier = Modifier) {
 @Composable
 fun ScreenPreview() {
   BurgirTheme {
-    MenuScreen()
+    MenuScreen({})
   }
 }
