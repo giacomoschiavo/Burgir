@@ -19,17 +19,23 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.burgir.MainActivity
 import com.example.burgir.R
+import com.example.burgir.data.CartViewModel
 import com.example.burgir.screen.CartScreen
 import com.example.burgir.screen.ProductScreen
 import com.example.burgir.screen.ProfileScreen
+import com.example.burgir.screen.SplashScreen
 import com.example.burgir.ui.theme.BurgirTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun MenuScreen(
+  navController: NavController,
+  modifier: Modifier = Modifier
+) {
 
-  val navController = rememberNavController()
+  val navControllerMenu = rememberNavController()
 
   Scaffold(
     modifier = modifier,
@@ -37,7 +43,13 @@ fun HomeScreen(modifier: Modifier = Modifier) {
       CenterAlignedTopAppBar(
         title = { Text(stringResource(id = R.string.app_name)) },
         actions = {
-          IconButton(onClick = { navController.navigate("profile_screen") { popUpTo("menu_screen") } }) {
+          IconButton(onClick = {
+            navController.navigate(MainActivity.PROFILE_SCREEN_ROUTE) {
+              popUpTo(
+                MainActivity.MENU_SCREEN_ROUTE
+              )
+            }
+          }) {
             Icon(
               imageVector = Icons.Filled.AccountCircle,
               contentDescription = "Account Icon"
@@ -49,8 +61,8 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     floatingActionButton = {
       ExtendedFloatingActionButton(
         onClick = {
-          navController.navigate("cart_screen") {
-            popUpTo("menu_screen")
+          navController.navigate(MainActivity.CART_SCREEN_ROUTE) {
+            popUpTo(MainActivity.MENU_SCREEN_ROUTE)
           }
         },
         text = { Text("Checkout") },
@@ -66,18 +78,22 @@ fun HomeScreen(modifier: Modifier = Modifier) {
     },
     content = { innerPadding ->
       NavHost(
-        navController = navController,
-        startDestination = "menu_screen",
+        navController = navControllerMenu,
+        startDestination = MainActivity.MENU_SCREEN_ROUTE,
         modifier = Modifier.padding(innerPadding)
       ) {
-        composable("menu_screen") {
+        composable(MainActivity.MENU_SCREEN_ROUTE) {
           MenuScreen({ productId ->
-            navController.navigate("product_screen/$productId") { popUpTo("menu_screen") }
+            navControllerMenu.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
+              popUpTo(
+                MainActivity.MENU_SCREEN_ROUTE
+              )
+            }
           })
         }
-        composable("profile_screen") { ProfileScreen() }
-        composable("cart_screen") { CartScreen() }
-        composable("product_screen/{productId}") { backStackEntry ->
+        composable(MainActivity.PROFILE_SCREEN_ROUTE) { ProfileScreen() }
+        composable(MainActivity.CART_SCREEN_ROUTE) { CartScreen() }
+        composable("${MainActivity.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
           ProductScreen(backStackEntry.arguments?.getString("productId")!!.toInt())
         }
       }
