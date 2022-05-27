@@ -10,7 +10,7 @@ data class Product(
   val imageUrl: Int = R.drawable.burger,
   val price: Long = 0,
   val categoryId: Int = 0,
-  val description: String = ""
+  val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare tortor quis sagittis mattis. In sit amet justo eget felis ultrices bibendum. Vivamus in commodo orci, eget faucibus urna. Nunc id felis vitae risus efficitur finibus. Integer vitae aliquet libero. Morbi non arcu sed tellus accumsan viverra ac porttitor orci."
 )
 
 val products = listOf(

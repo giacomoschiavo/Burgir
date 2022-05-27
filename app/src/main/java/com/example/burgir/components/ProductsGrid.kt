@@ -28,16 +28,10 @@ import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
 fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Modifier = Modifier) {
-
-  val clicked = rememberSaveable { mutableStateOf(false) }
-  val backgroundColorAnimated by animateColorAsState(if (clicked.value) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background)
-
-
   Box(
     modifier = modifier
       .heightIn(220.dp)
-      .clickable { clicked.value = !clicked.value }
-      .background(backgroundColorAnimated),
+      .clickable { navigateToProduct(product.id) },
     contentAlignment = Alignment.Center,
   ) {
     Column(
