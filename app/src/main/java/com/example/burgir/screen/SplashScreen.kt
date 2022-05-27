@@ -4,6 +4,7 @@ import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
@@ -16,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.navigation.NavController
 import com.example.burgir.MainActivity
 import com.example.burgir.R
+import com.example.burgir.ui.theme.BurgirTheme
 import kotlinx.coroutines.delay
 
 @Composable
@@ -37,7 +39,9 @@ fun SplashScreen(navController: NavController) {
 
   Box(
     contentAlignment = Alignment.Center,
-    modifier = Modifier.fillMaxSize()
+    modifier = Modifier
+      .fillMaxSize()
+
   ) {
     Image(
       painter = painterResource(id = R.drawable.burger),

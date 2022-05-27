@@ -1,9 +1,7 @@
-import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountCircle
 import androidx.compose.material3.*
-import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -15,17 +13,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.MainActivity
 import com.example.burgir.R
-import com.example.burgir.data.CartViewModel
-import com.example.burgir.screen.CartScreen
-import com.example.burgir.screen.ProductScreen
-import com.example.burgir.screen.ProfileScreen
-import com.example.burgir.screen.SplashScreen
 import com.example.burgir.ui.theme.BurgirTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

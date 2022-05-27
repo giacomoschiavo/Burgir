@@ -5,7 +5,9 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.core.content.ContextCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -14,6 +16,7 @@ import com.example.burgir.screen.ProductScreen
 import com.example.burgir.screen.ProfileScreen
 import com.example.burgir.screen.SplashScreen
 import com.example.burgir.ui.theme.BurgirTheme
+import com.example.burgir.ui.theme.md_theme_light_primary
 
 
 class MainActivity : ComponentActivity() {
@@ -28,11 +31,11 @@ class MainActivity : ComponentActivity() {
   }
 
   companion object {
-    val SPLASH_SCREEN_ROUTE = "splashScreen"
-    val MENU_SCREEN_ROUTE = "menuScreen"
-    val CART_SCREEN_ROUTE = "cartScreen"
-    val PROFILE_SCREEN_ROUTE = "profileScreen"
-    val PRODUCT_SCREEN_ROUTE = "productScreen"
+    const val SPLASH_SCREEN_ROUTE = "splashScreen"
+    const val MENU_SCREEN_ROUTE = "menuScreen"
+    const val CART_SCREEN_ROUTE = "cartScreen"
+    const val PROFILE_SCREEN_ROUTE = "profileScreen"
+    const val PRODUCT_SCREEN_ROUTE = "productScreen"
   }
 }
 

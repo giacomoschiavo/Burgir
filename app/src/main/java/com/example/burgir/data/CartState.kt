@@ -8,10 +8,5 @@ import androidx.lifecycle.ViewModel
 
 data class CartState(
   val products: List<Product> = listOf()
+
 )
-
-class CartViewModel : ViewModel() {
-  var cartState by mutableStateOf(CartState())
-    private set
-}
-
