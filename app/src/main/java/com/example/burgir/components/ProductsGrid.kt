@@ -21,31 +21,41 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.TextUnitType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
+import com.example.burgir.ui.theme.Shapes
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Modifier = Modifier) {
   Box(
     modifier = modifier
-      .heightIn(220.dp)
-      .clickable { navigateToProduct(product.id) },
+      .heightIn(220.dp),
     contentAlignment = Alignment.Center,
   ) {
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
+    ElevatedCard(
+      onClick = { navigateToProduct(product.id) },
     ) {
-      Image(
-        painter = painterResource(product.imageUrl),
-        contentDescription = null,
-        modifier = Modifier
-          .size(120.dp)
-          .padding(10.dp)
-      )
-      Text(product.name)
-
+      Column(
+        modifier = modifier.padding(25.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+      ) {
+        Image(
+          painter = painterResource(product.imageUrl),
+          contentDescription = null,
+          modifier = Modifier
+            .size(120.dp)
+            .padding(10.dp)
+        )
+        Text(text = product.name, style = AppTypography.bodyMedium)
+      }
     }
   }
 }
