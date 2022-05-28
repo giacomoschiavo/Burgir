@@ -31,35 +31,6 @@ import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Modifier = Modifier) {
-  Box(
-    modifier = modifier
-      .heightIn(220.dp),
-    contentAlignment = Alignment.Center,
-  ) {
-    ElevatedCard(
-      onClick = { navigateToProduct(product.id) },
-    ) {
-      Column(
-        modifier = modifier.padding(25.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-      ) {
-        Image(
-          painter = painterResource(product.imageUrl),
-          contentDescription = null,
-          modifier = Modifier
-            .size(120.dp)
-            .padding(10.dp)
-        )
-        Text(text = product.name, style = AppTypography.bodyMedium)
-      }
-    }
-  }
-}
-
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun ProductsGrid(
@@ -73,7 +44,6 @@ fun ProductsGrid(
   ) {
     LazyVerticalGrid(
       columns = GridCells.Fixed(2),
-      modifier = Modifier
     ) {
       items(products.filter { product -> product.categoryId == chosenCategoryId }) { product ->
         ProductItem(product, navigateToProduct, modifier)
