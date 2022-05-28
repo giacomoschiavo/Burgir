@@ -4,10 +4,9 @@ import MenuScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.core.content.ContextCompat
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -16,16 +15,16 @@ import com.example.burgir.screen.ProductScreen
 import com.example.burgir.screen.ProfileScreen
 import com.example.burgir.screen.SplashScreen
 import com.example.burgir.ui.theme.BurgirTheme
-import com.example.burgir.ui.theme.md_theme_light_primary
 
 
 class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-
     setContent {
       BurgirTheme() {
-        Navigation()
+        Surface() {
+          Navigation()
+        }
       }
     }
   }

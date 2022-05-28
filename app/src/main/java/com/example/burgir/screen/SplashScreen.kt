@@ -7,6 +7,8 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
@@ -14,7 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.MainActivity
 import com.example.burgir.R
 import com.example.burgir.ui.theme.BurgirTheme
@@ -37,16 +41,25 @@ fun SplashScreen(navController: NavController) {
     navController.navigate(MainActivity.MENU_SCREEN_ROUTE)
   }
 
-  Box(
-    contentAlignment = Alignment.Center,
-    modifier = Modifier
-      .fillMaxSize()
+  Surface() {
+    Box(
+      contentAlignment = Alignment.Center,
+      modifier = Modifier
+        .fillMaxSize()
+    ) {
+      Image(
+        painter = painterResource(id = R.drawable.burger),
+        contentDescription = "Logo",
+        modifier = Modifier.scale(scale.value)
+      )
+    }
+  }
+}
 
-  ) {
-    Image(
-      painter = painterResource(id = R.drawable.burger),
-      contentDescription = "Logo",
-      modifier = Modifier.scale(scale.value)
-    )
+@Preview(showBackground = true)
+@Composable
+fun SplashScreenPreview() {
+  BurgirTheme() {
+    SplashScreen(navController = rememberNavController())
   }
 }

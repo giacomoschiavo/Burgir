@@ -18,13 +18,18 @@ import com.example.burgir.ui.theme.BurgirTheme
 // TODO: solve this
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Category(category: CategoryUiState, isChosen: Boolean = false, onCategoryClicked: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun Category(
+  category: CategoryUiState,
+  isChosen: Boolean,
+  onCategoryClicked: (Int) -> Unit,
+  modifier: Modifier = Modifier
+) {
 
-  val backgroundColor by animateColorAsState( if (isChosen) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background)
+  val backgroundColor by animateColorAsState(if (isChosen) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background)
   val scale by animateFloatAsState(if (isChosen) 1.07f else 1.0f)
 
   ElevatedCard(
-    onClick = { onCategoryClicked(category.id) } ,
+    onClick = { onCategoryClicked(category.id) },
     modifier = modifier.scale(scale),
     colors = CardDefaults.elevatedCardColors(containerColor = backgroundColor),
   ) {
