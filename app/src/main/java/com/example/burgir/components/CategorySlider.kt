@@ -1,5 +1,5 @@
 import androidx.compose.animation.animateColorAsState
-import androidx.compose.animation.core.animateFloatAsState
+import androidx.compose.animation.core.*
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
@@ -25,8 +25,17 @@ fun Category(
   modifier: Modifier = Modifier
 ) {
 
-  val backgroundColor by animateColorAsState(if (isChosen) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background)
-  val scale by animateFloatAsState(if (isChosen) 1.07f else 1.0f)
+  val backgroundColor by animateColorAsState(
+    targetValue = if (isChosen) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background,
+    animationSpec = tween(durationMillis = 50, easing = FastOutSlowInEasing)
+  )
+  val scale by animateFloatAsState(
+    targetValue = if (isChosen) 1.09f else 1.0f,
+    animationSpec = spring(
+      dampingRatio = Spring.DampingRatioHighBouncy,
+      stiffness = Spring.StiffnessLow
+    )
+  )
 
   ElevatedCard(
     onClick = { onCategoryClicked(category.id) },
@@ -35,7 +44,7 @@ fun Category(
   ) {
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier.padding(6.dp),
+      modifier = Modifier.padding(vertical = 6.dp, horizontal = 10.dp),
     ) {
       Image(
         painter = painterResource(category.imageRes),
