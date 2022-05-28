@@ -26,7 +26,7 @@ fun BottomBar(navController: NavController, modifier: Modifier = Modifier) {
       icon = { Icon(imageVector = Icons.Filled.Home, contentDescription = null) },
     )
     NavigationBarItem(
-      selected = true,
+      selected = false,
       onClick = {
         navController.navigate(MainActivity.CART_SCREEN_ROUTE) {
           launchSingleTop = true
@@ -35,7 +35,7 @@ fun BottomBar(navController: NavController, modifier: Modifier = Modifier) {
       icon = { Icon(imageVector = Icons.Filled.Search, contentDescription = null) },
     )
     NavigationBarItem(
-      selected = true,
+      selected = false,
       onClick = {
         navController.navigate(MainActivity.CART_SCREEN_ROUTE) {
           launchSingleTop = true
@@ -44,7 +44,7 @@ fun BottomBar(navController: NavController, modifier: Modifier = Modifier) {
       icon = { Icon(imageVector = Icons.Filled.Favorite, contentDescription = null) },
     )
     NavigationBarItem(
-      selected = true,
+      selected = false,
       onClick = {
         navController.navigate(MainActivity.PROFILE_SCREEN_ROUTE) {
           launchSingleTop = true

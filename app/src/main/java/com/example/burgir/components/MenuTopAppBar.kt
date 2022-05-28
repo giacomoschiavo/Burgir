@@ -11,11 +11,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
 import com.example.burgir.MainActivity
 import com.example.burgir.R
+import com.example.burgir.ui.theme.AppTypography
 
 @Composable
 fun MenuTopAppBar(navController: NavController, modifier: Modifier = Modifier) {
   CenterAlignedTopAppBar(
-    title = { Text(stringResource(id = R.string.app_name)) },
+    title = { Text("🅱", style = AppTypography.titleLarge) },
     actions = {
       IconButton(onClick = {
         navController.navigate(MainActivity.CART_SCREEN_ROUTE) { launchSingleTop = true }

@@ -1,7 +1,4 @@
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -24,9 +21,8 @@ import com.example.burgir.ui.theme.Shapes
 @Composable
 fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
   Surface(
-    modifier = modifier,
     shape = Shapes.large,
-    color = MaterialTheme.colorScheme.secondary
+    color = MaterialTheme.colorScheme.primaryContainer
   ) {
     Column(modifier = Modifier.padding(15.dp)) {
       AssistChip(
@@ -46,7 +42,8 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
       Text(text = product.description, modifier = Modifier.padding(vertical = 10.dp))
       Row(
         verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Center
+        horizontalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxWidth()
       ) {
         Row(
           verticalAlignment = Alignment.CenterVertically,
@@ -74,7 +71,7 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
           Text(
             text = "Add to cart",
             style = AppTypography.labelLarge,
-            modifier = Modifier.padding(12.dp)
+            modifier = Modifier.padding(10.dp)
           )
         }
       }

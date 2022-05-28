@@ -46,13 +46,13 @@ fun Category(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier.padding(vertical = 6.dp, horizontal = 10.dp),
     ) {
-      Image(
-        painter = painterResource(category.imageRes),
-        contentDescription = null,
-        modifier = Modifier
-          .size(90.dp)
-          .padding(5.dp)
-      )
+//      Image(
+//        painter = painterResource(category.imageRes),
+//        contentDescription = null,
+//        modifier = Modifier
+//          .size(90.dp)
+//          .padding(5.dp)
+//      )
       Text(
         text = category.name,
       )

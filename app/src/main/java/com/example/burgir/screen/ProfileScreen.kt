@@ -1,5 +1,6 @@
 package com.example.burgir.screen
 
+import BottomBar
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.IconButton
@@ -9,6 +10,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -35,7 +37,8 @@ fun ProfileScreen(navController: NavController) {
           }
         }
       )
-    }
+    },
+    bottomBar = { BottomBar(navController = navController) }
   ) { innerPadding ->
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,

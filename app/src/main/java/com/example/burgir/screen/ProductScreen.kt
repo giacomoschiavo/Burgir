@@ -42,7 +42,7 @@ fun ProductScreen(navController: NavController, productId: Int, modifier: Modifi
     Column(
       modifier = Modifier
         .fillMaxSize()
-        .padding(PaddingValues(vertical = innerPadding.calculateTopPadding(), horizontal = 20.dp)),
+        .padding(PaddingValues(vertical = innerPadding.calculateTopPadding())),
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
       Column(horizontalAlignment = Alignment.CenterHorizontally) {

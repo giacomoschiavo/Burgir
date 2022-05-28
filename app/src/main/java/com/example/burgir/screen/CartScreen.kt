@@ -37,7 +37,6 @@ fun CartScreen(navController: NavController) {
         }
       )
     },
-    backgroundColor = MaterialTheme.colorScheme.tertiary
   ) { innerPadding ->
     Column(
       horizontalAlignment = Alignment.CenterHorizontally,
