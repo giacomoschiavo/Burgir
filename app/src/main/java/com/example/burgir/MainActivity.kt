@@ -46,7 +46,7 @@ fun Navigation() {
     composable(MainActivity.SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
     composable(MainActivity.MENU_SCREEN_ROUTE) { MenuScreen(navController = navController) }
     composable(MainActivity.MENU_SCREEN_ROUTE) { MenuScreen(navController = navController) }
-    composable(MainActivity.PROFILE_SCREEN_ROUTE) { ProfileScreen() }
+    composable(MainActivity.PROFILE_SCREEN_ROUTE) { ProfileScreen(navController = navController) }
     composable(MainActivity.CART_SCREEN_ROUTE) { CartScreen() }
     composable("${MainActivity.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
       ProductScreen(
