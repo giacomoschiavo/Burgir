@@ -1,6 +1,6 @@
 package com.example.burgir
 
-import MenuScreen
+import HomeScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -44,8 +44,7 @@ fun Navigation() {
 
   NavHost(navController = navController, startDestination = MainActivity.SPLASH_SCREEN_ROUTE) {
     composable(MainActivity.SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
-    composable(MainActivity.MENU_SCREEN_ROUTE) { MenuScreen(navController = navController) }
-    composable(MainActivity.MENU_SCREEN_ROUTE) { MenuScreen(navController = navController) }
+    composable(MainActivity.MENU_SCREEN_ROUTE) { HomeScreen(navController = navController) }
     composable(MainActivity.PROFILE_SCREEN_ROUTE) { ProfileScreen(navController = navController) }
     composable(MainActivity.CART_SCREEN_ROUTE) { CartScreen(navController = navController) }
     composable("${MainActivity.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
