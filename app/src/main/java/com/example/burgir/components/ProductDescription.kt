@@ -22,7 +22,6 @@ import com.example.burgir.ui.theme.Shapes
 fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
   Surface(
     shape = Shapes.large,
-    color = MaterialTheme.colorScheme.primaryContainer
   ) {
     Column(modifier = Modifier.padding(15.dp)) {
       AssistChip(

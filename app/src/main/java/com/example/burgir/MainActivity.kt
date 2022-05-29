@@ -50,7 +50,14 @@ class MainActivity : ComponentActivity() {
               else -> ProductTopBar(navController = navController)
             }
           },
-          bottomBar = { if (currentRoute != SPLASH_SCREEN_ROUTE) BottomBar(navController) },
+          bottomBar = {
+            when (currentRoute) {
+              MENU_SCREEN_ROUTE, PROFILE_SCREEN_ROUTE, FAVORITE_SCREEN_ROUTE -> BottomBar(
+                navController
+              )
+              else -> {}
+            }
+          },
         ) { innerPadding ->
           Column(
             modifier = Modifier.padding(

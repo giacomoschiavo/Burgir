@@ -5,6 +5,8 @@ import ProductTopBar
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.material.BottomSheetScaffold
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -29,15 +31,16 @@ import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 import products
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun ProductScreen(navController: NavController, productId: Int, modifier: Modifier = Modifier) {
   val product = products.find { product -> product.id == productId }
-  Column(
+  BottomSheetScaffold(
+    sheetContent = { ProductDescription(product!!) },
+    sheetPeekHeight = 120.dp,
     modifier = modifier,
-    horizontalAlignment = Alignment.CenterHorizontally
   ) {
-    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
       Image(
         modifier = Modifier
           .padding(20.dp)
@@ -46,7 +49,7 @@ fun ProductScreen(navController: NavController, productId: Int, modifier: Modifi
         contentDescription = "image of the product"
       )
     }
-    ProductDescription(product!!)
+
   }
 }
 

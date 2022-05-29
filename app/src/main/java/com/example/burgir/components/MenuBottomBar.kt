@@ -24,7 +24,7 @@ data class RouteConfig(
 val routes = listOf(
   RouteConfig("Home", MainActivity.MENU_SCREEN_ROUTE, Icons.Filled.Home),
   RouteConfig("Search", MainActivity.SEARCH_SCREEN_ROUTE, Icons.Filled.Search),
-  RouteConfig("Favorite", MainActivity.CART_SCREEN_ROUTE, Icons.Filled.Favorite),
+  RouteConfig("Favorite", MainActivity.FAVORITE_SCREEN_ROUTE, Icons.Filled.Favorite),
   RouteConfig("Profile", MainActivity.PROFILE_SCREEN_ROUTE, Icons.Filled.Person)
 )
 
