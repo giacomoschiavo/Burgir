@@ -22,7 +22,6 @@ import com.example.burgir.R
 import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
   navController: NavController,
@@ -30,44 +29,21 @@ fun HomeScreen(
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
 
-  Scaffold(
-    topBar = { MenuTopAppBar(navController) },
-    bottomBar = { BottomBar(navController) },
-  ) { innerPadding ->
-    Column(
-      modifier = Modifier.padding(
-        vertical = innerPadding.calculateTopPadding(),
-        horizontal = 15.dp
-      )
-    ) {
-      Spacer(modifier = Modifier.size(10.dp))
-      Text(text = "Hey Mike,", style = AppTypography.bodyLarge)
-      Text(text = "Choose Your\nBest Meal", style = AppTypography.displayMedium)
-      CategorySlider(
-        chosenCategoryId,
-        { newCategoryId -> chosenCategoryId = newCategoryId }
-      )
-      Text(
-        text = "Popular",
-        style = AppTypography.displaySmall,
-        modifier = Modifier.padding(vertical = 10.dp)
-      )
-      Spacer(modifier = Modifier.size(5.dp))
-      ProductsGrid(
-        chosenCategoryId,
-        { productId ->
-          navController.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
-            popUpTo(MainActivity.MENU_SCREEN_ROUTE)
-          }
+  Column(modifier = modifier) {
+    Header(chosenCategoryId, { newId -> chosenCategoryId = newId })
+    ProductsGrid(
+      chosenCategoryId,
+      { productId ->
+        navController.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
+          popUpTo(MainActivity.MENU_SCREEN_ROUTE)
         }
-      )
-    }
+      }
+    )
   }
-
 }
 
 
-@Preview(showBackground = true, widthDp = 320, heightDp = 600)
+@Preview(showBackground = true, widthDp = 400, heightDp = 800)
 @Composable
 fun ScreenPreview() {
   BurgirTheme {
