@@ -32,32 +32,22 @@ import products
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductScreen(navController: NavController, productId: Int, modifier: Modifier = Modifier) {
-
   val product = products.find { product -> product.id == productId }
-
-  androidx.compose.material3.Scaffold(
-    modifier = modifier.fillMaxSize(),
-    topBar = { ProductTopBar(navController) }
-  ) { innerPadding ->
-    Column(
-      modifier = Modifier
-        .fillMaxSize()
-        .padding(PaddingValues(vertical = innerPadding.calculateTopPadding())),
-      horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-      Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Image(
-          modifier = Modifier
-            .padding(20.dp)
-            .size(220.dp),
-          painter = painterResource(id = product!!.imageUrl),
-          contentDescription = "image of the product"
-        )
-      }
-      ProductDescription(product!!)
+  Column(
+    modifier = modifier,
+    horizontalAlignment = Alignment.CenterHorizontally
+  ) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally) {
+      Image(
+        modifier = Modifier
+          .padding(20.dp)
+          .size(220.dp),
+        painter = painterResource(id = product!!.imageUrl),
+        contentDescription = "image of the product"
+      )
     }
+    ProductDescription(product!!)
   }
-
 }
 
 @Preview(showBackground = true)

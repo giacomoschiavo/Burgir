@@ -27,41 +27,24 @@ import com.example.burgir.ui.theme.Shapes
 
 @Composable
 fun ProfileScreen(navController: NavController) {
-  Scaffold(
-    topBar = {
-      CenterAlignedTopAppBar(
-        title = { Text("Your profile", style = AppTypography.titleLarge) },
-        navigationIcon = {
-          IconButton(onClick = { navController.popBackStack() }) {
-            Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back arrow")
-          }
-        }
-      )
-    },
-    bottomBar = { BottomBar(navController = navController) }
-  ) { innerPadding ->
-    Column(
-      horizontalAlignment = Alignment.CenterHorizontally,
+  Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    modifier = Modifier
+      .fillMaxSize()
+  ) {
+    Image(
+      painter = painterResource(id = R.drawable.profile_pic),
+      contentDescription = "Profile picture",
       modifier = Modifier
-        .padding(vertical = innerPadding.calculateTopPadding(), horizontal = 20.dp)
-        .fillMaxSize()
-    ) {
-      Image(
-        painter = painterResource(id = R.drawable.profile_pic),
-        contentDescription = "Profile picture",
-        modifier = Modifier
-          .size(200.dp)
-          .clip(shape = androidx.compose.material3.Shapes.Full)
-      )
-      Text(
-        text = "Shagon",
-        style = AppTypography.displayMedium,
-        modifier = Modifier.paddingFromBaseline(top = 30.dp)
-      )
-    }
-
+        .size(200.dp)
+        .clip(shape = androidx.compose.material3.Shapes.Full)
+    )
+    Text(
+      text = "Shagon",
+      style = AppTypography.displayMedium,
+      modifier = Modifier.paddingFromBaseline(top = 30.dp)
+    )
   }
-
 }
 
 @Preview(showBackground = true)
