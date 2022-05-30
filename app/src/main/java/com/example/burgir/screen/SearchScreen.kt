@@ -46,7 +46,7 @@ fun SearchScreen(navigateToCategory: (Int) -> Unit, modifier: Modifier = Modifie
       )
     }
     items(categories) { category ->
-      OutlinedCard(
+      Card(
         onClick = { navigateToCategory(category.id) },
         modifier = Modifier
           .fillMaxWidth()

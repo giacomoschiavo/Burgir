@@ -38,7 +38,9 @@ fun SplashScreen(navController: NavController) {
         })
     )
     delay(800L)
-    navController.navigate(MainActivity.MENU_SCREEN_ROUTE)
+    navController.navigate(MainActivity.MENU_SCREEN_ROUTE) {
+      popUpTo(MainActivity.SPLASH_SCREEN_ROUTE) { inclusive = true }
+    }
   }
 
   Surface() {
