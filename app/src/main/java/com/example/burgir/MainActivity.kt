@@ -24,10 +24,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.burgir.screen.CartScreen
-import com.example.burgir.screen.ProductScreen
-import com.example.burgir.screen.ProfileScreen
-import com.example.burgir.screen.SplashScreen
+import com.example.burgir.screen.*
 import com.example.burgir.ui.theme.BurgirTheme
 
 
@@ -43,7 +40,7 @@ class MainActivity : ComponentActivity() {
         Scaffold(
           topBar = {
             when (currentRoute) {
-              MENU_SCREEN_ROUTE, PROFILE_SCREEN_ROUTE, FAVORITE_SCREEN_ROUTE -> MenuTopAppBar(
+              MENU_SCREEN_ROUTE, PROFILE_SCREEN_ROUTE, FAVORITE_SCREEN_ROUTE, SEARCH_SCREEN_ROUTE -> MenuTopAppBar(
                 navController
               )
               SPLASH_SCREEN_ROUTE -> {}
@@ -52,7 +49,7 @@ class MainActivity : ComponentActivity() {
           },
           bottomBar = {
             when (currentRoute) {
-              MENU_SCREEN_ROUTE, PROFILE_SCREEN_ROUTE, FAVORITE_SCREEN_ROUTE -> BottomBar(
+              MENU_SCREEN_ROUTE, PROFILE_SCREEN_ROUTE, FAVORITE_SCREEN_ROUTE, SEARCH_SCREEN_ROUTE -> BottomBar(
                 navController
               )
               else -> {}
@@ -72,16 +69,14 @@ class MainActivity : ComponentActivity() {
               composable(FAVORITE_SCREEN_ROUTE) { FavoriteScreen(navController = navController) }
               composable(CART_SCREEN_ROUTE) { CartScreen(navController = navController) }
               composable("${PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
-                ProductScreen(
+                ProductDetailsScreen(
                   navController = navController,
                   backStackEntry.arguments?.getString("productId")!!.toInt()
                 )
               }
               composable(SEARCH_SCREEN_ROUTE) { SearchScreen(navController = navController) }
-
             }
           }
-
         }
       }
     }

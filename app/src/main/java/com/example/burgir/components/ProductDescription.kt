@@ -12,7 +12,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.R
-import com.example.burgir.screen.ProductScreen
 import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes

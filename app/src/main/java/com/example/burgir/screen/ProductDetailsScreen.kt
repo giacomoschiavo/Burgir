@@ -33,7 +33,11 @@ import products
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
-fun ProductScreen(navController: NavController, productId: Int, modifier: Modifier = Modifier) {
+fun ProductDetailsScreen(
+  navController: NavController,
+  productId: Int,
+  modifier: Modifier = Modifier
+) {
   val product = products.find { product -> product.id == productId }
   BottomSheetScaffold(
     sheetContent = { ProductDescription(product!!) },
@@ -57,6 +61,6 @@ fun ProductScreen(navController: NavController, productId: Int, modifier: Modifi
 @Composable
 fun ProductScreenPreview() {
   BurgirTheme() {
-    ProductScreen(rememberNavController(), 0)
+    ProductDetailsScreen(rememberNavController(), 0)
   }
 }
