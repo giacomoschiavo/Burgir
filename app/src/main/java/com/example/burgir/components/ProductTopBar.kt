@@ -20,7 +20,6 @@ import com.example.burgir.MainActivity
 import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductTopBar(
   navController: NavController,

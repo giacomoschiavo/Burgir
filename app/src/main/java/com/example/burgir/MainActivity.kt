@@ -43,6 +43,7 @@ class MainActivity : ComponentActivity() {
         val navController = rememberNavController()
         val backStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = backStackEntry?.destination?.route?.substringBefore("/")
+
         val navigateToProduct: (Int) -> Unit =
           { navController.navigate("${PRODUCT_SCREEN_ROUTE}/$it") { launchSingleTop } }
         val navigateToCategory: (Int) -> Unit =
@@ -53,7 +54,7 @@ class MainActivity : ComponentActivity() {
           TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
         }
         Scaffold(
-          modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+          modifier = if (currentRoute == CATEGORY_SCREEN_ROUTE) Modifier.nestedScroll(scrollBehavior.nestedScrollConnection) else Modifier,
           topBar = {
             when (currentRoute) {
               PRODUCT_SCREEN_ROUTE -> ProductTopBar(

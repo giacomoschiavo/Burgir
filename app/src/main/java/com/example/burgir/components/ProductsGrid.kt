@@ -19,13 +19,12 @@ fun ProductsGrid(
   products: List<Product>,
   navigateToProduct: (Int) -> Unit,
   modifier: Modifier = Modifier,
-  title: @Composable() (() -> Unit) = {}
+  header: @Composable() (() -> Unit) = {}
 ) {
   LazyVerticalGrid(
     columns = GridCells.Fixed(2),
-    modifier = modifier.fillMaxHeight()
   ) {
-    item(span = { GridItemSpan(2) }) { title() }
+    item(span = { GridItemSpan(2) }) { header() }
     items(products, key = { product -> product.id }) { product ->
       ProductItem(product, navigateToProduct, modifier)
     }
@@ -47,7 +46,7 @@ fun ProductsGridPreview() {
   BurgirTheme {
     ProductsGrid(
       products,
-      title = { Text("An Amazing Title") },
+      header = { Text("An Amazing Title") },
       modifier = Modifier,
       navigateToProduct = {})
   }

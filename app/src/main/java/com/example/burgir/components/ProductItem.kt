@@ -23,7 +23,6 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
     ElevatedCard(
       onClick = { navigateToProduct(product.id) },
     ) {
-
       Column(
         modifier = modifier.padding(vertical = 30.dp, horizontal = 27.dp),
         horizontalAlignment = Alignment.CenterHorizontally,

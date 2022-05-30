@@ -15,7 +15,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 @Composable
 fun FavoriteScreen(navController: NavController, modifier: Modifier = Modifier) {
   ProductsGrid(
-    title = {
+    header = {
       Text(
         text = "Your Favorites♥",
         textAlign = TextAlign.Center,
