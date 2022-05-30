@@ -21,7 +21,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun SearchScreen(navigateToCategory: (Int) -> Unit, modifier: Modifier = Modifier) {
   var searchText by rememberSaveable { mutableStateOf("") }
   LazyColumn(
     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
@@ -31,7 +31,7 @@ fun SearchScreen(navController: NavController, modifier: Modifier = Modifier) {
     item {
       Text(text = "Discover\nNew Flavors", style = AppTypography.displayMedium)
       Spacer(modifier = Modifier.size(20.dp))
-      TextField(
+      OutlinedTextField(
         value = searchText,
         onValueChange = { newValue -> searchText = newValue },
         placeholder = { Text(text = "Search") },
@@ -47,7 +47,7 @@ fun SearchScreen(navController: NavController, modifier: Modifier = Modifier) {
     }
     items(categories) { category ->
       OutlinedCard(
-        onClick = { },
+        onClick = { navigateToCategory(category.id) },
         modifier = Modifier
           .fillMaxWidth()
           .padding(vertical = 10.dp, horizontal = 15.dp)
@@ -70,6 +70,6 @@ fun SearchScreen(navController: NavController, modifier: Modifier = Modifier) {
 @Composable
 fun SearchScreenPreview() {
   BurgirTheme() {
-    SearchScreen(navController = rememberNavController())
+    SearchScreen({})
   }
 }

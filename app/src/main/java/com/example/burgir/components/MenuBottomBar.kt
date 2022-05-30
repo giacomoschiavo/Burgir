@@ -31,7 +31,7 @@ val routes = listOf(
 @Composable
 fun BottomBar(navController: NavController, modifier: Modifier = Modifier) {
   val backStackEntry by navController.currentBackStackEntryAsState()
-  val currentRoute = backStackEntry?.destination?.route
+  val currentRoute = backStackEntry?.destination?.route?.substringBefore('/')
 
   NavigationBar(
     modifier = modifier

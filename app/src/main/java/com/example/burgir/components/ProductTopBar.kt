@@ -18,7 +18,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 
 @Composable
-fun ProductTopBar(navController: NavController) {
+fun ProductTopBar(navController: NavController, showFavoriteIcon: Boolean = true) {
   SmallTopAppBar(
     modifier = Modifier,
     title = { Text(text = "") },
@@ -33,8 +33,10 @@ fun ProductTopBar(navController: NavController) {
       }
     },
     actions = {
-      IconButton(onClick = { /*TODO*/ }) {
-        Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
+      if (showFavoriteIcon) {
+        IconButton(onClick = { /*TODO*/ }) {
+          Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
+        }
       }
       IconButton(onClick = {
         navController.navigate(MainActivity.CART_SCREEN_ROUTE) {
@@ -47,7 +49,7 @@ fun ProductTopBar(navController: NavController) {
   )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun ProductTopBarPreview() {
   BurgirTheme() {

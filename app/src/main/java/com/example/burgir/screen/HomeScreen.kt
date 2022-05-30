@@ -24,7 +24,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
 fun HomeScreen(
-  navController: NavController,
+  navigateToProduct: (Int) -> Unit,
   modifier: Modifier = Modifier
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
@@ -33,11 +33,7 @@ fun HomeScreen(
     Header(chosenCategoryId, { newId -> chosenCategoryId = newId })
     ProductsGrid(
       products.filter { product -> product.categoryId == chosenCategoryId },
-      { productId ->
-        navController.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
-          popUpTo(MainActivity.MENU_SCREEN_ROUTE)
-        }
-      },
+      navigateToProduct,
     )
   }
 }
@@ -47,6 +43,6 @@ fun HomeScreen(
 @Composable
 fun ScreenPreview() {
   BurgirTheme {
-    HomeScreen(rememberNavController())
+    HomeScreen({ })
   }
 }

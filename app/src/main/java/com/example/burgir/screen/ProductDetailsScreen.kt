@@ -34,7 +34,6 @@ import products
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun ProductDetailsScreen(
-  navController: NavController,
   productId: Int,
   modifier: Modifier = Modifier
 ) {
@@ -61,6 +60,6 @@ fun ProductDetailsScreen(
 @Composable
 fun ProductScreenPreview() {
   BurgirTheme() {
-    ProductDetailsScreen(rememberNavController(), 0)
+    ProductDetailsScreen(0)
   }
 }
