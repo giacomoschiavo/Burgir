@@ -19,6 +19,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -31,18 +32,13 @@ import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 import products
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)
 @Composable
 fun ProductDetailsScreen(
   productId: Int,
   modifier: Modifier = Modifier
 ) {
   val product = products.find { product -> product.id == productId }
-  BottomSheetScaffold(
-    sheetContent = { ProductDescription(product!!) },
-    sheetPeekHeight = 120.dp,
-    modifier = modifier,
-  ) {
+  Column(modifier = modifier) {
     Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
       Image(
         modifier = Modifier
@@ -52,7 +48,7 @@ fun ProductDetailsScreen(
         contentDescription = "image of the product"
       )
     }
-
+    ProductDescription(product!!)
   }
 }
 

@@ -91,7 +91,7 @@ class MainActivity : ComponentActivity() {
             composable(SEARCH_SCREEN_ROUTE) { SearchScreen(navigateToCategory = navigateToCategory) }
             composable("${PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
               ProductDetailsScreen(
-                backStackEntry.arguments?.getString("productId")!!.toInt()
+                productId = backStackEntry.arguments?.getString("productId")!!.toInt()
               )
             }
             composable("${CATEGORY_SCREEN_ROUTE}/{categoryId}") { backStackEntry ->
