@@ -15,14 +15,13 @@ fun CategoryScreen(
   modifier: Modifier = Modifier
 ) {
   ProductsGrid(
-//      title = { Text(text = categories[categoryId].name) },
     products = products.filter { product -> product.categoryId == categoryId },
     navigateToProduct = navigateToProduct,
     modifier = modifier
   )
 }
 
-@Preview
+@Preview(showBackground = true)
 @Composable
 fun CategoryScreenPreview() {
   CategoryScreen(categoryId = 0, navigateToProduct = {})

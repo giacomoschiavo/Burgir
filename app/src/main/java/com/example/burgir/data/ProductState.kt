@@ -9,15 +9,12 @@ data class Product(
   val name: String = "No name",
   @DrawableRes
   val imageUrl: Int = R.drawable.burger,
-  val price: String = String.format("%.2f", Random(1).nextFloat().coerceAtLeast(1f)),
+  val price: String = "12.34$",
   val categoryId: Int = 0,
   val sales: Int = 0,
   val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare tortor quis sagittis mattis. In sit amet justo eget felis ultrices bibendum. Vivamus in commodo orci, eget faucibus urna. Nunc id felis vitae risus efficitur finibus.",
-  var quantity: Int = 0,
   var isFavorite: Boolean = false
 )
-
-val productCategories = listOf("Burgers", "Wraps", "Chickens", "Ice Creams", "Drinks")
 
 val products = listOf(
   Product(

@@ -5,6 +5,7 @@ import ProductTopBar
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.IconButton
@@ -38,17 +39,18 @@ fun ProductDetailsScreen(
   modifier: Modifier = Modifier
 ) {
   val product = products.find { product -> product.id == productId }
-  Column(modifier = modifier) {
-    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
-      Image(
-        modifier = Modifier
-          .padding(20.dp)
-          .size(220.dp),
-        painter = painterResource(id = product!!.imageUrl),
-        contentDescription = "image of the product"
-      )
+  LazyColumn(modifier = modifier.padding(horizontal = 10.dp)) {
+    item {
+      Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
+        Image(
+          modifier = Modifier
+            .size(220.dp),
+          painter = painterResource(id = product!!.imageUrl),
+          contentDescription = "image of the product"
+        )
+      }
     }
-    ProductDescription(product!!)
+    item { ProductDescription(product!!) }
   }
 }
 

@@ -32,6 +32,7 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
       if (product.sales != 0) {
         AssistChip(
           onClick = {},
+          enabled = false,
           label = { Text("${product.sales}% OFF", style = AppTypography.labelMedium) },
         )
       }
@@ -41,7 +42,7 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
         style = AppTypography.displayLarge
       )
       Text(
-        text = "${product.price}$",
+        text = product.price,
         modifier = Modifier.padding(vertical = 5.dp),
         style = AppTypography.headlineMedium,
 //        color = MaterialTheme.colors.onBackground
@@ -50,11 +51,11 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
         text = product.description,
         style = AppTypography.bodyMedium,
         modifier = Modifier
-          .padding(vertical = 10.dp)
-          .weight(1f)
+          .padding(vertical = 20.dp)
       )
       Row(
         verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier.padding(vertical = 10.dp)
       ) {
         Row(
           verticalAlignment = Alignment.CenterVertically,
@@ -81,7 +82,7 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
           }
         }
         Button(
-          onClick = { quantity++ },
+          onClick = { },
           modifier = Modifier.weight(1f)
         ) {
           Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = "Cart")
