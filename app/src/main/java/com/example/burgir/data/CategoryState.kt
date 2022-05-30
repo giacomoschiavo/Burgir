@@ -1,48 +1,45 @@
 import androidx.annotation.DrawableRes
+import androidx.compose.ui.graphics.Color
 import com.example.burgir.R
 
-data class CategoryUiState (
+data class CategoryUiState(
   val id: Int,
   val name: String = "Category $id",
   var chosen: Boolean = false,
+  val color: Color,
   @DrawableRes val imageRes: Int
 )
 
 val categories = listOf(
   CategoryUiState(
     id = 0,
-    name = "Panini",
-    imageRes = R.drawable.burger
+    name = "Burger",
+    imageRes = R.drawable.burger,
+    color = Color.hsv(25f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 1,
-    name = "Insalate",
-    imageRes = R.drawable.burger
+    name = "Wraps",
+    imageRes = R.drawable.burger,
+    color = Color.hsv(45f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 2,
-    name = "Dolci",
-    imageRes = R.drawable.burger
+    name = "Chickens",
+    imageRes = R.drawable.burger,
+    color = Color.hsv(130f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 3,
-    name = "Dessert",
-    imageRes = R.drawable.burger
+    name = "Ice Creams",
+    imageRes = R.drawable.burger,
+    color = Color.hsv(200f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 4,
-    name = "Bevande",
-    imageRes = R.drawable.burger
-  ),
-  CategoryUiState(
-    id = 5,
-    name = "Patatine",
-    imageRes = R.drawable.burger
-  ),
-  CategoryUiState(
-    id = 6,
-    name = "Sfiziosità",
-    imageRes = R.drawable.burger
+    name = "Drinks",
+    imageRes = R.drawable.burger,
+    color = Color.hsv(285f, 0.96f, 1f)
   ),
 
 )

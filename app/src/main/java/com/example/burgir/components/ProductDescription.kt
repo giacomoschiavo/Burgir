@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.VerticalAlignmentLine
@@ -23,7 +24,7 @@ import com.example.burgir.ui.theme.Shapes
 @Composable
 fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
 
-  var quantity by remember { mutableStateOf(1) }
+  var quantity by rememberSaveable { mutableStateOf(1) }
 
   Surface(
     shape = Shapes.large,
@@ -45,6 +46,7 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
         text = product.price,
         modifier = Modifier.padding(vertical = 5.dp),
         style = AppTypography.headlineMedium,
+        color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
 //        color = MaterialTheme.colors.onBackground
       )
       Text(

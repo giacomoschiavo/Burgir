@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,17 +51,28 @@ fun SearchScreen(navigateToCategory: (Int) -> Unit, modifier: Modifier = Modifie
         onClick = { navigateToCategory(category.id) },
         modifier = Modifier
           .fillMaxWidth()
-          .padding(vertical = 10.dp, horizontal = 15.dp)
+          .padding(vertical = 10.dp),
+        colors = CardDefaults.cardColors(
+          containerColor = category.color,
+          contentColor = Color.White
+        )
       ) {
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-          Row(
-            verticalAlignment = Alignment.CenterVertically
-          ) {
-            Text(text = category.name)
-            Image(painter = painterResource(id = category.imageRes), contentDescription = null)
-          }
+        Row(
+          horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+          Text(
+            text = category.name,
+            modifier = Modifier
+              .weight(1f)
+              .padding(25.dp),
+            style = AppTypography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+          )
+          Image(
+            painter = painterResource(id = category.imageRes),
+            contentDescription = null,
+            modifier = Modifier.padding(15.dp)
+          )
         }
-
       }
     }
   }
