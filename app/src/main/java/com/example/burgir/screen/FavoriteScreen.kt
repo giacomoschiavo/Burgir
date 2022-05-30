@@ -13,14 +13,14 @@ import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
-fun FavoriteScreen(navController: NavController) {
+fun FavoriteScreen(navController: NavController, modifier: Modifier = Modifier) {
   ProductsGrid(
     title = {
       Text(
         text = "Your Favorites♥",
         textAlign = TextAlign.Center,
         style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Medium),
-        modifier = Modifier.paddingFromBaseline(bottom = 15.dp)
+        modifier = modifier.paddingFromBaseline(bottom = 15.dp)
       )
     },
     products = products.filter { product -> product.isFavorite },

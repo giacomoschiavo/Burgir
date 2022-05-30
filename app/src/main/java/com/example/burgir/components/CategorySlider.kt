@@ -13,6 +13,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
 
 // TODO: solve this
@@ -46,13 +47,13 @@ fun Category(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier.padding(vertical = 6.dp, horizontal = 10.dp),
     ) {
-//      Image(
-//        painter = painterResource(category.imageRes),
-//        contentDescription = null,
-//        modifier = Modifier
-//          .size(90.dp)
-//          .padding(5.dp)
-//      )
+      Image(
+        painter = painterResource(category.imageRes),
+        contentDescription = null,
+        modifier = Modifier
+          .size(45.dp)
+          .padding(5.dp)
+      )
       Text(
         text = category.name,
       )
