@@ -1,6 +1,7 @@
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.gestures.LocalOverScrollConfiguration
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -13,7 +14,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.burgir.ui.theme.BurgirTheme
 
-@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterialApi::class)
 @Composable
 fun ProductsGrid(
   products: List<Product>,
@@ -21,17 +21,13 @@ fun ProductsGrid(
   modifier: Modifier = Modifier,
   title: @Composable() (() -> Unit) = {}
 ) {
-
-  CompositionLocalProvider(
-    LocalOverScrollConfiguration provides null
+  LazyVerticalGrid(
+    columns = GridCells.Fixed(2),
+    modifier = modifier.fillMaxHeight()
   ) {
-    LazyVerticalGrid(
-      columns = GridCells.Fixed(2),
-    ) {
-      item(span = { GridItemSpan(2) }) { title() }
-      items(products, key = { product -> product.id }) { product ->
-        ProductItem(product, navigateToProduct, modifier)
-      }
+    item(span = { GridItemSpan(2) }) { title() }
+    items(products, key = { product -> product.id }) { product ->
+      ProductItem(product, navigateToProduct, modifier)
     }
   }
 }

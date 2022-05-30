@@ -10,13 +10,16 @@ import SearchScreen
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -62,11 +65,8 @@ class MainActivity : ComponentActivity() {
             }
           },
         ) { innerPadding ->
-          Column(
-            modifier = Modifier.padding(
-              vertical = innerPadding.calculateTopPadding(),
-              horizontal = 15.dp
-            )
+          Surface(
+            modifier = Modifier.padding(innerPadding)
           ) {
             NavHost(navController = navController, startDestination = SPLASH_SCREEN_ROUTE) {
               composable(SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
@@ -109,5 +109,4 @@ class MainActivity : ComponentActivity() {
 @Preview
 @Composable
 fun HomeScreenPreview() {
-  MainActivity()
 }

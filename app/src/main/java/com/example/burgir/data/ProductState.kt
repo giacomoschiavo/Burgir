@@ -72,5 +72,20 @@ val products = listOf(
     id = 8,
     name = "Burger",
     imageUrl = R.drawable.burger
+  ),
+  Product(
+    id = 9,
+    name = "Burger",
+    imageUrl = R.drawable.burger
+  ),
+  Product(
+    id = 10,
+    name = "Burger",
+    imageUrl = R.drawable.burger
+  ),
+  Product(
+    id = 11,
+    name = "Burger",
+    imageUrl = R.drawable.burger
   )
 )
