@@ -21,6 +21,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -46,13 +47,24 @@ class MainActivity : ComponentActivity() {
           { navController.navigate("${PRODUCT_SCREEN_ROUTE}/$it") { launchSingleTop } }
         val navigateToCategory: (Int) -> Unit =
           { navController.navigate("${CATEGORY_SCREEN_ROUTE}/$it") { launchSingleTop } }
+
+        val decayAnimationSpec = rememberSplineBasedDecay<Float>()
+        val scrollBehavior = remember(decayAnimationSpec) {
+          TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
+        }
         Scaffold(
+          modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
           topBar = {
             when (currentRoute) {
-              PRODUCT_SCREEN_ROUTE -> ProductTopBar(navController = navController)
+              PRODUCT_SCREEN_ROUTE -> ProductTopBar(
+                navController = navController,
+                scrollBehavior = scrollBehavior
+              )
               CATEGORY_SCREEN_ROUTE -> ProductTopBar(
                 navController = navController,
-                showFavoriteIcon = false
+                showFavoriteIcon = false,
+                textTitle = "Categoria",
+                scrollBehavior = scrollBehavior
               )
               SPLASH_SCREEN_ROUTE -> {}
               else -> MenuTopAppBar(navController)
@@ -65,27 +77,27 @@ class MainActivity : ComponentActivity() {
             }
           },
         ) { innerPadding ->
-          Surface(
+          NavHost(
+            navController = navController,
+            startDestination = SPLASH_SCREEN_ROUTE,
             modifier = Modifier.padding(innerPadding)
           ) {
-            NavHost(navController = navController, startDestination = SPLASH_SCREEN_ROUTE) {
-              composable(SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
-              composable(MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct) }
-              composable(PROFILE_SCREEN_ROUTE) { ProfileScreen(navController = navController) }
-              composable(FAVORITE_SCREEN_ROUTE) { FavoriteScreen(navController = navController) }
-              composable(CART_SCREEN_ROUTE) { CartScreen(navController = navController) }
-              composable(SEARCH_SCREEN_ROUTE) { SearchScreen(navigateToCategory = navigateToCategory) }
-              composable("${PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
-                ProductDetailsScreen(
-                  backStackEntry.arguments?.getString("productId")!!.toInt()
-                )
-              }
-              composable("${CATEGORY_SCREEN_ROUTE}/{categoryId}") { backStackEntry ->
-                CategoryScreen(
-                  categoryId = backStackEntry.arguments?.getString("categoryId")!!.toInt(),
-                  navigateToProduct = navigateToProduct
-                )
-              }
+            composable(SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
+            composable(MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct) }
+            composable(PROFILE_SCREEN_ROUTE) { ProfileScreen(navController = navController) }
+            composable(FAVORITE_SCREEN_ROUTE) { FavoriteScreen(navController = navController) }
+            composable(CART_SCREEN_ROUTE) { CartScreen(navController = navController) }
+            composable(SEARCH_SCREEN_ROUTE) { SearchScreen(navigateToCategory = navigateToCategory) }
+            composable("${PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
+              ProductDetailsScreen(
+                backStackEntry.arguments?.getString("productId")!!.toInt()
+              )
+            }
+            composable("${CATEGORY_SCREEN_ROUTE}/{categoryId}") { backStackEntry ->
+              CategoryScreen(
+                categoryId = backStackEntry.arguments?.getString("categoryId")!!.toInt(),
+                navigateToProduct = navigateToProduct
+              )
             }
           }
         }

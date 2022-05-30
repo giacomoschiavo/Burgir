@@ -1,3 +1,4 @@
+import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.IconButton
@@ -7,8 +8,10 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -17,16 +20,17 @@ import com.example.burgir.MainActivity
 import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductTopBar(navController: NavController, showFavoriteIcon: Boolean = true) {
-  SmallTopAppBar(
-    modifier = Modifier,
-    title = { Text(text = "") },
-    colors = TopAppBarDefaults.smallTopAppBarColors(
-      containerColor = MaterialTheme.colorScheme.background.copy(
-        alpha = 0f
-      )
-    ),
+fun ProductTopBar(
+  navController: NavController,
+  scrollBehavior: TopAppBarScrollBehavior,
+  showFavoriteIcon: Boolean = true,
+  textTitle: String = "",
+) {
+
+  MediumTopAppBar(
+    title = { Text(text = textTitle) },
     navigationIcon = {
       IconButton(onClick = { navController.popBackStack() }) {
         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back arrow")
@@ -45,14 +49,20 @@ fun ProductTopBar(navController: NavController, showFavoriteIcon: Boolean = true
       }) {
         Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = "Cart")
       }
-    }
+    },
+    scrollBehavior = scrollBehavior
   )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun ProductTopBarPreview() {
   BurgirTheme() {
-    ProductTopBar(rememberNavController())
+    ProductTopBar(
+      rememberNavController(),
+      textTitle = "Something",
+      scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    )
   }
 }
