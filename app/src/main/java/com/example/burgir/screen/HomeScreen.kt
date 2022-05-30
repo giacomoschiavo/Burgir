@@ -32,12 +32,12 @@ fun HomeScreen(
   Column(modifier = modifier) {
     Header(chosenCategoryId, { newId -> chosenCategoryId = newId })
     ProductsGrid(
-      chosenCategoryId,
+      products.filter { product -> product.categoryId == chosenCategoryId },
       { productId ->
         navController.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
           popUpTo(MainActivity.MENU_SCREEN_ROUTE)
         }
-      }
+      },
     )
   }
 }
