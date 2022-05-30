@@ -13,8 +13,11 @@ data class Product(
   val categoryId: Int = 0,
   val sales: Int = 0,
   val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare tortor quis sagittis mattis. In sit amet justo eget felis ultrices bibendum. Vivamus in commodo orci, eget faucibus urna. Nunc id felis vitae risus efficitur finibus.",
-  var quantity: Int = 0
+  var quantity: Int = 0,
+  var isFavorite: Boolean = false
 )
+
+val productCategories = listOf("Burgers", "Wraps", "Chickens", "Ice Creams", "Drinks")
 
 val products = listOf(
   Product(
@@ -23,12 +26,14 @@ val products = listOf(
     imageUrl = R.drawable.burger,
     categoryId = 1,
     sales = 10,
+    isFavorite = true
   ),
   Product(
     id = 1,
     name = "Dolce buono",
     imageUrl = R.drawable.burger,
-    categoryId = 2
+    categoryId = 2,
+    isFavorite = true
   ),
   Product(
     id = 2,
@@ -50,7 +55,8 @@ val products = listOf(
   Product(
     id = 5,
     name = "Burger",
-    imageUrl = R.drawable.burger
+    imageUrl = R.drawable.burger,
+    isFavorite = true
   ),
   Product(
     id = 6,
