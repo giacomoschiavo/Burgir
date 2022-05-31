@@ -39,7 +39,7 @@ fun ProductDetailsScreen(
   modifier: Modifier = Modifier
 ) {
   val product = products.find { product -> product.id == productId }
-  LazyColumn(modifier = modifier.padding(horizontal = 10.dp)) {
+  LazyColumn() {
     item {
       Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
         Image(

@@ -19,7 +19,7 @@ fun FavoriteScreen(navController: NavController, modifier: Modifier = Modifier) 
       Text(
         text = "Your Favorites♥",
         textAlign = TextAlign.Center,
-        style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Medium),
+        style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Bold),
         modifier = modifier.paddingFromBaseline(bottom = 15.dp)
       )
     },

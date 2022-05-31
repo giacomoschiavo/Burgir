@@ -63,7 +63,8 @@ fun HomeScreen(
     item(span = { GridItemSpan(2) }) {
       CategorySlider(
         chosenCategoryId,
-        { newCategoryId -> chosenCategoryId = newCategoryId })
+        { newCategoryId -> chosenCategoryId = newCategoryId },
+      )
     }
     item() { Spacer(modifier = Modifier.size(30.dp)) }
     item(span = { GridItemSpan(2) }) {

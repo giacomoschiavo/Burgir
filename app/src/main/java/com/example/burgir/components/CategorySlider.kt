@@ -76,7 +76,6 @@ fun CategorySlider(
 ) {
   LazyRow(
     modifier = modifier.padding(top = 10.dp),
-    contentPadding = PaddingValues(horizontal = 16.dp),
     horizontalArrangement = Arrangement.spacedBy(20.dp),
   ) {
     items(categories) { category ->
