@@ -63,19 +63,19 @@ interface ProductDao {
      * This action is performed for every product after a checkout.
      */
     @Query("UPDATE Product SET times_purchased= times_purchased + :times, cart_quantity = 0 WHERE id= :id")
-    fun checkout(p: Product,times : Int= p.cartQuantity, id : Int = p.id)
+    suspend fun checkout(p: Product,times : Int= p.cartQuantity, id : Int = p.id)
 
     /**
      * Add a product to the cart by 1 quantity
      */
     @Query("UPDATE Product SET cart_quantity= cart_quantity + 1 WHERE id= :id")
-    fun addToCart(id : Int)
+    suspend fun addToCart(id : Int)
 
     /**
      * Remove the quantity of the specified product (identified by ID)
      */
     @Query("UPDATE Product SET cart_quantity = cart_quantity-1 WHERE id= :id")
-    fun removeFromCart(id: Int)
+    suspend fun removeFromCart(id: Int)
 
     /**
      * Get the number of total Products
