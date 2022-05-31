@@ -10,13 +10,13 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CategoryDao {
 
-    @Insert(onConflict=OnConflictStrategy.REPLACE)
+    @Insert(onConflict=OnConflictStrategy.IGNORE)
     fun insert(category: Category)
 
     @Delete
     fun delete(category: Category)
 
     @Query("SELECT name FROM Category WHERE ID= :id")
-    fun getCategoryNameById(id: Int)
+    fun getCategoryNameById(id: Int) : Flow<Category>
 
 }
