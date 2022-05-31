@@ -1,16 +1,16 @@
 package com.example.burgir.data
 
+import android.graphics.Color
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
 
 @Entity
 data class Category (
-    //TODO decidere se per category ID usiamo numero o nome
     /**
      * Category ID
      */
-    @PrimaryKey @ColumnInfo(name= "ID") val id : Int,
+    @PrimaryKey(autoGenerate = true) @ColumnInfo(name= "ID") val id : Int,
     /**
      * category name
      */
@@ -18,6 +18,6 @@ data class Category (
     /**
      * category color
      */
-    @ColumnInfo(name= "color") val categoryColor : String
-    //TODO come viene salvato il colore
+    @ColumnInfo(name= "color") val categoryColor : Color
+
 )
