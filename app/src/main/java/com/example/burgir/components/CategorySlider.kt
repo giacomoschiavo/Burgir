@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.ui.theme.AppTypography
@@ -40,22 +41,27 @@ fun Category(
 
   ElevatedCard(
     onClick = { onCategoryClicked(category.id) },
-    modifier = modifier.scale(scale),
+    modifier = modifier
+      .widthIn(90.dp)
+      .scale(scale),
     colors = CardDefaults.elevatedCardColors(containerColor = backgroundColor),
   ) {
     Column(
+      modifier = Modifier
+        .padding(10.dp)
+        .align(Alignment.CenterHorizontally),
       horizontalAlignment = Alignment.CenterHorizontally,
-      modifier = Modifier.padding(vertical = 6.dp, horizontal = 10.dp),
     ) {
       Image(
         painter = painterResource(category.imageRes),
         contentDescription = null,
         modifier = Modifier
-          .size(45.dp)
+          .size(70.dp)
           .padding(5.dp)
       )
       Text(
         text = category.name,
+        style = AppTypography.labelLarge,
       )
     }
   }
@@ -63,7 +69,11 @@ fun Category(
 
 
 @Composable
-fun CategorySlider(chosenCategoryId: Int, setChosenCategoryId: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun CategorySlider(
+  chosenCategoryId: Int,
+  setChosenCategoryId: (Int) -> Unit,
+  modifier: Modifier = Modifier
+) {
   LazyRow(
     modifier = modifier.padding(top = 10.dp),
     contentPadding = PaddingValues(horizontal = 16.dp),
