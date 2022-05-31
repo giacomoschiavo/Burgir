@@ -1,3 +1,4 @@
+import android.util.Log
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.padding
@@ -6,6 +7,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.outlined.FavoriteBorder
+import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
@@ -25,11 +28,11 @@ fun ProductTopBar(
   navController: NavController,
   scrollBehavior: TopAppBarScrollBehavior,
   showFavoriteIcon: Boolean = true,
-  textTitle: String = "",
+  selectedCategoryId: Int = -1,
 ) {
 
   MediumTopAppBar(
-    title = { Text(text = textTitle) },
+    title = { Text(text = if (selectedCategoryId == -1) "" else categories.find { category -> category.id == selectedCategoryId }!!.name) },
     navigationIcon = {
       IconButton(onClick = { navController.popBackStack() }) {
         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back arrow")
@@ -38,7 +41,7 @@ fun ProductTopBar(
     actions = {
       if (showFavoriteIcon) {
         IconButton(onClick = { /*TODO*/ }) {
-          Icon(imageVector = Icons.Filled.Favorite, contentDescription = "Favorite")
+          Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = "Favorite")
         }
       }
       IconButton(onClick = {
@@ -46,7 +49,7 @@ fun ProductTopBar(
           launchSingleTop = true
         }
       }) {
-        Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = "Cart")
+        Icon(imageVector = Icons.Outlined.ShoppingCart, contentDescription = "Cart")
       }
     },
     scrollBehavior = scrollBehavior
@@ -60,7 +63,6 @@ fun ProductTopBarPreview() {
   BurgirTheme() {
     ProductTopBar(
       rememberNavController(),
-      textTitle = "Something",
       scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     )
   }

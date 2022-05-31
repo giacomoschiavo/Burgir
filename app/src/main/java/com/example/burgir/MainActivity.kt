@@ -31,6 +31,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.screen.*
 import com.example.burgir.ui.theme.BurgirTheme
+import com.google.android.material.color.DynamicColors
 
 
 class MainActivity : ComponentActivity() {
@@ -38,11 +39,13 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
+    DynamicColors.applyIfAvailable(this)
+
     setContent {
       BurgirTheme() {
         val navController = rememberNavController()
         val backStackEntry by navController.currentBackStackEntryAsState()
-        val currentRoute = backStackEntry?.destination?.route?.substringBefore("/")
+        val currentRoute = backStackEntry?.destination?.route
 
         val navigateToProduct: (Int) -> Unit =
           { navController.navigate("${PRODUCT_SCREEN_ROUTE}/$it") { launchSingleTop } }
@@ -54,9 +57,11 @@ class MainActivity : ComponentActivity() {
           TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec)
         }
         Scaffold(
-          modifier = if (currentRoute == CATEGORY_SCREEN_ROUTE) Modifier.nestedScroll(scrollBehavior.nestedScrollConnection) else Modifier,
+          modifier = if (currentRoute?.substringBefore("/") == CATEGORY_SCREEN_ROUTE) Modifier.nestedScroll(
+            scrollBehavior.nestedScrollConnection
+          ) else Modifier,
           topBar = {
-            when (currentRoute) {
+            when (currentRoute?.substringBefore("/")) {
               PRODUCT_SCREEN_ROUTE -> ProductTopBar(
                 navController = navController,
                 scrollBehavior = scrollBehavior
@@ -64,8 +69,8 @@ class MainActivity : ComponentActivity() {
               CATEGORY_SCREEN_ROUTE -> ProductTopBar(
                 navController = navController,
                 showFavoriteIcon = false,
-                textTitle = "Categoria",
-                scrollBehavior = scrollBehavior
+                scrollBehavior = scrollBehavior,
+                selectedCategoryId = backStackEntry?.arguments?.getString("categoryId")!!.toInt(),
               )
               SPLASH_SCREEN_ROUTE -> {}
               else -> MenuTopAppBar(navController)
@@ -81,7 +86,10 @@ class MainActivity : ComponentActivity() {
           NavHost(
             navController = navController,
             startDestination = SPLASH_SCREEN_ROUTE,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(
+              vertical = innerPadding.calculateTopPadding(),
+              horizontal = 20.dp
+            )
           ) {
             composable(SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
             composable(MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct) }

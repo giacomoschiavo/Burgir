@@ -3,10 +3,7 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Person
-import androidx.compose.material.icons.outlined.Search
+import androidx.compose.material.icons.outlined.*
 import androidx.compose.material3.Icon
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -45,7 +42,7 @@ val routes = listOf(
     "Favorite",
     MainActivity.FAVORITE_SCREEN_ROUTE,
     filledIcon = Icons.Filled.Favorite,
-    outlinedIcon = Icons.Outlined.Favorite
+    outlinedIcon = Icons.Outlined.FavoriteBorder
   ),
   RouteConfig(
     "Profile",

@@ -39,7 +39,6 @@ fun HomeScreen(
 
   LazyVerticalGrid(
     columns = GridCells.Fixed(2),
-    modifier = modifier.padding(PaddingValues(vertical = 10.dp, horizontal = 20.dp))
   ) {
     item(span = { GridItemSpan(2) }) {
       Text(

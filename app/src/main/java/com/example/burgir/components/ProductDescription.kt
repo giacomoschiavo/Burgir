@@ -40,7 +40,7 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
       Text(
         text = product.name,
         modifier = Modifier.padding(vertical = 10.dp),
-        style = AppTypography.displayLarge
+        style = AppTypography.displaySmall
       )
       Text(
         text = product.price,

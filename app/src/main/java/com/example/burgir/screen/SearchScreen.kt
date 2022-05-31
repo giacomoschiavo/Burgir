@@ -24,11 +24,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 @Composable
 fun SearchScreen(navigateToCategory: (Int) -> Unit, modifier: Modifier = Modifier) {
   var searchText by rememberSaveable { mutableStateOf("") }
-  LazyColumn(
-    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-    modifier = modifier
-      .fillMaxSize()
-  ) {
+  LazyColumn {
     item {
       Text(
         text = "Discover\nNew Flavors",
