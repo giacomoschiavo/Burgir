@@ -26,6 +26,7 @@ import com.example.burgir.ui.theme.Shapes
 
 @Composable
 fun ProfileScreen(navController: NavController) {
+
   Column(
     horizontalAlignment = Alignment.CenterHorizontally,
     modifier = Modifier

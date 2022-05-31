@@ -5,9 +5,13 @@ import CategoryScreen
 import FavoriteScreen
 import HomeScreen
 import MenuTopAppBar
+import Product
 import ProductTopBar
 import SearchScreen
+import android.content.res.TypedArray
+import android.graphics.drawable.Drawable
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.rememberSplineBasedDecay
@@ -40,6 +44,22 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     DynamicColors.applyIfAvailable(this)
+
+    val burgerImageTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers)
+    val burgerNamesTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers_names)
+    val burgers = mutableListOf<Product>()
+    (0 until burgerNamesTypedArray.length()).forEach {
+      burgers.add(
+        Product(
+          id = it,
+          imageUrl = burgerImageTypedArray.getResourceId(it, 0),
+          name = burgerNamesTypedArray.getString(it)!!,
+          categoryId = 0
+        )
+      )
+    }
+    burgerImageTypedArray.recycle()
+    burgerNamesTypedArray.recycle()
 
     setContent {
       BurgirTheme() {
@@ -88,10 +108,10 @@ class MainActivity : ComponentActivity() {
             startDestination = SPLASH_SCREEN_ROUTE,
             modifier = Modifier
               .padding(innerPadding)
-              .padding(horizontal = 15.dp)
+              .padding(horizontal = 15.dp),
           ) {
             composable(SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
-            composable(MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct) }
+            composable(MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct, burgers) }
             composable(PROFILE_SCREEN_ROUTE) { ProfileScreen(navController = navController) }
             composable(FAVORITE_SCREEN_ROUTE) { FavoriteScreen(navController = navController) }
             composable(CART_SCREEN_ROUTE) { CartScreen(navController = navController) }

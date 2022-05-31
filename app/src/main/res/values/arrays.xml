@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="burgers">
+        <item>@drawable/b_big_king_nueva</item>
+        <item>@drawable/b_big_king_xxl</item>
+        <item>@drawable/b_bronx_steakhouse</item>
+        <item>@drawable/b_cheeseburger</item>
+        <item>@drawable/b_double_cheesebacon</item>
+        <item>@drawable/b_hamburger</item>
+        <item>@drawable/b_whopper</item>
+        <item>@drawable/b_whopper_jr</item>
+    </array>
+    <array name="chickens">
+        <item>@drawable/c_app_kiosk_burger_transp</item>
+        <item>@drawable/c_app_kiosk_salad_transp</item>
+        <item>@drawable/c_chicken_royale</item>
+        <item>@drawable/c_chicken_royale_bacon_cheese</item>
+        <item>@drawable/c_crunchicken</item>
+        <item>@drawable/c_wrap_di_pollo_croccante</item>
+        <item>@drawable/c_crispy_chicken</item>
+    </array>
+    <array name="drinks">
+        <item>@drawable/d_birra_m</item>
+        <item>@drawable/d_caffe</item>
+        <item>@drawable/d_cocacola_m</item>
+        <item>@drawable/d_cocacola_zero_m</item>
+        <item>@drawable/d_fanta_m</item>
+        <item>@drawable/d_fuzetea_m</item>
+        <item>@drawable/d_sprite_m</item>
+        <item>@drawable/d_monster</item>
+    </array>
+    <array name="snacks">
+        <item>@drawable/s_bacon_king_fries_v2</item>
+        <item>@drawable/s_chicken_wings_x4</item>
+        <item>@drawable/s_chili_cheese_bites_x6</item>
+        <item>@drawable/s_king_nuggets_x9_v2</item>
+        <item>@drawable/s_onion_rings_x8</item>
+        <item>@drawable/s_patatine_1350x1515_m</item>
+        <item>@drawable/s_bacon_toast</item>
+    </array>
+    <array name="ice_creams">
+        <item>@drawable/i_fragola</item>
+        <item>@drawable/i_king_fusion_oreo</item>
+        <item>@drawable/i_sundae_caramelo</item>
+        <item>@drawable/i_sundae_choolate</item>
+        <item>@drawable/i_sundae_strawberry</item>
+        <item>@drawable/i_sw_mini_sundae_caramel</item>
+        <item>@drawable/i_sw_mini_sundae_chocolate</item>
+    </array>
+    <array name="burgers_names">
+        <item>Big King Nueva</item>
+        <item>Big King XXL</item>
+        <item>Bronx Steakhouse</item>
+        <item>Cheseeburger</item>
+        <item>Double Cheseebacon</item>
+        <item>Hamburger</item>
+        <item>Whopper</item>
+        <item>Whopper Jr.</item>
+    </array>
+    <array name="chickens_names">
+        <item>Kiosk Burger</item>
+        <item>Kiosk Salad</item>
+        <item>Chicken Royale</item>
+        <item>Chicken Royale Bacon Cheese</item>
+        <item>Crunchicken</item>
+        <item>Wrap di Pollo Croccante</item>
+        <item>Crispy Chicken</item>
+    </array>
+    <array name="drinks_names">
+        <item>Birra</item>
+        <item>Caffe</item>
+        <item>Coca Cola</item>
+        <item>Coca Cola Zero</item>
+        <item>Fanta</item>
+        <item>Fuzetea</item>
+        <item>Sprite</item>
+        <item>Monster</item>
+    </array>
+    <array name="snacks_names">
+        <item>Bacon King Fries</item>
+        <item>Chicken Wings x4</item>
+        <item>Chili Cheese Bites x6</item>
+        <item>King Nuggets x9</item>
+        <item>Onion Rings x8</item>
+        <item>Patatine</item>
+        <item>Bacon Toast</item>
+    </array>
+    <array name="ice_creams_names">
+        <item>Mini Sundae Fragola</item>
+        <item>King Fusion Oreo</item>
+        <item>Sundae Caramello</item>
+        <item>Sundae Cioccolato</item>
+        <item>Sundae Strawberry</item>
+        <item>Mini Sundae Caramello</item>
+        <item>Mini Sundae Cioccolato</item>
+    </array>
+</resources>

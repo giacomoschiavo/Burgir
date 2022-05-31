@@ -10,35 +10,36 @@ data class CategoryUiState(
   @DrawableRes val imageRes: Int
 )
 
+
 val categories = listOf(
   CategoryUiState(
     id = 0,
     name = "Burger",
-    imageRes = R.drawable.burger,
+    imageRes = R.drawable.b_bronx_steakhouse,
     color = Color.hsv(25f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 1,
-    name = "Wraps",
-    imageRes = R.drawable.burger,
+    name = "Snacks",
+    imageRes = R.drawable.s_patatine_1350x1515_m,
     color = Color.hsv(45f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 2,
     name = "Chickens",
-    imageRes = R.drawable.burger,
+    imageRes = R.drawable.c_chicken_royale,
     color = Color.hsv(120f, 0.7f, 1f)
   ),
   CategoryUiState(
     id = 3,
     name = "Ice Creams",
-    imageRes = R.drawable.burger,
+    imageRes = R.drawable.i_sundae_choolate,
     color = Color.hsv(200f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 4,
     name = "Drinks",
-    imageRes = R.drawable.burger,
+    imageRes = R.drawable.d_cocacola_m,
     color = Color.hsv(285f, 0.96f, 1f)
   ),
 

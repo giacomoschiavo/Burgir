@@ -1,7 +1,6 @@
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Immutable
 import com.example.burgir.R
-import kotlin.random.Random
 
 @Immutable
 data class Product(
@@ -17,10 +16,11 @@ data class Product(
   var quantity: Int = 0
 )
 
+
 val products = listOf(
   Product(
     id = 0,
-    name = "Insalata strana",
+    name = "Bacon Fries",
     imageUrl = R.drawable.burger,
     categoryId = 1,
     sales = 10,
@@ -28,7 +28,7 @@ val products = listOf(
   ),
   Product(
     id = 1,
-    name = "Dolce buono",
+    name = "Wrap",
     imageUrl = R.drawable.burger,
     categoryId = 2,
     isFavorite = true

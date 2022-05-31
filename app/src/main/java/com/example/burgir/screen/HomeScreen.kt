@@ -33,6 +33,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 @Composable
 fun HomeScreen(
   navigateToProduct: (Int) -> Unit,
+  popularProducts: (List<Product>),
   modifier: Modifier = Modifier
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
@@ -74,8 +75,13 @@ fun HomeScreen(
         modifier = Modifier.paddingFromBaseline(top = 10.dp)
       )
     }
+//    items(
+//      products.filter { chosenCategoryId == it.categoryId },
+//      key = { product -> product.id }) { product ->
+//      ProductItem(product, navigateToProduct, modifier)
+//    }
     items(
-      products.filter { chosenCategoryId == it.categoryId },
+      popularProducts,
       key = { product -> product.id }) { product ->
       ProductItem(product, navigateToProduct, modifier)
     }
@@ -87,6 +93,6 @@ fun HomeScreen(
 @Composable
 fun ScreenPreview() {
   BurgirTheme {
-    HomeScreen({ })
+    HomeScreen({ }, listOf())
   }
 }

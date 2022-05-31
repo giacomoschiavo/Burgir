@@ -71,7 +71,9 @@ fun SearchScreen(navigateToCategory: (Int) -> Unit, modifier: Modifier = Modifie
           Image(
             painter = painterResource(id = category.imageRes),
             contentDescription = null,
-            modifier = Modifier.padding(15.dp)
+            modifier = Modifier
+              .padding(15.dp)
+              .widthIn(100.dp, 140.dp)
           )
         }
       }
