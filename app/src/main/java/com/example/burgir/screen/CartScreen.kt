@@ -1,6 +1,7 @@
 package com.example.burgir.screen
 
 import Product
+import QuantitySelector
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -103,12 +104,13 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
           .size(100.dp)
           .padding(10.dp)
       )
+      Spacer(modifier = Modifier.size(10.dp))
       Column(verticalArrangement = Arrangement.SpaceBetween) {
         Text(
           text = product.name,
-          style = AppTypography.titleMedium.copy(fontWeight = FontWeight.Bold)
+          style = AppTypography.titleSmall.copy(fontWeight = FontWeight.Bold)
         )
-        Text(text = "Quantity: ${product.quantity}")
+        QuantitySelector(modifier = Modifier.padding(top = 10.dp))
       }
     }
     Column(

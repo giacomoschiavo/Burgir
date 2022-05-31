@@ -23,11 +23,9 @@ import com.example.burgir.ui.theme.Shapes
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
-
-  var quantity by rememberSaveable { mutableStateOf(1) }
-
   Surface(
     shape = Shapes.large,
+    modifier = modifier
   ) {
     Column(modifier = Modifier.padding(15.dp)) {
       if (product.sales != 0) {
@@ -47,7 +45,6 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
         modifier = Modifier.padding(vertical = 5.dp),
         style = AppTypography.headlineMedium,
         color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
-//        color = MaterialTheme.colors.onBackground
       )
       Text(
         text = product.description,
@@ -59,30 +56,7 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier.padding(vertical = 10.dp)
       ) {
-        Row(
-          verticalAlignment = Alignment.CenterVertically,
-          horizontalArrangement = Arrangement.SpaceAround,
-          modifier = Modifier.padding(horizontal = 10.dp)
-        ) {
-          IconButton(onClick = { quantity-- }) {
-            Icon(
-              painter = painterResource(id = R.drawable.ic_baseline_remove_24),
-              contentDescription = null
-            )
-          }
-          Text(
-            text = quantity.toString(),
-            modifier = Modifier
-              .padding(10.dp),
-            textAlign = TextAlign.Center
-          )
-          IconButton(onClick = { quantity++ }) {
-            Icon(
-              imageVector = Icons.Filled.Add,
-              contentDescription = null
-            )
-          }
-        }
+        QuantitySelector(modifier = Modifier.padding(horizontal = 10.dp))
         Button(
           onClick = { },
           modifier = Modifier.weight(1f)
