@@ -28,6 +28,7 @@ fun ProductTopBar(
   navController: NavController,
   scrollBehavior: TopAppBarScrollBehavior,
   showFavoriteIcon: Boolean = true,
+  showCartIcon: Boolean = true,
   selectedCategoryId: Int = -1,
 ) {
 
@@ -44,12 +45,14 @@ fun ProductTopBar(
           Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = "Favorite")
         }
       }
-      IconButton(onClick = {
-        navController.navigate(MainActivity.CART_SCREEN_ROUTE) {
-          launchSingleTop = true
+      if (showCartIcon) {
+        IconButton(onClick = {
+          navController.navigate(MainActivity.CART_SCREEN_ROUTE) {
+            launchSingleTop = true
+          }
+        }) {
+          Icon(imageVector = Icons.Outlined.ShoppingCart, contentDescription = "Cart")
         }
-      }) {
-        Icon(imageVector = Icons.Outlined.ShoppingCart, contentDescription = "Cart")
       }
     },
     scrollBehavior = scrollBehavior
@@ -63,6 +66,33 @@ fun ProductTopBarPreview() {
   BurgirTheme() {
     ProductTopBar(
       rememberNavController(),
+      scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    )
+  }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
+@Composable
+fun ProductTopBarWithoutFavoritePreview() {
+  BurgirTheme() {
+    ProductTopBar(
+      rememberNavController(),
+      showFavoriteIcon = false,
+      scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    )
+  }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview(showBackground = true)
+@Composable
+fun ProductTopBarWithoutBothPreview() {
+  BurgirTheme() {
+    ProductTopBar(
+      rememberNavController(),
+      showFavoriteIcon = false,
+      showCartIcon = false,
       scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     )
   }

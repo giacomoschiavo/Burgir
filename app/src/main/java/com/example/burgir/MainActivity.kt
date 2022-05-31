@@ -78,7 +78,7 @@ class MainActivity : ComponentActivity() {
           },
           bottomBar = {
             when (currentRoute) {
-              PRODUCT_SCREEN_ROUTE, SPLASH_SCREEN_ROUTE, CATEGORY_SCREEN_ROUTE -> {}
+              PRODUCT_SCREEN_ROUTE, SPLASH_SCREEN_ROUTE, CATEGORY_SCREEN_ROUTE, CART_SCREEN_ROUTE -> {}
               else -> MainNavigationBar(navController)
             }
           },
@@ -86,10 +86,9 @@ class MainActivity : ComponentActivity() {
           NavHost(
             navController = navController,
             startDestination = SPLASH_SCREEN_ROUTE,
-            modifier = Modifier.padding(
-              vertical = innerPadding.calculateTopPadding(),
-              horizontal = 20.dp
-            )
+            modifier = Modifier
+              .padding(innerPadding)
+              .padding(horizontal = 15.dp)
           ) {
             composable(SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
             composable(MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct) }
@@ -124,10 +123,4 @@ class MainActivity : ComponentActivity() {
     const val FAVORITE_SCREEN_ROUTE = "favoriteScreen"
     const val CATEGORY_SCREEN_ROUTE = "categoryScreen"
   }
-}
-
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
 }

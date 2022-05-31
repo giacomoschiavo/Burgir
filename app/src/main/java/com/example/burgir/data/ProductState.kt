@@ -13,7 +13,8 @@ data class Product(
   val categoryId: Int = 0,
   val sales: Int = 0,
   val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare tortor quis sagittis mattis. In sit amet justo eget felis ultrices bibendum. Vivamus in commodo orci, eget faucibus urna. Nunc id felis vitae risus efficitur finibus.",
-  var isFavorite: Boolean = false
+  var isFavorite: Boolean = false,
+  var quantity: Int = 0
 )
 
 val products = listOf(
