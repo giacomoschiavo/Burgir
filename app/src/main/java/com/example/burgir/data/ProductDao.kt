@@ -7,7 +7,6 @@ import androidx.room.Delete
 import androidx.room.Query
 import kotlinx.coroutines.flow.Flow
 
-//TODO DISCUTERE CON SCHIAVO SU COME GLI ARRIVANO I DATI, SE ATTRAVERSO SINGOLI VALORI O PASSANDO TUTTA L'ISTANZA
 
 @Dao
 interface ProductDao {
@@ -39,7 +38,6 @@ interface ProductDao {
     /**
      * Return a list of all products that belong to the specify category
      */
-    //TODO verificare se passo category intera o solamente ID
     @Query("SELECT * FROM Product WHERE category= :id")
     fun getProductsByCategory(id: Int): Flow<List<Product>>
 
@@ -50,9 +48,44 @@ interface ProductDao {
     fun getProductsByFavorite(favorited: Boolean=true) : Flow<List<Product>>
 
     /**
-     * Return a list of most popular products
+     * Return a list of most popular products (max 6 products as default)
      */
-    //TODO DA DECIDERE SE SETTARE UN NUMERO PREDEFINITO OPPURE SE PORTARLI TUTTI IN ORDINE DI NUMERO DI VOLTE ACQUISTATE
-    @Query("SELECT * FROM Product ORDER BY times_purchased DESC")
+    @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 6")
     fun getProductsByPopularity() : Flow<List<Product>>
+    /**
+     * Return a list of products that are in the cart at the moment
+     */
+    @Query("SELECT * FROM Product WHERE cart_quantity>0")
+    fun getProductsInCart() : Flow<List<Product>>
+
+    /**
+     * Increase the number of times the product has been ordered and set cartQuantity = 0.
+     * This action is performed for every product after a checkout.
+     */
+    @Query("UPDATE Product SET times_purchased= times_purchased + :times, cart_quantity = 0 WHERE id= :id")
+    fun checkout(p: Product,times : Int= p.cartQuantity, id : Int = p.id)
+
+    /**
+     * Add a product to the cart by 1 quantity
+     */
+    @Query("UPDATE Product SET cart_quantity= cart_quantity + 1 WHERE id= :id")
+    fun addToCart(id : Int)
+
+    /**
+     * Remove the quantity of the specified product (identified by ID)
+     */
+    @Query("UPDATE Product SET cart_quantity = cart_quantity-1 WHERE id= :id")
+    fun removeFromCart(id: Int)
+
+    /**
+     * Get the number of total Products
+     */
+    @Query("SELECT COUNT(*) FROM Product")
+    fun size() : Int
+
+    /**
+     * Return the actual number of products in the chart
+     */
+    @Query("SELECT SUM(cart_quantity) FROM Product WHERE cart_quantity>0")
+    fun cartSize() : Int
 }
