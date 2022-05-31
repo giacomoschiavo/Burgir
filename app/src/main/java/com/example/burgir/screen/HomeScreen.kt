@@ -16,8 +16,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -36,25 +39,39 @@ fun HomeScreen(
 
   LazyVerticalGrid(
     columns = GridCells.Fixed(2),
-    modifier = modifier.padding(horizontal = 10.dp)
+    modifier = modifier.padding(PaddingValues(vertical = 10.dp, horizontal = 20.dp))
   ) {
-    item(span = { GridItemSpan(2) }) { Text(text = "Hey Mike,", style = AppTypography.bodyLarge) }
+    item(span = { GridItemSpan(2) }) {
+      Text(
+        text = buildAnnotatedString {
+          append("Hey, ")
+          withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+            append("Mike")
+          }
+        },
+        style = AppTypography.titleMedium,
+        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+      )
+    }
+    item() { Spacer(modifier = Modifier.size(10.dp)) }
     item(span = { GridItemSpan(2) }) {
       Text(
         text = "Choose Your\nBest Meal",
         style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
       )
     }
+    item() { Spacer(modifier = Modifier.size(30.dp)) }
     item(span = { GridItemSpan(2) }) {
       CategorySlider(
         chosenCategoryId,
         { newCategoryId -> chosenCategoryId = newCategoryId })
     }
+    item() { Spacer(modifier = Modifier.size(30.dp)) }
     item(span = { GridItemSpan(2) }) {
       Text(
         text = "Popular",
-        style = AppTypography.displaySmall,
-        modifier = Modifier.padding(vertical = 10.dp)
+        style = AppTypography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+        modifier = Modifier.paddingFromBaseline(top = 10.dp)
       )
     }
     items(
