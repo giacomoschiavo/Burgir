@@ -1,6 +1,6 @@
 package com.example.burgir
 
-import BottomBar
+import MainNavigationBar
 import CategoryScreen
 import FavoriteScreen
 import HomeScreen
@@ -74,7 +74,7 @@ class MainActivity : ComponentActivity() {
           bottomBar = {
             when (currentRoute) {
               PRODUCT_SCREEN_ROUTE, SPLASH_SCREEN_ROUTE, CATEGORY_SCREEN_ROUTE -> {}
-              else -> BottomBar(navController)
+              else -> MainNavigationBar(navController)
             }
           },
         ) { innerPadding ->

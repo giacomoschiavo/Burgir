@@ -30,20 +30,25 @@ fun SearchScreen(navigateToCategory: (Int) -> Unit, modifier: Modifier = Modifie
       .fillMaxSize()
   ) {
     item {
-      Text(text = "Discover\nNew Flavors", style = AppTypography.displayMedium)
-      Spacer(modifier = Modifier.size(20.dp))
+      Text(
+        text = "Discover\nNew Flavors",
+        style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Bold),
+        modifier = Modifier.padding(vertical = 10.dp)
+      )
       OutlinedTextField(
         value = searchText,
         onValueChange = { newValue -> searchText = newValue },
         placeholder = { Text(text = "Search") },
         leadingIcon = { Icon(imageVector = Icons.Filled.Search, contentDescription = null) },
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier
+          .fillMaxWidth()
+          .padding(vertical = 20.dp)
       )
-      Spacer(modifier = Modifier.size(20.dp))
       Text(
         text = "CATEGORIES",
         style = AppTypography.bodySmall.copy(fontWeight = FontWeight.W800),
-        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
+        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
+        modifier = Modifier.padding(10.dp)
       )
     }
     items(categories) { category ->

@@ -27,7 +27,7 @@ val categories = listOf(
     id = 2,
     name = "Chickens",
     imageRes = R.drawable.burger,
-    color = Color.hsv(130f, 0.96f, 1f)
+    color = Color.hsv(150f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 3,
