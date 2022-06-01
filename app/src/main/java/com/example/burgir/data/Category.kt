@@ -16,8 +16,10 @@ data class Category (
      */
     @ColumnInfo(name="name") val categoryName : String,
     /**
-     * category color
+     * category color is represented as 3 float numbers. Instead of using TypeConverted, once the fragment gets the category, it can use the 3 floats to build the Color
      */
-    @ColumnInfo(name= "color") val categoryColor : Int
+    @ColumnInfo(name= "color1") val categoryColor1 : Float,
+    @ColumnInfo(name= "color2") val categoryColor2 : Float,
+    @ColumnInfo(name= "color3") val categoryColor3 : Float
 
 )

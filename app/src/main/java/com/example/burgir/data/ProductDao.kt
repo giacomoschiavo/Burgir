@@ -1,11 +1,7 @@
 package com.example.burgir.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Delete
-import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 
 @Dao
@@ -23,40 +19,44 @@ interface ProductDao {
     suspend fun delete(product: Product)
 
     /**
+     * update a product of the database
+     */
+    @Update
+    suspend fun update(product: Product)
+    /**
      * Return the product associated to the specified element
      */
     @Query("SELECT * FROM Product WHERE id= :id")
-    fun getProductById(id: Int): Flow<Product>
-
+    fun getProductById(id: Int): LiveData<Product>
 
     /**
      * Return a list of all products
      */
     @Query("SELECT * FROM Product ORDER BY name ASC")
-    fun getAllProducts(): Flow<List<Product>>
+    suspend fun getAllProducts(): List<Product>
 
     /**
      * Return a list of all products that belong to the specify category
      */
     @Query("SELECT * FROM Product WHERE category= :id")
-    fun getProductsByCategory(id: Int): Flow<List<Product>>
+    suspend fun getProductsByCategory(id: Int): List<Product>
 
     /**
      * Return a list of products that are in the user's favorite list
      */
     @Query("SELECT * FROM Product WHERE Is_Favorited= :favorited")
-    fun getProductsByFavorite(favorited: Boolean=true) : Flow<List<Product>>
+    suspend fun getProductsByFavorite(favorited: Boolean=true) : List<Product>
 
     /**
      * Return a list of most popular products (max 6 products as default)
      */
     @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 6")
-    fun getProductsByPopularity() : Flow<List<Product>>
+    suspend fun getProductsByPopularity() : List<Product>
     /**
      * Return a list of products that are in the cart at the moment
      */
     @Query("SELECT * FROM Product WHERE cart_quantity>0")
-    fun getProductsInCart() : Flow<List<Product>>
+    fun getProductsInCart() : LiveData<List<Product>>
 
     /**
      * Increase the number of times the product has been ordered and set cartQuantity = 0.
@@ -81,11 +81,11 @@ interface ProductDao {
      * Get the number of total Products
      */
     @Query("SELECT COUNT(*) FROM Product")
-    fun size() : Int
+    suspend fun size() : Int
 
     /**
      * Return the actual number of products in the chart
      */
     @Query("SELECT SUM(cart_quantity) FROM Product WHERE cart_quantity>0")
-    fun cartSize() : Int
+    fun cartSize() : LiveData<Int>
 }

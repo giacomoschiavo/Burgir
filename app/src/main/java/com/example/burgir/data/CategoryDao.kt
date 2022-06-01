@@ -1,12 +1,7 @@
 package com.example.burgir.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Delete
-import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
-
+import androidx.room.*
+//TODO COMMENTARE
 @Dao
 interface CategoryDao {
 
@@ -16,10 +11,13 @@ interface CategoryDao {
     @Delete
     suspend fun delete(category: Category)
 
+    @Update
+    suspend fun update(category: Category)
+
     @Query("SELECT * FROM Category WHERE ID= :id")
-    fun getCategoryById(id: Int) : Flow<Category>
+    suspend fun getCategoryById(id: Int) : Category
 
     @Query("SELECT * FROM Category")
-    fun getAllCategories() : Flow<List<Category>>
+    suspend fun getAllCategories() : List<Category>
 
 }

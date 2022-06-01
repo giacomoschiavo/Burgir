@@ -1,9 +1,7 @@
 package com.example.burgir.data
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import kotlinx.coroutines.flow.Flow
+import androidx.lifecycle.LiveData
+import androidx.room.*
 
 @Dao
 interface CartDao {
@@ -11,6 +9,12 @@ interface CartDao {
     @Insert
     suspend fun insert(c: Cart)
 
+    @Delete
+    suspend fun delete(cart: Cart)
+
+    @Update
+    suspend fun update(cart:Cart)
+
     @Query("SELECT * FROM Cart")
-    fun getAll() : Flow<List<Cart>>
+    suspend fun getAllCarts() : List<Cart>
 }
