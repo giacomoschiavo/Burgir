@@ -14,6 +14,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -28,18 +29,25 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.data.BurgirRoomDatabase
+import com.example.burgir.data.*
 import com.example.burgir.screen.*
 import com.example.burgir.ui.theme.BurgirTheme
 import com.google.android.material.color.DynamicColors
+import kotlinx.coroutines.flow.Flow
 
 
 class MainActivity : ComponentActivity() {
+
+  private val myViewModel: BurgirViewModel by viewModels {
+    BurgirViewModelFactory((application as BurgirApplication).repository)
+  }
   @OptIn(ExperimentalMaterial3Api::class)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -47,7 +55,7 @@ class MainActivity : ComponentActivity() {
     /**
      * creazione database, PROVA CRASH
      */
-    val db=BurgirRoomDatabase.getDatabase(this)
+
 
     DynamicColors.applyIfAvailable(this)
     val burgerImageTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers)
