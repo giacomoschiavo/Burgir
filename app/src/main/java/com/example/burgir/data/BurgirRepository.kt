@@ -47,6 +47,9 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
         cartDao.update(cart)
     }
 
+    fun getAllCarts() : LiveData<List<Cart>>{
+        return cartDao.getAllCarts()
+    }
     /**
      * PRODUCT METHODS
      */
