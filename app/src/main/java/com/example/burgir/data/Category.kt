@@ -18,6 +18,6 @@ data class Category (
     /**
      * category color
      */
-    @ColumnInfo(name= "color") val categoryColor : Color
+    @ColumnInfo(name= "color") val categoryColor : Int
 
 )

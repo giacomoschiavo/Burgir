@@ -33,6 +33,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.burgir.data.BurgirRoomDatabase
 import com.example.burgir.screen.*
 import com.example.burgir.ui.theme.BurgirTheme
 import com.google.android.material.color.DynamicColors
@@ -43,8 +44,12 @@ class MainActivity : ComponentActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    DynamicColors.applyIfAvailable(this)
+    /**
+     * creazione database, PROVA CRASH
+     */
+    val db=BurgirRoomDatabase.getDatabase(this)
 
+    DynamicColors.applyIfAvailable(this)
     val burgerImageTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers)
     val burgerNamesTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers_names)
     val burgers = mutableListOf<Product>()
