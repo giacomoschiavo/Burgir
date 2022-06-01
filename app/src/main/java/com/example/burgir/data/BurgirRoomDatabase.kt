@@ -6,7 +6,7 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 
-@Database(entities = [Product::class,Category::class,Cart::class], version=1 )
+@Database(entities = [Product::class,Category::class,Cart::class], version=1, exportSchema = false )
 abstract class BurgirRoomDatabase : RoomDatabase() {
     /**
      * Dao getters
