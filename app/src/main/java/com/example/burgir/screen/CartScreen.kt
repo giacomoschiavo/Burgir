@@ -1,5 +1,6 @@
 package com.example.burgir.screen
 
+import PriceLabel
 import Product
 import QuantitySelector
 import androidx.compose.foundation.Image
@@ -122,7 +123,7 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
       IconButton(onClick = { /*TODO*/ }) {
         Icon(imageVector = Icons.Outlined.Delete, contentDescription = "delete icon")
       }
-      Text(text = product.price)
+      PriceLabel(price = product.price)
     }
   }
 

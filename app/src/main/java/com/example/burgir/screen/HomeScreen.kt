@@ -49,7 +49,7 @@ fun HomeScreen(
             append("Mike")
           }
         },
-        style = AppTypography.titleMedium,
+        style = AppTypography.titleLarge,
         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
       )
     }
@@ -60,14 +60,13 @@ fun HomeScreen(
         style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
       )
     }
-    item() { Spacer(modifier = Modifier.size(30.dp)) }
     item(span = { GridItemSpan(2) }) {
       CategorySlider(
         chosenCategoryId,
         { newCategoryId -> chosenCategoryId = newCategoryId },
       )
     }
-    item() { Spacer(modifier = Modifier.size(30.dp)) }
+    item() { Spacer(modifier = Modifier.size(20.dp)) }
     item(span = { GridItemSpan(2) }) {
       Text(
         text = "Popular",

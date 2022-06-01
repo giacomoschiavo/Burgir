@@ -8,7 +8,7 @@ data class Product(
   val name: String = "No name",
   @DrawableRes
   val imageUrl: Int = R.drawable.burger,
-  val price: String = "12.34$",
+  val price: Float = 12.34f,
   val categoryId: Int = 0,
   val sales: Int = 0,
   val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare tortor quis sagittis mattis. In sit amet justo eget felis ultrices bibendum. Vivamus in commodo orci, eget faucibus urna. Nunc id felis vitae risus efficitur finibus.",
@@ -21,7 +21,7 @@ val products = listOf(
   Product(
     id = 0,
     name = "Bacon Fries",
-    imageUrl = R.drawable.burger,
+    imageUrl = R.drawable.b_bronx_steakhouse,
     categoryId = 1,
     sales = 10,
     isFavorite = true

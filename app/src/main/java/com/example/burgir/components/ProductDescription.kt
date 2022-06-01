@@ -29,7 +29,7 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
   ) {
     Column(modifier = Modifier.padding(15.dp)) {
       if (product.sales != 0) {
-        AssistChip(
+        ElevatedSuggestionChip(
           onClick = {},
           enabled = false,
           label = { Text("${product.sales}% OFF", style = AppTypography.labelMedium) },
@@ -40,11 +40,10 @@ fun ProductDescription(product: Product, modifier: Modifier = Modifier) {
         modifier = Modifier.padding(vertical = 10.dp),
         style = AppTypography.displaySmall
       )
-      Text(
-        text = product.price,
-        modifier = Modifier.padding(vertical = 5.dp),
-        style = AppTypography.headlineMedium,
-        color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f)
+      PriceLabel(
+        price = product.price,
+        style = AppTypography.titleLarge,
+        color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
       )
       Text(
         text = product.description,
