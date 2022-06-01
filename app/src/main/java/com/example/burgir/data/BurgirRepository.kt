@@ -5,6 +5,16 @@ import kotlinx.coroutines.flow.Flow
 //TODO COMMENTARE
 class BurgirRepository(private val productDao: ProductDao, private val cartDao: CartDao, private val categoryDao: CategoryDao) {
     /**
+     * NOTA PER IL PRESENTATORE
+     * QUESTA LISTA RAPPRESENTA L'ATTUALE LISTA DI PRODOTTI CHE TI INTERESSA MOSTRARE NELL'UI.
+     * PER I PRODUCT, CHIAMANDO LE VARIE FUNZIONI CHE LI FILTRA PER CATEGORIA/FAVORITI/POPOLARI/CARRELLO, QUESTA LISTA ANDRA' A CONTENERE SOLO QUELLI.
+     * QUINDI PER RIAVERLI TUTTI BISOGNERA' RICHIAMARE getAllProducts
+     *
+     */
+    var products : LiveData<List<Product>> = productDao.getAllProducts()
+    val categories : List<Category> = categoryDao.getAllCategories()
+    val carts : LiveData<List<Cart>> = cartDao.getAllCarts()
+    /**
      * CATEGORY METHODS
      */
     suspend fun insertCategory(category: Category) {
@@ -19,12 +29,8 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
         categoryDao.update(category)
     }
 
-    suspend fun getCategoryById(id: Int) : Category{
+    fun getCategoryById(id: Int) : Category{
          return categoryDao.getCategoryById(id);
-    }
-
-    suspend fun getAllCategories() : List<Category>{
-        return categoryDao.getAllCategories()
     }
     /**
      * CART METHODS
@@ -41,14 +47,16 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
         cartDao.update(cart)
     }
 
-    suspend fun getAllCarts() : List<Cart>{
-        return cartDao.getAllCarts()
-    }
-
     /**
      * PRODUCT METHODS
      */
 
+    /**
+     * GET ACTUAL PRODUCTS
+     */
+    fun getActualProducts(): LiveData<List<Product>>{
+        return products
+    }
     suspend fun insertProduct(product: Product){
         productDao.insert(product)
     }
@@ -61,28 +69,28 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
         productDao.update(product)
     }
 
+    fun getAllProducts(): LiveData<List<Product>>{
+        return productDao.getAllProducts()
+    }
+
     fun getProductById(id: Int): LiveData<Product>{
         return productDao.getProductById(id)
     }
 
-    suspend fun getAllProducts(): List<Product>{
-        return productDao.getAllProducts()
-    }
-
-    suspend fun getProductsByCategory(id: Int): List<Product>{
+    fun getProductsByCategory(id: Int): LiveData<List<Product>>{
         return productDao.getProductsByCategory(id)
     }
 
-    suspend fun getProductsByFavorite() : List<Product>{
-        return productDao.getProductsByFavorite()
+    fun getProductsByFavorite(){
+        products=productDao.getProductsByFavorite()
     }
 
-    suspend fun getProductsByPopularity() : List<Product>{
-        return productDao.getProductsByPopularity()
+    fun getProductsByPopularity() {
+        products = productDao.getProductsByPopularity()
     }
 
-    fun getProductsInCart() : LiveData<List<Product>>{
-        return productDao.getProductsInCart()
+    fun getProductsInCart(){
+        products=productDao.getProductsInCart()
     }
 
     suspend fun checkout(id:Int){
@@ -97,11 +105,11 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
         productDao.removeFromCart(id)
     }
 
-    suspend fun size() : Int{
+    fun size() : Int{
         return productDao.size()
     }
 
-    fun cartSize() : LiveData<Int>{
+    fun cartSize(): LiveData<Int>{
         return productDao.cartSize()
     }
 }

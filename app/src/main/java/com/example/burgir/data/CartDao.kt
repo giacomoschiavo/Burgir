@@ -16,5 +16,5 @@ interface CartDao {
     suspend fun update(cart:Cart)
 
     @Query("SELECT * FROM Cart")
-    suspend fun getAllCarts() : List<Cart>
+    fun getAllCarts() : LiveData<List<Cart>>
 }

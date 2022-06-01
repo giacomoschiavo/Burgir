@@ -33,25 +33,25 @@ interface ProductDao {
      * Return a list of all products
      */
     @Query("SELECT * FROM Product ORDER BY name ASC")
-    suspend fun getAllProducts(): List<Product>
+    fun getAllProducts(): LiveData<List<Product>>
 
     /**
      * Return a list of all products that belong to the specify category
      */
     @Query("SELECT * FROM Product WHERE category= :id")
-    suspend fun getProductsByCategory(id: Int): List<Product>
+    fun getProductsByCategory(id: Int): LiveData<List<Product>>
 
     /**
      * Return a list of products that are in the user's favorite list
      */
     @Query("SELECT * FROM Product WHERE Is_Favorited= :favorited")
-    suspend fun getProductsByFavorite(favorited: Boolean=true) : List<Product>
+    fun getProductsByFavorite(favorited: Boolean=true) : LiveData<List<Product>>
 
     /**
      * Return a list of most popular products (max 6 products as default)
      */
     @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 6")
-    suspend fun getProductsByPopularity() : List<Product>
+    fun getProductsByPopularity() : LiveData<List<Product>>
     /**
      * Return a list of products that are in the cart at the moment
      */
@@ -81,7 +81,7 @@ interface ProductDao {
      * Get the number of total Products
      */
     @Query("SELECT COUNT(*) FROM Product")
-    suspend fun size() : Int
+    fun size() : Int
 
     /**
      * Return the actual number of products in the chart

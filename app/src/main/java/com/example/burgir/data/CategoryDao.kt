@@ -1,5 +1,6 @@
 package com.example.burgir.data
 
+import androidx.lifecycle.LiveData
 import androidx.room.*
 //TODO COMMENTARE
 @Dao
@@ -15,9 +16,9 @@ interface CategoryDao {
     suspend fun update(category: Category)
 
     @Query("SELECT * FROM Category WHERE ID= :id")
-    suspend fun getCategoryById(id: Int) : Category
+    fun getCategoryById(id: Int) : Category
 
     @Query("SELECT * FROM Category")
-    suspend fun getAllCategories() : List<Category>
+    fun getAllCategories() : List<Category>
 
 }
