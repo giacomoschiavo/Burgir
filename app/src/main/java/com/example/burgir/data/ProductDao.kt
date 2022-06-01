@@ -62,8 +62,8 @@ interface ProductDao {
      * Increase the number of times the product has been ordered and set cartQuantity = 0.
      * This action is performed for every product after a checkout.
      */
-    @Query("UPDATE Product SET times_purchased= times_purchased + :times, cart_quantity = 0 WHERE id= :id")
-    suspend fun checkout(p: Product,times : Int= p.cartQuantity, id : Int = p.id)
+    @Query("UPDATE Product SET times_purchased= times_purchased + cart_quantity, cart_quantity = 0 WHERE id= :id")
+    suspend fun checkout(id:Int)
 
     /**
      * Add a product to the cart by 1 quantity
