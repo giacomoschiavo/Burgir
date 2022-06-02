@@ -32,7 +32,7 @@ class MainActivity : ComponentActivity() {
     DynamicColors.applyIfAvailable(this)
     setContent {
       BurgirTheme {
-        NavigationController(resources)
+        NavigationController(resources, xxx)
       }
     }
   }
