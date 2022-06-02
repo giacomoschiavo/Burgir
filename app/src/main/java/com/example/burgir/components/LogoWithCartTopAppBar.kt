@@ -14,8 +14,9 @@ import com.example.burgir.MainActivity
 import com.example.burgir.R
 import com.example.burgir.ui.theme.AppTypography
 
+// questo componente compare nelle 4 schermate principali
 @Composable
-fun MenuTopAppBar(navController: NavController, modifier: Modifier = Modifier) {
+fun LogoWithCartTopAppBar(navController: NavController, modifier: Modifier = Modifier) {
   CenterAlignedTopAppBar(
     title = { Text("🅱", style = AppTypography.titleLarge) },
     actions = {

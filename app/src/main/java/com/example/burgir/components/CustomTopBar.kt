@@ -24,7 +24,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 
 @Composable
-fun ProductTopBar(
+fun CustomTopBar(
   navController: NavController,
   scrollBehavior: TopAppBarScrollBehavior,
   showFavoriteIcon: Boolean = true,
@@ -64,7 +64,7 @@ fun ProductTopBar(
 @Composable
 fun ProductTopBarPreview() {
   BurgirTheme() {
-    ProductTopBar(
+    CustomTopBar(
       rememberNavController(),
       scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
     )
@@ -76,7 +76,7 @@ fun ProductTopBarPreview() {
 @Composable
 fun ProductTopBarWithoutFavoritePreview() {
   BurgirTheme() {
-    ProductTopBar(
+    CustomTopBar(
       rememberNavController(),
       showFavoriteIcon = false,
       scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
@@ -89,7 +89,7 @@ fun ProductTopBarWithoutFavoritePreview() {
 @Composable
 fun ProductTopBarWithoutBothPreview() {
   BurgirTheme() {
-    ProductTopBar(
+    CustomTopBar(
       rememberNavController(),
       showFavoriteIcon = false,
       showCartIcon = false,
