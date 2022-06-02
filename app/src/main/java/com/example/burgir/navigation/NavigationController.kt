@@ -17,6 +17,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.MainActivity
 import com.example.burgir.R
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.Product
 import com.example.burgir.screen.CartScreen
 import com.example.burgir.screen.ProductDetailsScreen

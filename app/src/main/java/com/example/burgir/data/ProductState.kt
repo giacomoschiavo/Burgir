@@ -22,7 +22,7 @@ val products = listOf(
   Product(
     id = 0,
     productName = "Bacon Fries",
-    imageUrl = R.drawable.b_bronx_steakhouse,
+    imageUrl = R.drawable.s_bacon_king_fries_v2,
     category = 1,
     discount = 10,
     isFavorite = true
@@ -30,20 +30,20 @@ val products = listOf(
   Product(
     id = 1,
     productName = "Wrap",
-    imageUrl = R.drawable.burger,
+    imageUrl = R.drawable.c_wrap_di_pollo_croccante,
     category = 2,
     isFavorite = true
   ),
   Product(
     id = 2,
     productName = "Dolce buonissimo",
-    imageUrl = R.drawable.burger,
+    imageUrl = R.drawable.i_sundae_choolate,
     category = 2
   ),
   Product(
     id = 3,
-    productName = "Burger",
-    imageUrl = R.drawable.burger,
+    productName = "Bronx Steakhouse",
+    imageUrl = R.drawable.b_bronx_steakhouse,
     discount = 20,
     category = 0
   ),

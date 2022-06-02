@@ -5,7 +5,12 @@ import android.content.res.TypedArray
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.lifecycle.Observer
+import com.example.burgir.data.BurgirApplication
+import com.example.burgir.data.BurgirViewModel
+import com.example.burgir.data.BurgirViewModelFactory
 import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.BurgirTheme
 import com.google.android.material.color.DynamicColors
@@ -14,17 +19,14 @@ import kotlinx.coroutines.flow.Flow
 
 class MainActivity : ComponentActivity() {
 
-  private val myViewModel: BurgirViewModel by viewModels {
-    BurgirViewModelFactory((application as BurgirApplication).repository)
-  }
-  @OptIn(ExperimentalMaterial3Api::class)
+  //  private val myViewModel: BurgirViewModel by viewModels {
+//    BurgirViewModelFactory((application as BurgirApplication).repository)
+//  }
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    /**
-     * creazione database, PROVA CRASH
-     */
-
+//    var xxx = listOf<Product>()
+//    myViewModel.products.observe(this, { products -> xxx = products })
 
     DynamicColors.applyIfAvailable(this)
     setContent {
