@@ -9,11 +9,22 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.BurgirTheme
 import com.google.android.material.color.DynamicColors
+import kotlinx.coroutines.flow.Flow
 
 
 class MainActivity : ComponentActivity() {
+
+  private val myViewModel: BurgirViewModel by viewModels {
+    BurgirViewModelFactory((application as BurgirApplication).repository)
+  }
+  @OptIn(ExperimentalMaterial3Api::class)
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+
+    /**
+     * creazione database, PROVA CRASH
+     */
+
 
     DynamicColors.applyIfAvailable(this)
     setContent {

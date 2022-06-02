@@ -5,7 +5,7 @@ import androidx.lifecycle.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 //TODO COMMENTARE
-class BurgirViewModel(application: Application): AndroidViewModel(application){
+class BurgirViewModel(private val repository: BurgirRepository): ViewModel(){
     /**
      * NOTA PER IL PRESENTATORE
      * QUESTA LISTA RAPPRESENTA L'ATTUALE LISTA DI PRODOTTI CHE TI INTERESSA MOSTRARE NELL'UI.
@@ -13,21 +13,10 @@ class BurgirViewModel(application: Application): AndroidViewModel(application){
      * QUINDI PER RIAVERLI TUTTI BISOGNERA' RICHIAMARE getAllProducts
      *
      */
-    private val repository: BurgirRepository
-    var products : LiveData<List<Product>>
-    val categories : List<Category>
-    val carts : LiveData<List<Cart>>
-    init{
-        val productDao=BurgirRoomDatabase.getDatabase(application).productDao()
-        val categoryDao=BurgirRoomDatabase.getDatabase(application).categoryDao()
-        val cartDao=BurgirRoomDatabase.getDatabase(application).cartDao()
+    var products : LiveData<List<Product>> =repository.products
+    val categories : List<Category> =repository.categories
+    var carts : LiveData<List<Cart>> = repository.carts
 
-
-        repository= BurgirRepository(productDao,cartDao,categoryDao)
-        products=repository.products
-        categories=repository.categories
-        carts=repository.carts
-    }
 
     /**
      * Category methods
@@ -73,6 +62,9 @@ class BurgirViewModel(application: Application): AndroidViewModel(application){
         }
     }
 
+    fun getAllCarts(){
+        carts=repository.getAllCarts()
+    }
     /**
      * Product methods
      */
@@ -148,6 +140,15 @@ class BurgirViewModel(application: Application): AndroidViewModel(application){
 
     fun cartSize() : LiveData<Int>{
         return repository.cartSize()
+    }
+}
+class BurgirViewModelFactory(private val repository: BurgirRepository) : ViewModelProvider.Factory {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
+        if (modelClass.isAssignableFrom(BurgirViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
+            return BurgirViewModel(repository) as T
+        }
+        throw IllegalArgumentException("Unknown ViewModel class")
     }
 }
 
