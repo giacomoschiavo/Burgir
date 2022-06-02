@@ -1,5 +1,4 @@
 import androidx.compose.foundation.layout.Row
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -9,11 +8,10 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
-import com.example.burgir.ui.theme.AppTypography
 
 @Composable
 fun PriceLabel(
-  price: Float,
+  price: Double,
   modifier: Modifier = Modifier,
   style: TextStyle = TextStyle.Default,
   color: Color = MaterialTheme.colorScheme.onBackground
@@ -27,5 +25,5 @@ fun PriceLabel(
 @Preview(showBackground = true)
 @Composable
 fun PriceLabelPreview() {
-  PriceLabel(1.20f)
+//  PriceLabel(1.20f)
 }

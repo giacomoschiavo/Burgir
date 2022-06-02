@@ -57,22 +57,30 @@ fun NavigationController(resources: Resources) {
   }
 
   Scaffold(
-    modifier = if (currentRoute?.substringBefore("/") == MainActivity.CATEGORY_SCREEN_ROUTE) Modifier.nestedScroll(
+    modifier = if (shouldEnableNestedScroll(currentRoute)) Modifier.nestedScroll(
       scrollBehavior.nestedScrollConnection
     ) else Modifier,
     topBar = {
       when (currentRoute?.substringBefore("/")) {
+        MainActivity.SPLASH_SCREEN_ROUTE -> {}
         MainActivity.PRODUCT_SCREEN_ROUTE -> CustomTopBar(
           navController = navController,
-          scrollBehavior = scrollBehavior
+          scrollBehavior = scrollBehavior,
+          title = "Product"
         )
         MainActivity.CATEGORY_SCREEN_ROUTE -> CustomTopBar(
           navController = navController,
           showFavoriteIcon = false,
           scrollBehavior = scrollBehavior,
-          selectedCategoryId = backStackEntry?.arguments?.getString("categoryId")!!.toInt(),
+          title = getCategoryNameById(backStackEntry?.arguments?.getString("categoryId")!!.toInt()),
         )
-        MainActivity.SPLASH_SCREEN_ROUTE -> {}
+        MainActivity.CART_SCREEN_ROUTE -> CustomTopBar(
+          navController = navController,
+          showFavoriteIcon = false,
+          showCartIcon = false,
+          scrollBehavior = scrollBehavior,
+          title = "Your Cart"
+        )
         else -> LogoWithCartTopAppBar(navController)
       }
     },
@@ -109,4 +117,16 @@ fun NavigationController(resources: Resources) {
       }
     }
   }
+}
+
+fun shouldEnableNestedScroll(currentRoute: String?): Boolean {
+  val substring = currentRoute?.substringBefore("/")
+  return substring == MainActivity.CATEGORY_SCREEN_ROUTE || substring == MainActivity.CART_SCREEN_ROUTE || substring == MainActivity.PRODUCT_SCREEN_ROUTE
+}
+
+fun getCategoryNameById(categoryId: Int): String {
+  val name = categories.find { category ->
+    category.id == categoryId
+  }?.name
+  return name ?: ""
 }

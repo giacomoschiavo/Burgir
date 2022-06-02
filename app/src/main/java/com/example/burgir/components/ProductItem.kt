@@ -4,15 +4,13 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clipToBounds
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.AlignmentLine
-import androidx.compose.ui.layout.VerticalAlignmentLine
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.burgir.R
+import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
 
@@ -31,8 +29,8 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
       Column(
         modifier = Modifier.padding(15.dp), horizontalAlignment = Alignment.CenterHorizontally,
       ) {
-        if (product.sales > 0) Text(
-          text = "${product.sales}% OFF",
+        if (product.discount > 0) Text(
+          text = "${product.discount}% OFF",
           style = AppTypography.bodySmall.copy(fontWeight = FontWeight.Bold),
           color = MaterialTheme.colorScheme.secondary,
           modifier = Modifier.offset(y = 20.dp)
@@ -47,12 +45,12 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
 
         Column(horizontalAlignment = Alignment.CenterHorizontally) {
           Text(
-            text = product.name,
+            text = product.productName,
             style = AppTypography.titleMedium,
             textAlign = TextAlign.Center
           )
           PriceLabel(
-            price = product.price,
+            price = product.productPrice,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f),
             style = AppTypography.titleSmall
           )
@@ -66,6 +64,14 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
 @Composable
 fun ProductItemPreview() {
   BurgirTheme {
-    ProductItem(product = products[0], navigateToProduct = {})
+    ProductItem(
+      product = Product(
+        0,
+        "Hamburger",
+        2.50,
+        20,
+        category = 0,
+        imageUrl = R.drawable.b_bronx_steakhouse
+      ), navigateToProduct = {})
   }
 }

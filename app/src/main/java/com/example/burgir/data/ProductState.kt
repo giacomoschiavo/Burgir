@@ -1,89 +1,106 @@
 import androidx.annotation.DrawableRes
 import androidx.compose.runtime.Immutable
 import com.example.burgir.R
+import com.example.burgir.data.Product
 
-@Immutable
-data class Product(
-  val id: Int = 0,
-  val name: String = "No name",
-  @DrawableRes
-  val imageUrl: Int = R.drawable.burger,
-  val price: Float = 12.34f,
-  val categoryId: Int = 0,
-  val sales: Int = 0,
-  val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare tortor quis sagittis mattis. In sit amet justo eget felis ultrices bibendum. Vivamus in commodo orci, eget faucibus urna. Nunc id felis vitae risus efficitur finibus.",
-  var isFavorite: Boolean = false,
-  var quantity: Int = 0
-)
+//@Immutable
+//data class Product(
+//  val id: Int = 0,
+//  val  productName = : String = "No  productName = ",
+//  @ imageUrl = Res
+//  val imageUrl: Int = R.drawable.burger,
+//  val price: Double = 12.34,
+//  val  category = : Int = 0,
+//  val sales: Int = 0,
+//  val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare tortor quis sagittis mattis. In sit amet justo eget felis ultrices bibendum. Vivamus in commodo orci, eget faucibus urna. Nunc id felis vitae risus efficitur finibus.",
+//  var isFavorite: Boolean = false,
+//  var quantity: Int = 0
+//)
 
 
 val products = listOf(
   Product(
     id = 0,
-    name = "Bacon Fries",
+    productName = "Bacon Fries",
     imageUrl = R.drawable.b_bronx_steakhouse,
-    categoryId = 1,
-    sales = 10,
+    category = 1,
+    discount = 10,
     isFavorite = true
   ),
   Product(
     id = 1,
-    name = "Wrap",
+    productName = "Wrap",
     imageUrl = R.drawable.burger,
-    categoryId = 2,
+    category = 2,
     isFavorite = true
   ),
   Product(
     id = 2,
-    name = "Dolce buonissimo",
+    productName = "Dolce buonissimo",
     imageUrl = R.drawable.burger,
-    categoryId = 2
+    category = 2
   ),
   Product(
     id = 3,
-    name = "Burger",
+    productName = "Burger",
     imageUrl = R.drawable.burger,
-    sales = 20,
+    discount = 20,
+    category = 0
   ),
   Product(
     id = 4,
-    name = "Burger",
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 1
   ),
   Product(
     id = 5,
-    name = "Burger",
+    productName = "Burger",
     imageUrl = R.drawable.burger,
-    isFavorite = true
+    isFavorite = true,
+    category = 0
+
   ),
   Product(
     id = 6,
-    name = "Burger",
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 0
+
   ),
   Product(
     id = 7,
-    name = "Burger",
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 0
+
   ),
   Product(
     id = 8,
-    name = "Burger",
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 0
+
   ),
   Product(
     id = 9,
-    name = "Burger",
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 0
+
   ),
   Product(
     id = 10,
-    name = "Burger",
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 0
+
   ),
   Product(
     id = 11,
-    name = "Burger",
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 0
+
   )
 )

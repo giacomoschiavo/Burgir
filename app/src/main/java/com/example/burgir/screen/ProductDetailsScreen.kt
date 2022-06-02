@@ -1,45 +1,30 @@
 package com.example.burgir.screen
 
 import ProductDescription
-import ProductTopBar
-import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.material.BottomSheetScaffold
-import androidx.compose.material.ExperimentalMaterialApi
-import androidx.compose.material.IconButton
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.ShoppingCart
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.scale
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
-import com.example.burgir.MainActivity
-import com.example.burgir.R
-import com.example.burgir.ui.theme.AppTypography
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.ui.theme.BurgirTheme
-import com.example.burgir.ui.theme.Shapes
 import products
 
 @Composable
 fun ProductDetailsScreen(
   productId: Int,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
 ) {
+
   val product = products.find { product -> product.id == productId }
-  LazyColumn() {
+
+  LazyColumn(modifier = modifier) {
     item {
       Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
         Image(
@@ -50,7 +35,7 @@ fun ProductDetailsScreen(
         )
       }
     }
-    item { ProductDescription(product!!) }
+    item { ProductDescription(product) }
   }
 }
 

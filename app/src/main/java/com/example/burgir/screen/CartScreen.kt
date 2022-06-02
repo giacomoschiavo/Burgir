@@ -1,7 +1,6 @@
 package com.example.burgir.screen
 
 import PriceLabel
-import Product
 import QuantitySelector
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -21,49 +20,52 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.R
+import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.BurgirTheme
 
 val cartList = listOf(
   Product(
     id = 0,
-    name = "Insalata strana",
+    productName = "Insalata strana",
     imageUrl = R.drawable.burger,
-    categoryId = 1,
-    sales = 10,
+    category = 1,
+    discount = 10,
     isFavorite = true,
-    quantity = 2,
   ),
   Product(
     id = 2,
-    name = "Dolce buonissimo",
+    productName = "Dolce buonissimo",
     imageUrl = R.drawable.burger,
-    categoryId = 2,
-    quantity = 1,
+    category = 2,
+    cartQuantity = 1,
   ),
   Product(
     id = 6,
-    quantity = 1,
-    name = "Burger",
-    imageUrl = R.drawable.burger
+    cartQuantity = 1,
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 0,
   ),
   Product(
     id = 7,
-    name = "Burger",
-    quantity = 1,
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    cartQuantity = 1,
+    imageUrl = R.drawable.burger,
+    category = 0,
   ),
   Product(
     id = 8,
-    name = "Burger",
-    quantity = 1,
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    cartQuantity = 1,
+    imageUrl = R.drawable.burger,
+    category = 0,
   ),
   Product(
     id = 9,
-    name = "Burger",
-    quantity = 1,
-    imageUrl = R.drawable.burger
+    productName = "Burger",
+    cartQuantity = 1,
+    imageUrl = R.drawable.burger,
+    category = 0,
   ),
 )
 
@@ -108,7 +110,7 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
       Spacer(modifier = Modifier.size(10.dp))
       Column(verticalArrangement = Arrangement.SpaceBetween) {
         Text(
-          text = product.name,
+          text = product.productName,
           style = AppTypography.titleSmall.copy(fontWeight = FontWeight.Bold)
         )
         QuantitySelector(modifier = Modifier.padding(top = 10.dp))
@@ -123,7 +125,7 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
       IconButton(onClick = { /*TODO*/ }) {
         Icon(imageVector = Icons.Outlined.Delete, contentDescription = "delete icon")
       }
-      PriceLabel(price = product.price)
+      PriceLabel(price = product.productPrice)
     }
   }
 

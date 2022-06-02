@@ -29,11 +29,11 @@ fun CustomTopBar(
   scrollBehavior: TopAppBarScrollBehavior,
   showFavoriteIcon: Boolean = true,
   showCartIcon: Boolean = true,
-  selectedCategoryId: Int = -1,
+  title: String = "",
 ) {
 
   MediumTopAppBar(
-    title = { Text(text = if (selectedCategoryId == -1) "" else categories.find { category -> category.id == selectedCategoryId }!!.name) },
+    title = { Text(text = title) },
     navigationIcon = {
       IconButton(onClick = { navController.popBackStack() }) {
         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back arrow")

@@ -11,6 +11,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -61,7 +62,7 @@ fun Category(
       )
       Text(
         text = category.name,
-        style = AppTypography.labelLarge,
+        style = if (isChosen) AppTypography.labelLarge.copy(fontWeight = FontWeight.Bold) else AppTypography.labelLarge,
       )
     }
   }
