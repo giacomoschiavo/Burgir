@@ -26,7 +26,7 @@ import com.example.burgir.screen.SplashScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationController(resources: Resources) {
+fun NavigationController(resources: Resources, productList: List<Product>) {
   val burgerImageTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers)
   val burgerNamesTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers_names)
   val burgers = mutableListOf<Product>()
@@ -100,7 +100,7 @@ fun NavigationController(resources: Resources) {
         .padding(horizontal = 15.dp),
     ) {
       composable(MainActivity.SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
-      composable(MainActivity.MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct, burgers) }
+      composable(MainActivity.MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct, productList) }
       composable(MainActivity.PROFILE_SCREEN_ROUTE) { ProfileScreen(navController = navController) }
       composable(MainActivity.FAVORITE_SCREEN_ROUTE) { FavoriteScreen(navController = navController) }
       composable(MainActivity.CART_SCREEN_ROUTE) { CartScreen(navController = navController) }
