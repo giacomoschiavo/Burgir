@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
 //    var xxx = listOf<Product>()
 //    myViewModel.products.observe(this, { products -> xxx = products })
 
-    val products = loadAllProducts(resources)
+    var products = loadAllProducts(resources)
 
     DynamicColors.applyIfAvailable(this)
     setContent {

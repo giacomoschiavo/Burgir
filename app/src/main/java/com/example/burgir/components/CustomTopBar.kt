@@ -10,8 +10,7 @@ import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -35,6 +34,9 @@ fun CustomTopBar(
   products: List<Product> = listOf()
 ) {
 
+  val product = products.find { it.id == productId }
+  var isFavorite by remember { mutableStateOf(product!!.isFavorite) }
+
   MediumTopAppBar(
     title = { Text(text = title) },
     navigationIcon = {
@@ -44,10 +46,12 @@ fun CustomTopBar(
     },
     actions = {
       if (showFavoriteIcon) {
-        val product = products.find { it.id == productId }
-        IconButton(onClick = { }) {
+        IconButton(onClick = {
+          product!!.isFavorite = !product.isFavorite
+          isFavorite = !isFavorite
+        }) {
           Icon(
-            imageVector = if (product!!.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
             contentDescription = "Favorite"
           )
         }

@@ -34,17 +34,17 @@ data class Product(
    * boolean value that tells if the product is a user's favorite
    */
 
-  @ColumnInfo(name = "Is_Favorited") val isFavorite: Boolean = false,
+  @ColumnInfo(name = "Is_Favorited") var isFavorite: Boolean = false,
   /**
    * number of times the user has purchased that specific element. (0 by default)
    */
 
   @ColumnInfo(name = "times_purchased") val timesPurchased: Int = 0,
   /**
-     * Identifier of which category the product belongs
-     */
+   * Identifier of which category the product belongs
+   */
 
-    @ColumnInfo(name="category") val category: Int,
+  @ColumnInfo(name = "category") val category: Int,
   /**
      * ImageUrl
      */

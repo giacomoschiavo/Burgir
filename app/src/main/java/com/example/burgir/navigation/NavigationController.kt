@@ -70,7 +70,7 @@ fun NavigationController(products: List<Product>) {
       }
     },
     bottomBar = {
-      when (currentRoute) {
+      when (currentRoute?.substringBefore("/")) {
         MainActivity.PRODUCT_SCREEN_ROUTE, MainActivity.SPLASH_SCREEN_ROUTE, MainActivity.CATEGORY_SCREEN_ROUTE, MainActivity.CART_SCREEN_ROUTE -> {}
         else -> MainNavigationBar(navController)
       }
