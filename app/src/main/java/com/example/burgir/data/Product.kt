@@ -54,7 +54,7 @@ data class Product(
   /**
    * number of times the product is added to the cart at the moment
    */
-  @ColumnInfo(name = "cart_quantity") val cartQuantity: Int = 0
+  @ColumnInfo(name = "cart_quantity") var cartQuantity: Int = 0
 
 
 )

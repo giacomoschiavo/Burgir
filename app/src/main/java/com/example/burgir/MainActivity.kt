@@ -82,7 +82,6 @@ fun loadAllProducts(resources: Resources): List<Product> {
 
   var indexes = 0
   for (i in arrays.indices step 2) {
-    Log.e("TAG", i.toString())
     val typedArray = arrays[i]
     (0 until typedArray.length()).forEach {
       products.add(
@@ -91,7 +90,7 @@ fun loadAllProducts(resources: Resources): List<Product> {
           imageUrl = typedArray.getResourceId(it, 0),
           productName = arrays[i + 1].getString(it)!!,
           category = i / 2,
-          discount = 0,
+          discount = Random.nextInt(0, 9) * 10,
           isFavorite = Random.nextBoolean(),
           timesPurchased = Random.nextInt(0, 5)
         )

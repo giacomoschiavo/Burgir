@@ -19,6 +19,9 @@ fun ProductDescription(product: Product?, modifier: Modifier = Modifier) {
     shape = Shapes.large,
     modifier = modifier
   ) {
+
+    var quantity = 1
+
     if (product == null) {
       Text("No products found :(")
     } else {
@@ -38,7 +41,7 @@ fun ProductDescription(product: Product?, modifier: Modifier = Modifier) {
         PriceLabel(
           price = product.productPrice,
           style = AppTypography.titleLarge,
-          color = androidx.compose.material3.MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
+          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
         )
         Text(
           text = product.description,
@@ -50,9 +53,9 @@ fun ProductDescription(product: Product?, modifier: Modifier = Modifier) {
           verticalAlignment = Alignment.CenterVertically,
           modifier = Modifier.padding(vertical = 10.dp)
         ) {
-          QuantitySelector(modifier = Modifier.padding(horizontal = 10.dp))
+          QuantitySelector({ quantity = it }, modifier = Modifier.padding(horizontal = 10.dp))
           Button(
-            onClick = { },
+            onClick = { product.cartQuantity += quantity },
             modifier = Modifier.weight(1f)
           ) {
             Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = "Cart")
@@ -74,6 +77,6 @@ fun ProductDescription(product: Product?, modifier: Modifier = Modifier) {
 @Composable
 fun ProductDescriptionPreview() {
   BurgirTheme() {
-//    ProductDescription(products[0])
+    ProductDescription(products[0])
   }
 }

@@ -64,7 +64,6 @@ fun NavigationController(products: List<Product>) {
           showFavoriteIcon = false,
           showCartIcon = false,
           scrollBehavior = scrollBehavior,
-          title = "Your Cart"
         )
         else -> LogoWithCartTopAppBar(navController)
       }
@@ -92,7 +91,12 @@ fun NavigationController(products: List<Product>) {
           products = products
         )
       }
-      composable(MainActivity.CART_SCREEN_ROUTE) { CartScreen(navController = navController) }
+      composable(MainActivity.CART_SCREEN_ROUTE) {
+        CartScreen(
+          navController = navController,
+          products = products
+        )
+      }
       composable(MainActivity.SEARCH_SCREEN_ROUTE) { SearchScreen(navigateToCategory = navigateToCategory) }
       composable("${MainActivity.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
         ProductDetailsScreen(

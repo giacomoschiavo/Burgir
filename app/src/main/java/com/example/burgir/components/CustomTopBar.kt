@@ -34,8 +34,7 @@ fun CustomTopBar(
   products: List<Product> = listOf()
 ) {
 
-  val product = products.find { it.id == productId }
-  var isFavorite by remember { mutableStateOf(product!!.isFavorite) }
+
 
   MediumTopAppBar(
     title = { Text(text = title) },
@@ -46,6 +45,8 @@ fun CustomTopBar(
     },
     actions = {
       if (showFavoriteIcon) {
+        val product = products.find { it.id == productId }
+        var isFavorite by remember { mutableStateOf(product!!.isFavorite) }
         IconButton(onClick = {
           product!!.isFavorite = !product.isFavorite
           isFavorite = !isFavorite

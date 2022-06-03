@@ -70,18 +70,24 @@ val cartList = listOf(
 )
 
 @Composable
-fun CartScreen(navController: NavController) {
+fun CartScreen(navController: NavController, products: List<Product>) {
+  val purchasedProducts = products.filter { it.cartQuantity > 0 }
+  val originalPrice = purchasedProducts.sumOf { it.productPrice * it.cartQuantity }
+  val discount = purchasedProducts.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }
   Column() {
     LazyColumn(
       modifier = Modifier.weight(0.8f),
       contentPadding = PaddingValues(vertical = 10.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-      items(cartList, key = { product -> product.id }) { product ->
+      items(purchasedProducts, key = { product -> product.id }) { product ->
         RowCartItem(product, modifier = Modifier.padding(10.dp))
       }
     }
     PaymentSummary(
+      originalPrice = originalPrice,
+      discount = discount,
+      finalPrice = originalPrice - discount,
       modifier = Modifier
         .weight(0.3f)
         .padding(15.dp)
@@ -111,7 +117,11 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
           text = product.productName,
           style = AppTypography.titleSmall.copy(fontWeight = FontWeight.Bold)
         )
-        QuantitySelector(modifier = Modifier.padding(top = 10.dp))
+        QuantitySelector(
+          { product.cartQuantity = it },
+          modifier = Modifier.padding(top = 10.dp),
+          initialQuantity = product.cartQuantity
+        )
       }
     }
     Column(
@@ -120,7 +130,7 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
       verticalArrangement = Arrangement.Top,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      IconButton(onClick = { /*TODO*/ }) {
+      IconButton(onClick = { product.cartQuantity = 0 }) {
         Icon(imageVector = Icons.Outlined.Delete, contentDescription = "delete icon")
       }
       PriceLabel(price = product.productPrice)
@@ -130,7 +140,12 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
 }
 
 @Composable
-fun PaymentSummary(modifier: Modifier = Modifier) {
+fun PaymentSummary(
+  originalPrice: Double,
+  discount: Double,
+  finalPrice: Double,
+  modifier: Modifier = Modifier
+) {
 
   Column(modifier = modifier) {
     Column(
@@ -139,9 +154,9 @@ fun PaymentSummary(modifier: Modifier = Modifier) {
         .weight(1f)
         .padding(vertical = 5.dp)
     ) {
-      PaymentSummaryItem("Items", 20.60)
-      PaymentSummaryItem("Discount", -0.60)
-      PaymentSummaryItem("Cost", 19.90)
+      PaymentSummaryItem("Items", originalPrice)
+      PaymentSummaryItem("Discount", discount)
+      PaymentSummaryItem("Cost", finalPrice)
     }
     Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
       Text(text = "Payment & delivery")
@@ -171,14 +186,14 @@ fun RowCartItemPreview() {
 @Preview(showBackground = true, heightDp = 150)
 @Composable
 fun PaymentSummaryPreview() {
-  PaymentSummary()
+  PaymentSummary(discount = 0.0, finalPrice = 12.32, originalPrice = 12.34)
 }
 
 
 @Preview(showBackground = true, heightDp = 700, widthDp = 400)
 @Composable
 fun CartScreenPreview() {
-  CartScreen(rememberNavController())
+  CartScreen(rememberNavController(), cartList)
 }
 
 
