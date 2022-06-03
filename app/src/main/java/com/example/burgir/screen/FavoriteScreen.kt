@@ -9,12 +9,16 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.MainActivity
-import com.example.burgir.data.BurgirViewModel
+import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
-fun FavoriteScreen(navController: NavController, modifier: Modifier = Modifier) {
+fun FavoriteScreen(
+  navController: NavController,
+  products: List<Product>,
+  modifier: Modifier = Modifier
+) {
 
   ProductsGrid(
     header = {
@@ -25,7 +29,7 @@ fun FavoriteScreen(navController: NavController, modifier: Modifier = Modifier) 
         modifier = modifier.paddingFromBaseline(bottom = 15.dp)
       )
     },
-    products = products,
+    products = products.filter { it.isFavorite },
     navigateToProduct = { productId ->
       navController.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
         popUpTo(MainActivity.SEARCH_SCREEN_ROUTE)
@@ -38,6 +42,8 @@ fun FavoriteScreen(navController: NavController, modifier: Modifier = Modifier) 
 @Composable
 fun FavoriteScreenPreview() {
   BurgirTheme() {
-    FavoriteScreen(navController = rememberNavController())
+    FavoriteScreen(
+      navController = rememberNavController(),
+      products = products.filter { it.isFavorite })
   }
 }

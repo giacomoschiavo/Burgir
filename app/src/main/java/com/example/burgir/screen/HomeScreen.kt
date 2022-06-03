@@ -27,7 +27,7 @@ import com.example.burgir.ui.theme.BurgirTheme
 @Composable
 fun HomeScreen(
   navigateToProduct: (Int) -> Unit,
-  popularProducts: (List<Product>),
+  products: List<Product>,
   modifier: Modifier = Modifier
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
@@ -35,7 +35,7 @@ fun HomeScreen(
   LazyVerticalGrid(
     columns = GridCells.Fixed(2),
   ) {
-    item(span = { GridItemSpan(2) }, key = "profile name") {
+    item(span = { GridItemSpan(2) }, key = 123) {
       Text(
         text = buildAnnotatedString {
           append("Hey, ")
@@ -47,21 +47,21 @@ fun HomeScreen(
         color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
       )
     }
-    item(key = "spacer0") { Spacer(modifier = Modifier.size(10.dp)) }
-    item(span = { GridItemSpan(2) }, key = "choose") {
+    item(key = 124) { Spacer(modifier = Modifier.size(10.dp)) }
+    item(span = { GridItemSpan(2) }, key = 125) {
       Text(
         text = "Choose Your\nBest Meal",
         style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
       )
     }
-    item(span = { GridItemSpan(2) }, key = "category slider") {
+    item(span = { GridItemSpan(2) }, key = 126) {
       CategorySlider(
         chosenCategoryId,
         { newCategoryId -> chosenCategoryId = newCategoryId },
       )
     }
-    item(key = "spacer1") { Spacer(modifier = Modifier.size(20.dp)) }
-    item(span = { GridItemSpan(2) }, key = "popular") {
+    item(key = 127) { Spacer(modifier = Modifier.size(20.dp)) }
+    item(span = { GridItemSpan(2) }, key = 128) {
       Text(
         text = "Popular",
         style = AppTypography.headlineMedium,
@@ -69,9 +69,9 @@ fun HomeScreen(
       )
     }
     items(
-      popularProducts,
-      key = { product -> product.id },
-      span = { product -> if (product.productName.length > 15) GridItemSpan(2) else GridItemSpan(1) }) { product ->
+      products.filter { it.category == chosenCategoryId }.sortedByDescending { it.timesPurchased }
+        .take(5),
+      key = { product -> product.id }) { product ->
       ProductItem(product, navigateToProduct)
     }
   }

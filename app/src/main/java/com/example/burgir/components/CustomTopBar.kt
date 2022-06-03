@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.MainActivity
+import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 
@@ -30,6 +31,8 @@ fun CustomTopBar(
   showFavoriteIcon: Boolean = true,
   showCartIcon: Boolean = true,
   title: String = "",
+  productId: Int = -1,
+  products: List<Product> = listOf()
 ) {
 
   MediumTopAppBar(
@@ -41,8 +44,12 @@ fun CustomTopBar(
     },
     actions = {
       if (showFavoriteIcon) {
-        IconButton(onClick = { /*TODO*/ }) {
-          Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = "Favorite")
+        val product = products.find { it.id == productId }
+        IconButton(onClick = { }) {
+          Icon(
+            imageVector = if (product!!.isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+            contentDescription = "Favorite"
+          )
         }
       }
       if (showCartIcon) {

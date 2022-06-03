@@ -29,7 +29,7 @@ data class Product(
    * description of the product
    */
 
-  @ColumnInfo(name = "Product_Description") val description: String = "",
+  @ColumnInfo(name = "Product_Description") val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quis aliquet nisl. In vestibulum pulvinar urna, id vestibulum ipsum tempus in. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. In id egestas neque. Curabitur a nibh luctus, varius lacus eu, scelerisque arcu",
   /**
    * boolean value that tells if the product is a user's favorite
    */

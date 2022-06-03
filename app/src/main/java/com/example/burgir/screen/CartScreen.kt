@@ -77,17 +77,15 @@ fun CartScreen(navController: NavController) {
       contentPadding = PaddingValues(vertical = 10.dp),
       horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-      items(cartList) { product ->
+      items(cartList, key = { product -> product.id }) { product ->
         RowCartItem(product, modifier = Modifier.padding(10.dp))
       }
     }
     PaymentSummary(
       modifier = Modifier
-        .weight(0.2f)
+        .weight(0.3f)
         .padding(15.dp)
-        .heightIn(180.dp)
     )
-
   }
 }
 
@@ -119,7 +117,7 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
     Column(
       modifier = Modifier
         .weight(0.3f),
-      verticalArrangement = Arrangement.SpaceAround,
+      verticalArrangement = Arrangement.Top,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
       IconButton(onClick = { /*TODO*/ }) {
@@ -133,24 +131,32 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
 
 @Composable
 fun PaymentSummary(modifier: Modifier = Modifier) {
+
   Column(modifier = modifier) {
-    Column(verticalArrangement = Arrangement.SpaceEvenly, modifier = Modifier.weight(1f)) {
-      PaymentSummaryItem("Items", "$20.60")
-      PaymentSummaryItem("Discount", "-0.60$")
-      PaymentSummaryItem("Cost", "$19.90")
+    Column(
+      verticalArrangement = Arrangement.SpaceEvenly,
+      modifier = Modifier
+        .weight(1f)
+        .padding(vertical = 5.dp)
+    ) {
+      PaymentSummaryItem("Items", 20.60)
+      PaymentSummaryItem("Discount", -0.60)
+      PaymentSummaryItem("Cost", 19.90)
     }
     Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
       Text(text = "Payment & delivery")
       Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "arrow")
     }
   }
+
+
 }
 
 @Composable
-fun PaymentSummaryItem(key: String, value: String) {
+fun PaymentSummaryItem(key: String, value: Double) {
   Row() {
     Text(text = key, modifier = Modifier.weight(1f))
-    Text(text = value)
+    PriceLabel(price = value)
   }
 }
 

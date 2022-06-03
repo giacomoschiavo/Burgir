@@ -1,5 +1,3 @@
-import android.content.res.Resources
-import android.content.res.TypedArray
 import androidx.compose.animation.rememberSplineBasedDecay
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -16,8 +14,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.MainActivity
-import com.example.burgir.R
-import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.Product
 import com.example.burgir.screen.CartScreen
 import com.example.burgir.screen.ProductDetailsScreen
@@ -26,23 +22,7 @@ import com.example.burgir.screen.SplashScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NavigationController(resources: Resources) {
-  val burgerImageTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers)
-  val burgerNamesTypedArray: TypedArray = resources.obtainTypedArray(R.array.burgers_names)
-  val burgers = mutableListOf<Product>()
-  (0 until burgerNamesTypedArray.length()).forEach {
-    burgers.add(
-      Product(
-        id = it,
-        imageUrl = burgerImageTypedArray.getResourceId(it, 0),
-        productName = burgerNamesTypedArray.getString(it)!!,
-        category = 0,
-        discount = 20
-      )
-    )
-  }
-  burgerImageTypedArray.recycle()
-  burgerNamesTypedArray.recycle()
+fun NavigationController(products: List<Product>) {
 
   val navController = rememberNavController()
   val backStackEntry by navController.currentBackStackEntryAsState()
@@ -52,6 +32,7 @@ fun NavigationController(resources: Resources) {
     { navController.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$it") { launchSingleTop } }
   val navigateToCategory: (Int) -> Unit =
     { navController.navigate("${MainActivity.CATEGORY_SCREEN_ROUTE}/$it") { launchSingleTop } }
+
 
   val decayAnimationSpec = rememberSplineBasedDecay<Float>()
   val scrollBehavior = remember(decayAnimationSpec) {
@@ -68,7 +49,9 @@ fun NavigationController(resources: Resources) {
         MainActivity.PRODUCT_SCREEN_ROUTE -> CustomTopBar(
           navController = navController,
           scrollBehavior = scrollBehavior,
-          title = "Product"
+          title = "Product",
+          productId = backStackEntry?.arguments?.getString("productId")!!.toInt(),
+          products = products
         )
         MainActivity.CATEGORY_SCREEN_ROUTE -> CustomTopBar(
           navController = navController,
@@ -95,30 +78,39 @@ fun NavigationController(resources: Resources) {
   ) { innerPadding ->
     NavHost(
       navController = navController,
-      startDestination = MainActivity.SPLASH_SCREEN_ROUTE,
+      startDestination = MainActivity.MENU_SCREEN_ROUTE,
       modifier = Modifier
         .padding(innerPadding)
         .padding(horizontal = 15.dp),
     ) {
       composable(MainActivity.SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
-      composable(MainActivity.MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct, burgers) }
+      composable(MainActivity.MENU_SCREEN_ROUTE) { HomeScreen(navigateToProduct, products) }
       composable(MainActivity.PROFILE_SCREEN_ROUTE) { ProfileScreen(navController = navController) }
-      composable(MainActivity.FAVORITE_SCREEN_ROUTE) { FavoriteScreen(navController = navController) }
+      composable(MainActivity.FAVORITE_SCREEN_ROUTE) {
+        FavoriteScreen(
+          navController = navController,
+          products = products
+        )
+      }
       composable(MainActivity.CART_SCREEN_ROUTE) { CartScreen(navController = navController) }
       composable(MainActivity.SEARCH_SCREEN_ROUTE) { SearchScreen(navigateToCategory = navigateToCategory) }
       composable("${MainActivity.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
         ProductDetailsScreen(
-          productId = backStackEntry.arguments?.getString("productId")!!.toInt()
+          productId = backStackEntry.arguments?.getString("productId")!!.toInt(),
+          products = products
         )
       }
       composable("${MainActivity.CATEGORY_SCREEN_ROUTE}/{categoryId}") { backStackEntry ->
         CategoryScreen(
           categoryId = backStackEntry.arguments?.getString("categoryId")!!.toInt(),
-          navigateToProduct = navigateToProduct
+          navigateToProduct = navigateToProduct,
+          products = products
         )
       }
     }
   }
+
+
 }
 
 fun shouldEnableNestedScroll(currentRoute: String?): Boolean {
@@ -132,3 +124,4 @@ fun getCategoryNameById(categoryId: Int): String {
   }?.name
   return name ?: ""
 }
+
