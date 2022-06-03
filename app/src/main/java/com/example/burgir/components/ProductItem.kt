@@ -71,7 +71,7 @@ fun ProductItemPreview() {
         2.50,
         20,
         category = 0,
-        imageUrl = R.drawable.b_bronx_steakhouse
+        imageUrl = R.drawable.b_bigmac
       ), navigateToProduct = {})
   }
 }

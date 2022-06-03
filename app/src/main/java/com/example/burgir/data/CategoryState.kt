@@ -15,25 +15,25 @@ val categories = listOf(
   CategoryUiState(
     id = 0,
     name = "Burger",
-    imageRes = R.drawable.b_bronx_steakhouse,
+    imageRes = R.drawable.b_cheeseburger,
     color = Color.hsv(25f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 1,
     name = "Snacks",
-    imageRes = R.drawable.s_patatine_1350x1515_m,
+    imageRes = R.drawable.s_patetine,
     color = Color.hsv(45f, 0.96f, 1f)
   ),
   CategoryUiState(
     id = 2,
     name = "Chickens",
-    imageRes = R.drawable.c_chicken_royale,
+    imageRes = R.drawable.c_mcchicken,
     color = Color.hsv(120f, 0.7f, 1f)
   ),
   CategoryUiState(
     id = 3,
     name = "Ice Creams",
-    imageRes = R.drawable.i_sundae_choolate,
+    imageRes = R.drawable.i_cone,
     color = Color.hsv(200f, 0.96f, 1f)
   ),
   CategoryUiState(
