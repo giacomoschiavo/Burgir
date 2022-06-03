@@ -9,6 +9,7 @@ import androidx.compose.runtime.*
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -59,7 +60,9 @@ fun SearchScreen(navigateToCategory: (Int) -> Unit, modifier: Modifier = Modifie
         )
       ) {
         Row(
-          horizontalArrangement = Arrangement.SpaceBetween
+          horizontalArrangement = Arrangement.Center,
+          verticalAlignment = Alignment.CenterVertically,
+          modifier = Modifier.height(100.dp)
         ) {
           Text(
             text = category.name,
@@ -68,13 +71,13 @@ fun SearchScreen(navigateToCategory: (Int) -> Unit, modifier: Modifier = Modifie
               .padding(25.dp),
             style = AppTypography.headlineSmall.copy(fontWeight = FontWeight.Bold)
           )
-          Image(
-            painter = painterResource(id = category.imageRes),
-            contentDescription = null,
-            modifier = Modifier
-              .padding(15.dp)
-              .widthIn(100.dp, 140.dp)
-          )
+//          Image(
+//            painter = painterResource(id = category.imageRes),
+//            contentDescription = null,
+//            modifier = Modifier
+//              .padding(15.dp)
+//              .scale(1.5f)
+//          )
         }
       }
     }

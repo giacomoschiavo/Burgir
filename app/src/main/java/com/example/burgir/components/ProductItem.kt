@@ -4,6 +4,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -24,16 +25,18 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
   ) {
     ElevatedCard(
       onClick = { navigateToProduct(product.id) },
-      modifier = Modifier.heightIn(200.dp)
     ) {
       Column(
-        modifier = Modifier.padding(15.dp), horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier
+          .padding(15.dp)
+          .fillMaxHeight(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceBetween
       ) {
         if (product.discount > 0) Text(
           text = "${product.discount}% OFF",
           style = AppTypography.bodySmall.copy(fontWeight = FontWeight.Bold),
           color = MaterialTheme.colorScheme.secondary,
-          modifier = Modifier.offset(y = 20.dp)
         )
         Image(
           painter = painterResource(product.imageUrl),
@@ -41,9 +44,13 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
           modifier = Modifier
             .fillMaxWidth()
             .padding(10.dp)
+            .scale(1.1f)
         )
 
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        Column(
+          verticalArrangement = Arrangement.SpaceBetween,
+          horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
           Text(
             text = product.productName,
             style = AppTypography.titleMedium,
@@ -52,7 +59,8 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
           PriceLabel(
             price = product.productPrice,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f),
-            style = AppTypography.titleSmall
+            style = AppTypography.titleSmall,
+            modifier = Modifier.padding(vertical = 5.dp)
           )
         }
       }
@@ -60,7 +68,7 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
   }
 }
 
-@Preview(showBackground = true, widthDp = 200)
+@Preview(showBackground = true, widthDp = 200, heightDp = 250)
 @Composable
 fun ProductItemPreview() {
   BurgirTheme {

@@ -1,4 +1,5 @@
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -63,14 +64,15 @@ fun HomeScreen(
     item(span = { GridItemSpan(2) }, key = "popular") {
       Text(
         text = "Popular",
-        style = AppTypography.headlineMedium.copy(fontWeight = FontWeight.Bold),
+        style = AppTypography.headlineMedium,
         modifier = Modifier.paddingFromBaseline(top = 10.dp)
       )
     }
     items(
       popularProducts,
-      key = { product -> product.id }) { product ->
-      ProductItem(product, navigateToProduct, modifier)
+      key = { product -> product.id },
+      span = { product -> if (product.productName.length > 15) GridItemSpan(2) else GridItemSpan(1) }) { product ->
+      ProductItem(product, navigateToProduct)
     }
   }
 }
@@ -80,6 +82,6 @@ fun HomeScreen(
 @Composable
 fun ScreenPreview() {
   BurgirTheme {
-    HomeScreen({ }, listOf())
+    HomeScreen({ }, products)
   }
 }

@@ -43,22 +43,20 @@ fun Category(
   ElevatedCard(
     onClick = { onCategoryClicked(category.id) },
     modifier = modifier
-      .widthIn(90.dp)
+      .size(110.dp)
       .scale(scale),
     colors = CardDefaults.elevatedCardColors(containerColor = backgroundColor),
   ) {
     Column(
       modifier = Modifier
-        .padding(10.dp)
+        .padding(5.dp)
         .align(Alignment.CenterHorizontally),
       horizontalAlignment = Alignment.CenterHorizontally,
     ) {
       Image(
         painter = painterResource(category.imageRes),
         contentDescription = null,
-        modifier = Modifier
-          .size(70.dp)
-          .padding(5.dp)
+        modifier = Modifier.weight(1f)
       )
       Text(
         text = category.name,

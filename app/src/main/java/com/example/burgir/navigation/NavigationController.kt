@@ -37,6 +37,7 @@ fun NavigationController(resources: Resources) {
         imageUrl = burgerImageTypedArray.getResourceId(it, 0),
         productName = burgerNamesTypedArray.getString(it)!!,
         category = 0,
+        discount = 20
       )
     )
   }
