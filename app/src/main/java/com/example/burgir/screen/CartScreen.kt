@@ -9,7 +9,10 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material3.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -18,9 +21,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.burgir.R
+import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.Product
+import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 
 val cartList = listOf(
@@ -70,29 +74,32 @@ val cartList = listOf(
 )
 
 @Composable
-fun CartScreen(navController: NavController, products: List<Product>) {
+fun CartScreen(navController: NavController, products: List<Product>, appState: AppState) {
   val purchasedProducts = products.filter { it.cartQuantity > 0 }
   val originalPrice = purchasedProducts.sumOf { it.productPrice * it.cartQuantity }
   val discount = purchasedProducts.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }
-  Column() {
-    LazyColumn(
-      modifier = Modifier.weight(0.8f),
-      contentPadding = PaddingValues(vertical = 10.dp),
-      horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-      items(purchasedProducts, key = { product -> product.id }) { product ->
-        RowCartItem(product, modifier = Modifier.padding(10.dp))
+  SecondaryScaffold(appState = appState, title = "Your Cart", content = { innerPadding ->
+    Column(modifier = Modifier.padding(innerPadding)) {
+      LazyColumn(
+        modifier = Modifier.weight(0.8f),
+        contentPadding = PaddingValues(vertical = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+      ) {
+        items(purchasedProducts, key = { product -> product.id }) { product ->
+          RowCartItem(product, modifier = Modifier.padding(10.dp))
+        }
       }
+      PaymentSummary(
+        originalPrice = originalPrice,
+        discount = discount,
+        finalPrice = originalPrice - discount,
+        modifier = Modifier
+          .weight(0.3f)
+          .padding(15.dp)
+      )
     }
-    PaymentSummary(
-      originalPrice = originalPrice,
-      discount = discount,
-      finalPrice = originalPrice - discount,
-      modifier = Modifier
-        .weight(0.3f)
-        .padding(15.dp)
-    )
-  }
+  })
+
 }
 
 
@@ -193,7 +200,7 @@ fun PaymentSummaryPreview() {
 @Preview(showBackground = true, heightDp = 700, widthDp = 400)
 @Composable
 fun CartScreenPreview() {
-  CartScreen(rememberNavController(), cartList)
+//  CartScreen(rememberNavController(), cartList, appState)
 }
 
 

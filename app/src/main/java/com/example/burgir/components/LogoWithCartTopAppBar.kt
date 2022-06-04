@@ -1,22 +1,21 @@
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.AccountCircle
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.burgir.MainActivity
-import com.example.burgir.R
 import com.example.burgir.ui.theme.AppTypography
 
 // questo componente compare nelle 4 schermate principali
 @Composable
-fun LogoWithCartTopAppBar(navController: NavController, modifier: Modifier = Modifier) {
+fun LogoWithCartTopAppBar(
+  navController: NavController,
+  scrollBehavior: TopAppBarScrollBehavior,
+  modifier: Modifier = Modifier
+) {
   CenterAlignedTopAppBar(
     title = { Text("🅱", style = AppTypography.titleLarge) },
     actions = {
@@ -33,6 +32,7 @@ fun LogoWithCartTopAppBar(navController: NavController, modifier: Modifier = Mod
         }
       }
     },
-    modifier = modifier
+    modifier = modifier,
+    scrollBehavior = scrollBehavior
   )
 }

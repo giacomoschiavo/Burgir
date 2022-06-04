@@ -20,61 +20,66 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.burgir.data.Product
+import com.example.burgir.components.PrimaryScaffold
+import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
 fun HomeScreen(
-  navigateToProduct: (Int) -> Unit,
-  products: List<Product>,
+  appState: AppState,
   modifier: Modifier = Modifier
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
 
-  LazyVerticalGrid(
-    columns = GridCells.Fixed(2),
-  ) {
-    item(span = { GridItemSpan(2) }, key = 123) {
-      Text(
-        text = buildAnnotatedString {
-          append("Hey, ")
-          withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-            append("Mike")
-          }
-        },
-        style = AppTypography.titleLarge,
-        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
-      )
-    }
-    item(key = 124) { Spacer(modifier = Modifier.size(10.dp)) }
-    item(span = { GridItemSpan(2) }, key = 125) {
-      Text(
-        text = "Choose Your\nBest Meal",
-        style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
-      )
-    }
-    item(span = { GridItemSpan(2) }, key = 126) {
-      CategorySlider(
-        chosenCategoryId,
-        { newCategoryId -> chosenCategoryId = newCategoryId },
-      )
-    }
-    item(key = 127) { Spacer(modifier = Modifier.size(20.dp)) }
-    item(span = { GridItemSpan(2) }, key = 128) {
-      Text(
-        text = "Popular",
-        style = AppTypography.headlineMedium,
-        modifier = Modifier.paddingFromBaseline(top = 10.dp)
-      )
-    }
-    items(
-      products.filter { it.category == chosenCategoryId }.sortedByDescending { it.timesPurchased }
-        .take(5),
-      key = { product -> product.id }) { product ->
-      ProductItem(product, navigateToProduct)
+  PrimaryScaffold(appState) { innerPadding ->
+    LazyVerticalGrid(
+      columns = GridCells.Fixed(2),
+      modifier = Modifier.padding(innerPadding)
+    ) {
+      item(span = { GridItemSpan(2) }, key = 123) {
+        Text(
+          text = buildAnnotatedString {
+            append("Hey, ")
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+              append("Mike")
+            }
+          },
+          style = AppTypography.titleLarge,
+          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+        )
+      }
+      item(key = 124) { Spacer(modifier = Modifier.size(10.dp)) }
+      item(span = { GridItemSpan(2) }, key = 125) {
+        Text(
+          text = "Choose Your\nBest Meal",
+          style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
+        )
+      }
+      item(span = { GridItemSpan(2) }, key = 126) {
+        CategorySlider(
+          chosenCategoryId,
+          { newCategoryId -> chosenCategoryId = newCategoryId },
+        )
+      }
+      item(key = 127) { Spacer(modifier = Modifier.size(20.dp)) }
+      item(span = { GridItemSpan(2) }, key = 128) {
+        Text(
+          text = "Popular",
+          style = AppTypography.headlineMedium,
+          modifier = Modifier.paddingFromBaseline(top = 10.dp)
+        )
+      }
+      items(
+        appState.products.filter { it.category == chosenCategoryId }
+          .sortedByDescending { it.timesPurchased }
+          .take(5),
+        key = { product -> product.id }) { product ->
+        ProductItem(product, appState.navigateToProduct)
+      }
     }
   }
+
 }
 
 
@@ -82,6 +87,6 @@ fun HomeScreen(
 @Composable
 fun ScreenPreview() {
   BurgirTheme {
-    HomeScreen({ }, products)
+//    HomeScreen({ }, products)
   }
 }

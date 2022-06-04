@@ -1,27 +1,17 @@
-import android.util.Log
-import androidx.compose.animation.rememberSplineBasedDecay
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.MainActivity
 import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.BurgirTheme
-import com.example.burgir.ui.theme.Shapes
 
 @Composable
 fun CustomTopBar(
@@ -33,8 +23,6 @@ fun CustomTopBar(
   productId: Int = -1,
   products: List<Product> = listOf()
 ) {
-
-
 
   MediumTopAppBar(
     title = { Text(text = title) },
