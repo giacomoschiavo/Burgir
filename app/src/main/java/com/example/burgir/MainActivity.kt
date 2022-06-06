@@ -6,8 +6,9 @@ import android.content.res.TypedArray
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material3.Surface
-import com.example.burgir.data.Product
+import com.example.burgir.data.*
 import com.example.compose.BurgirTheme
 import com.google.android.material.color.DynamicColors
 import kotlin.random.Random
