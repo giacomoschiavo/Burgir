@@ -4,7 +4,9 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 /**
  * This is the backend. The database. This used to be done by the OpenHelper.
@@ -17,6 +19,26 @@ abstract class BurgirRoomDatabase : RoomDatabase() {
     abstract fun categoryDao() : CategoryDao
     abstract fun cartDao(): CartDao
 
+    private class BurgirDatabaseCallback(
+        private val scope: CoroutineScope
+    ) : RoomDatabase.Callback() {
+
+        override fun onCreate(db: SupportSQLiteDatabase) {
+            super.onCreate(db)
+            INSTANCE?.let { database ->
+                scope.launch {
+                    var productDao = database.productDao()
+                    var categoryDao = database.categoryDao()
+
+                    categoryDao.insert(Category(0,"Burgers",25f,0.96f,1f))
+                    categoryDao.insert(Category(0,"Chickens",120f,0.7f,1f))
+                    categoryDao.insert(Category(0,"Snacks",45f,0.96f,1f))
+                    categoryDao.insert(Category(0,"Ice creams",200f,0.96f,1f))
+                    categoryDao.insert(Category(0,"Drinks",285f,0.96f,1f))
+                }
+            }
+        }
+    }
     companion object {
         @Volatile
         private var INSTANCE: BurgirRoomDatabase? = null
@@ -33,48 +55,12 @@ abstract class BurgirRoomDatabase : RoomDatabase() {
                     BurgirRoomDatabase::class.java,
                     "burgir_database"
                 )
-                    // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
-                    .fallbackToDestructiveMigration()
+                    .addCallback(BurgirDatabaseCallback(scope))
                     .build()
                 INSTANCE = instance
                 // return instance
                 instance
             }
         }
-/**
-        private class WordDatabaseCallback(
-            private val scope: CoroutineScope
-        ) : RoomDatabase.Callback() {
-            /**
-             * Override the onCreate method to populate the database.
-             */
-            override fun onCreate(db: SupportSQLiteDatabase) {
-                super.onCreate(db)
-                // If you want to keep the data through app restarts,
-                // comment out the following line.
-                INSTANCE?.let { database ->
-                    scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.wordDao())
-                    }
-                }
-            }
-        }
-
-        /**
-         * Populate the database in a new coroutine.
-         * If you want to start with more words, just add them.
-         */
-        suspend fun populateDatabase(wordDao: WordDao) {
-            // Start the app with a clean database every time.
-            // Not needed if you only populate on creation.
-            wordDao.deleteAll()
-
-            var word = Word("Hello")
-            wordDao.insert(word)
-            word = Word("World!")
-            wordDao.insert(word)
-        }
-        */
     }
 }
