@@ -50,7 +50,7 @@ fun HomeScreen(
               append("Mike")
             }
           },
-          style = AppTypography.titleLarge,
+          style = AppTypography.titleMedium,
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
         )
       }

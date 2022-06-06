@@ -24,6 +24,7 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     var xxx = listOf<Product>()
+    myViewModel.getProductsByPopularity()
     myViewModel.products.observe(this) { products -> xxx = products }
 
     val products = loadAllProducts(resources)
@@ -32,7 +33,7 @@ class MainActivity : ComponentActivity() {
     setContent {
       BurgirTheme() {
         Surface() {
-          NavigationController(xxx)
+          NavigationController(products)
         }
       }
     }

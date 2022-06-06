@@ -28,7 +28,7 @@ fun Category(
 ) {
 
   val backgroundColor by animateColorAsState(
-    targetValue = if (isChosen) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background,
+    targetValue = if (isChosen) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.background,
     animationSpec = tween(durationMillis = 50, easing = FastOutSlowInEasing)
   )
   val scale by animateFloatAsState(
