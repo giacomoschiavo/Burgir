@@ -1,7 +1,8 @@
 package com.example.burgir.data
 
-import androidx.lifecycle.LiveData
+import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
+
 //TODO COMMENTARE
 class BurgirRepository(private val productDao: ProductDao, private val cartDao: CartDao, private val categoryDao: CategoryDao) {
     /**
@@ -11,45 +12,52 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
      * QUINDI PER RIAVERLI TUTTI BISOGNERA' RICHIAMARE getAllProducts
      *
      */
-    var products : LiveData<List<Product>> = productDao.getAllProducts()
-    val categories : List<Category> = categoryDao.getAllCategories()
-    val carts : LiveData<List<Cart>> = cartDao.getAllCarts()
+    val products : Flow<List<Product>> = productDao.getAllProducts()
+    val categories : Flow<List<Category>> = categoryDao.getAllCategories()
+    val carts : Flow<List<Cart>> = cartDao.getAllCarts()
     /**
      * CATEGORY METHODS
      */
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun insertCategory(category: Category) {
         categoryDao.insert(category)
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun deleteCategory(category: Category) {
         categoryDao.delete(category)
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun updateCategory(category: Category){
         categoryDao.update(category)
     }
 
-    fun getCategoryById(id: Int) : Category{
-         return categoryDao.getCategoryById(id);
-    }
+    //    fun getCategoryById(id: Int) : Category{
+    //     return categoryDao.getCategoryById(id);
+    //}
     /**
      * CART METHODS
      */
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun insertCart(cart: Cart){
         cartDao.insert(cart)
     }
-
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun deleteCart(cart:Cart){
         cartDao.delete(cart)
     }
-
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun updateCart(cart: Cart){
         cartDao.update(cart)
     }
 
-    fun getAllCarts() : LiveData<List<Cart>>{
-        return cartDao.getAllCarts()
-    }
     /**
      * PRODUCT METHODS
      */
@@ -57,21 +65,22 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
     /**
      * GET ACTUAL PRODUCTS
      */
-    fun getActualProducts(): LiveData<List<Product>>{
-        return products
-    }
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun insertProduct(product: Product){
         productDao.insert(product)
     }
-
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun deleteProduct(product: Product){
         productDao.delete(product)
     }
-
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun updateProduct(product: Product){
         productDao.update(product)
     }
-
+    /**
     fun getAllProducts(): LiveData<List<Product>>{
         return productDao.getAllProducts()
     }
@@ -115,4 +124,5 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
     fun cartSize(): LiveData<Int>{
         return productDao.cartSize()
     }
+    */
 }
