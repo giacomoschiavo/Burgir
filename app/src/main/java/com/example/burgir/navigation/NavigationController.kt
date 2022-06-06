@@ -19,7 +19,7 @@ fun NavigationController(products: List<Product>) {
     navController = navController,
     startDestination = AppState.SPLASH_SCREEN_ROUTE,
   ) {
-    composable(AppState.SPLASH_SCREEN_ROUTE) { SplashScreen(navController = navController) }
+    composable(AppState.SPLASH_SCREEN_ROUTE) { SplashScreen(navController) }
     composable(AppState.MENU_SCREEN_ROUTE) { HomeScreen(appState) }
     composable(AppState.PROFILE_SCREEN_ROUTE) { ProfileScreen(appState) }
     composable(AppState.FAVORITE_SCREEN_ROUTE) { FavoriteScreen(appState) }

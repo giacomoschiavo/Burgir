@@ -58,7 +58,7 @@ fun HomeScreen(
       item(span = { GridItemSpan(2) }, key = 202) {
         Text(
           text = "Choose Your\nBest Meal",
-          style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
+          style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Bold)
         )
       }
       item(span = { GridItemSpan(2) }, key = 203) {

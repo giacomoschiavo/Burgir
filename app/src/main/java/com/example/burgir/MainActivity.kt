@@ -24,15 +24,15 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     var xxx = listOf<Product>()
-    myViewModel.products.observe(this, { products -> xxx = products })
+    myViewModel.products.observe(this) { products -> xxx = products }
 
-    var products = loadAllProducts(resources)
+    val products = loadAllProducts(resources)
 
     DynamicColors.applyIfAvailable(this)
     setContent {
       BurgirTheme() {
         Surface() {
-          NavigationController(products)
+          NavigationController(xxx)
         }
       }
     }

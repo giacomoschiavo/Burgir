@@ -5,8 +5,10 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 
@@ -21,7 +23,7 @@ fun LogoWithCartTopAppBar(
     title = {
       Text(
         "Boorgir.",
-        style = AppTypography.titleLarge,
+        style = AppTypography.headlineMedium,
         fontWeight = FontWeight.ExtraBold,
         color = MaterialTheme.colorScheme.primary
       )
@@ -42,5 +44,15 @@ fun LogoWithCartTopAppBar(
     },
     modifier = modifier,
     scrollBehavior = scrollBehavior
+  )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Preview
+@Composable
+fun LogoWithCartTopAppBarPreview() {
+  LogoWithCartTopAppBar(
+    rememberNavController(),
+    TopAppBarDefaults.enterAlwaysScrollBehavior { true },
   )
 }
