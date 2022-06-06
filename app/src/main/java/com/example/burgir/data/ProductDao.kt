@@ -2,6 +2,7 @@ package com.example.burgir.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 
 @Dao
@@ -23,17 +24,18 @@ interface ProductDao {
      */
     @Update
     suspend fun update(product: Product)
-    /**
-     * Return the product associated to the specified element
-     */
-    @Query("SELECT * FROM Product WHERE id= :id")
-    fun getProductById(id: Int): LiveData<Product>
 
     /**
      * Return a list of all products
      */
     @Query("SELECT * FROM Product ORDER BY name ASC")
-    fun getAllProducts(): LiveData<List<Product>>
+    fun getAllProducts(): Flow<List<Product>>
+    /**
+    /**
+     * Return the product associated to the specified element
+     */
+    @Query("SELECT * FROM Product WHERE id= :id")
+    fun getProductById(id: Int): LiveData<Product>
 
     /**
      * Return a list of all products that belong to the specify category
@@ -88,4 +90,5 @@ interface ProductDao {
      */
     @Query("SELECT SUM(cart_quantity) FROM Product WHERE cart_quantity>0")
     fun cartSize() : LiveData<Int>
+    */
 }

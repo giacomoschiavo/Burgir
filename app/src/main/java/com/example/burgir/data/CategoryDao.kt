@@ -2,6 +2,8 @@ package com.example.burgir.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
+
 //TODO COMMENTARE
 @Dao
 interface CategoryDao {
@@ -15,10 +17,10 @@ interface CategoryDao {
     @Update
     suspend fun update(category: Category)
 
-    @Query("SELECT * FROM Category WHERE ID= :id")
-    fun getCategoryById(id: Int) : Category
+    //@Query("SELECT * FROM Category WHERE ID= :id")
+    //fun getCategoryById(id: Int) : Category
 
     @Query("SELECT * FROM Category")
-    fun getAllCategories() : List<Category>
+    fun getAllCategories() : Flow<List<Category>>
 
 }

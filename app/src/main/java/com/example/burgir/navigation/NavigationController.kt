@@ -9,7 +9,7 @@ import com.example.burgir.screen.ProductDetailsScreen
 import com.example.burgir.screen.ProfileScreen
 import com.example.burgir.screen.SplashScreen
 
-@Composable
+
 fun NavigationController(products: List<Product>) {
 
   val navController = rememberNavController()

@@ -15,14 +15,15 @@ import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
 
-  //  private val myViewModel: BurgirViewModel by viewModels {
-//    BurgirViewModelFactory((application as BurgirApplication).repository)
-//  }
+  private val myViewModel: BurgirViewModel by viewModels {
+    BurgirViewModelFactory((application as BurgirApplication).repository)
+  }
+
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-//    var xxx = listOf<Product>()
-//    myViewModel.products.observe(this, { products -> xxx = products })
+    var xxx = listOf<Product>()
+    myViewModel.products.observe(this, { products -> xxx = products })
 
     var products = loadAllProducts(resources)
 
