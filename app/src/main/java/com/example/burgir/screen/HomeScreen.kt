@@ -1,3 +1,4 @@
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
@@ -19,67 +20,76 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.burgir.data.Product
+import androidx.navigation.compose.rememberNavController
+import com.example.burgir.components.PrimaryScaffold
+import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
 fun HomeScreen(
-  navigateToProduct: (Int) -> Unit,
-  popularProducts: (List<Product>),
+  appState: AppState,
   modifier: Modifier = Modifier
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
 
-  LazyVerticalGrid(
-    columns = GridCells.Fixed(2),
-  ) {
-    item(span = { GridItemSpan(2) }, key = "profile name") {
-      Text(
-        text = buildAnnotatedString {
-          append("Hey, ")
-          withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-            append("Mike")
-          }
-        },
-        style = AppTypography.titleLarge,
-        color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+  PrimaryScaffold(appState, modifier) { innerPadding ->
+    LazyVerticalGrid(
+      columns = GridCells.Fixed(2),
+      contentPadding = PaddingValues(
+        top = innerPadding.calculateTopPadding(),
+        bottom = innerPadding.calculateBottomPadding(),
+        start = 10.dp,
+        end = 10.dp
       )
-    }
-    item(key = "spacer0") { Spacer(modifier = Modifier.size(10.dp)) }
-    item(span = { GridItemSpan(2) }, key = "choose") {
-      Text(
-        text = "Choose Your\nBest Meal",
-        style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
-      )
-    }
-    item(span = { GridItemSpan(2) }, key = "category slider") {
-      CategorySlider(
-        chosenCategoryId,
-        { newCategoryId -> chosenCategoryId = newCategoryId },
-      )
-    }
-    item(key = "spacer1") { Spacer(modifier = Modifier.size(20.dp)) }
-    item(span = { GridItemSpan(2) }, key = "popular") {
-      Text(
-        text = "Popular",
-        style = AppTypography.headlineMedium.copy(fontWeight = FontWeight.Bold),
-        modifier = Modifier.paddingFromBaseline(top = 10.dp)
-      )
-    }
-    items(
-      popularProducts,
-      key = { product -> product.id }) { product ->
-      ProductItem(product, navigateToProduct, modifier)
+    ) {
+      item(span = { GridItemSpan(2) }, key = 200) {
+        Text(
+          text = buildAnnotatedString {
+            append("Hey, ")
+            withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
+              append("Mike")
+            }
+          },
+          style = AppTypography.titleLarge,
+          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+        )
+      }
+      item(key = 201) { Spacer(modifier = Modifier.size(10.dp)) }
+      item(span = { GridItemSpan(2) }, key = 202) {
+        Text(
+          text = "Choose Your\nBest Meal",
+          style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
+        )
+      }
+      item(span = { GridItemSpan(2) }, key = 203) {
+        CategorySlider(
+          chosenCategoryId,
+          { newCategoryId -> chosenCategoryId = newCategoryId },
+        )
+      }
+      item(key = 204) { Spacer(modifier = Modifier.size(20.dp)) }
+      item(span = { GridItemSpan(2) }, key = 205) {
+        Text(
+          text = "Popular",
+          style = AppTypography.headlineMedium,
+          modifier = Modifier.paddingFromBaseline(top = 10.dp)
+        )
+      }
+      items(
+        appState.products.filter { it.category == chosenCategoryId }
+          .sortedByDescending { it.timesPurchased }
+          .take(5),
+        key = { product -> product.id }) { product ->
+        ProductItem(product, appState.navigateToProduct)
+      }
     }
   }
+
 }
 
 
 @Preview(showBackground = true, widthDp = 400, heightDp = 800)
 @Composable
 fun ScreenPreview() {
-  BurgirTheme {
-    HomeScreen({ }, listOf())
-  }
+  HomeScreen(AppState(rememberNavController(), products))
 }

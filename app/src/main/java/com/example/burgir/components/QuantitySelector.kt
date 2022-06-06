@@ -19,27 +19,31 @@ import androidx.compose.ui.unit.dp
 import com.example.burgir.R
 
 @Composable
-fun QuantitySelector(modifier: Modifier = Modifier) {
-  var quantity by rememberSaveable { mutableStateOf(1) }
+fun QuantitySelector(
+  setQuantity: (Int) -> Unit,
+  modifier: Modifier = Modifier,
+  initialQuantity: Int = 1
+) {
+  var counter by rememberSaveable { mutableStateOf(initialQuantity) }
 
   Row(
     verticalAlignment = Alignment.CenterVertically,
     horizontalArrangement = Arrangement.SpaceAround,
     modifier = modifier
   ) {
-    IconButton(onClick = { quantity-- }) {
+    IconButton(onClick = { setQuantity(if (counter == 1) 1 else --counter) }) {
       Icon(
         painter = painterResource(id = R.drawable.ic_baseline_remove_24),
         contentDescription = null
       )
     }
     Text(
-      text = quantity.toString(),
+      text = counter.toString(),
       modifier = Modifier
         .padding(10.dp),
       textAlign = TextAlign.Center
     )
-    IconButton(onClick = { quantity++ }) {
+    IconButton(onClick = { setQuantity(++counter) }) {
       Icon(
         imageVector = Icons.Filled.Add,
         contentDescription = null

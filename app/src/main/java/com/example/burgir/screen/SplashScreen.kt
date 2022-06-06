@@ -4,10 +4,8 @@ import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -19,9 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.burgir.MainActivity
 import com.example.burgir.R
-import com.example.burgir.ui.theme.BurgirTheme
+import com.example.burgir.navigation.AppState
 import kotlinx.coroutines.delay
 
 @Composable
@@ -38,8 +35,8 @@ fun SplashScreen(navController: NavController) {
         })
     )
     delay(800L)
-    navController.navigate(MainActivity.MENU_SCREEN_ROUTE) {
-      popUpTo(MainActivity.SPLASH_SCREEN_ROUTE) { inclusive = true }
+    navController.navigate(AppState.MENU_SCREEN_ROUTE) {
+      popUpTo(AppState.SPLASH_SCREEN_ROUTE) { inclusive = true }
     }
   }
 
@@ -61,7 +58,5 @@ fun SplashScreen(navController: NavController) {
 @Preview(showBackground = true)
 @Composable
 fun SplashScreenPreview() {
-  BurgirTheme() {
     SplashScreen(navController = rememberNavController())
-  }
 }

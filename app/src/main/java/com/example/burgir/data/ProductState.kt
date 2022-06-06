@@ -1,28 +1,11 @@
-import androidx.annotation.DrawableRes
-import androidx.compose.runtime.Immutable
 import com.example.burgir.R
 import com.example.burgir.data.Product
-
-//@Immutable
-//data class Product(
-//  val id: Int = 0,
-//  val  productName = : String = "No  productName = ",
-//  @ imageUrl = Res
-//  val imageUrl: Int = R.drawable.burger,
-//  val price: Double = 12.34,
-//  val  category = : Int = 0,
-//  val sales: Int = 0,
-//  val description: String = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut ornare tortor quis sagittis mattis. In sit amet justo eget felis ultrices bibendum. Vivamus in commodo orci, eget faucibus urna. Nunc id felis vitae risus efficitur finibus.",
-//  var isFavorite: Boolean = false,
-//  var quantity: Int = 0
-//)
-
 
 val products = listOf(
   Product(
     id = 0,
     productName = "Bacon Fries",
-    imageUrl = R.drawable.s_bacon_king_fries_v2,
+    imageUrl = R.drawable.b_cheeseburger,
     category = 1,
     discount = 10,
     isFavorite = true
@@ -30,20 +13,20 @@ val products = listOf(
   Product(
     id = 1,
     productName = "Wrap",
-    imageUrl = R.drawable.c_wrap_di_pollo_croccante,
+    imageUrl = R.drawable.c_chickenwrap,
     category = 2,
     isFavorite = true
   ),
   Product(
     id = 2,
     productName = "Dolce buonissimo",
-    imageUrl = R.drawable.i_sundae_choolate,
+    imageUrl = R.drawable.i_mcflurryoreo,
     category = 2
   ),
   Product(
     id = 3,
     productName = "Bronx Steakhouse",
-    imageUrl = R.drawable.b_bronx_steakhouse,
+    imageUrl = R.drawable.b_bigmac,
     discount = 20,
     category = 0
   ),
