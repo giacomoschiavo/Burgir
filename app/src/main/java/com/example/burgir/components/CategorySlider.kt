@@ -18,7 +18,6 @@ import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 import com.example.compose.BurgirTheme
 
-// TODO: solve this
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Category(
@@ -61,6 +60,7 @@ fun Category(
       Text(
         text = category.name,
         style = if (isChosen) AppTypography.labelLarge.copy(fontWeight = FontWeight.Bold) else AppTypography.labelLarge,
+        modifier = Modifier.padding(5.dp)
       )
     }
   }

@@ -6,7 +6,11 @@ import android.content.res.TypedArray
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.viewModels
 import androidx.compose.material3.Surface
+import com.example.burgir.data.BurgirApplication
+import com.example.burgir.data.BurgirViewModel
+import com.example.burgir.data.BurgirViewModelFactory
 import com.example.burgir.data.Product
 import com.example.compose.BurgirTheme
 import com.google.android.material.color.DynamicColors
@@ -23,15 +27,15 @@ class MainActivity : ComponentActivity() {
     super.onCreate(savedInstanceState)
 
     var xxx = listOf<Product>()
-    myViewModel.products.observe(this, { products -> xxx = products })
+    myViewModel.products.observe(this) { products -> xxx = products }
 
-    var products = loadAllProducts(resources)
+    val products = loadAllProducts(resources)
 
     DynamicColors.applyIfAvailable(this)
     setContent {
       BurgirTheme() {
         Surface() {
-          NavigationController(products)
+          NavigationController(xxx)
         }
       }
     }

@@ -33,13 +33,13 @@ val products = listOf(
   Product(
     id = 4,
     productName = "Burger",
-    imageUrl = R.drawable.burger,
+    imageUrl = R.drawable.b_hamburger,
     category = 1
   ),
   Product(
     id = 5,
     productName = "Burger",
-    imageUrl = R.drawable.burger,
+    imageUrl = R.drawable.c_doublechicken,
     isFavorite = true,
     category = 0
 
@@ -47,21 +47,21 @@ val products = listOf(
   Product(
     id = 6,
     productName = "Burger",
-    imageUrl = R.drawable.burger,
+    imageUrl = R.drawable.c_grancripsymcbacon,
     category = 0
 
   ),
   Product(
     id = 7,
     productName = "Burger",
-    imageUrl = R.drawable.burger,
+    imageUrl = R.drawable.b_doublecheeseburger,
     category = 0
 
   ),
   Product(
     id = 8,
     productName = "Burger",
-    imageUrl = R.drawable.burger,
+    imageUrl = R.drawable.i_mcflurrybacio,
     category = 0
 
   ),
