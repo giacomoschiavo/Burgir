@@ -65,6 +65,10 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
     fun updateProduct(product: Product) = viewModelScope.launch {
         repository.updateProduct(product)
     }
+    fun getProductsByPopularity(){
+        repository.getProductsByPopularity()
+    }
+
     /**
     fun getProductById(id: Int) : LiveData<Product>{
         return repository.getProductById(id)
@@ -85,10 +89,7 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
         products=repository.getActualProducts()
     }
 
-    fun getProductsByPopularity(){
-        repository.getProductsByPopularity()
-        products=repository.getActualProducts()
-    }
+
 
     fun getProductsinCart(){
         repository.getProductsInCart()
