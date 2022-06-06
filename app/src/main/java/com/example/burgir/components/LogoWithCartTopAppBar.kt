@@ -4,6 +4,7 @@ import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.burgir.navigation.AppState
@@ -17,7 +18,14 @@ fun LogoWithCartTopAppBar(
   modifier: Modifier = Modifier
 ) {
   CenterAlignedTopAppBar(
-    title = { Text("🅱", style = AppTypography.titleLarge) },
+    title = {
+      Text(
+        "Boorgir.",
+        style = AppTypography.titleLarge,
+        fontWeight = FontWeight.ExtraBold,
+        color = MaterialTheme.colorScheme.primary
+      )
+    },
     actions = {
       IconButton(onClick = {
         navController.navigate(AppState.CART_SCREEN_ROUTE) { launchSingleTop = true }
