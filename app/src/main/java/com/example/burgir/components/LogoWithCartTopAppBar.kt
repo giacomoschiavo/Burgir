@@ -6,7 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.burgir.MainActivity
+import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 
 // questo componente compare nelle 4 schermate principali
@@ -20,7 +20,7 @@ fun LogoWithCartTopAppBar(
     title = { Text("🅱", style = AppTypography.titleLarge) },
     actions = {
       IconButton(onClick = {
-        navController.navigate(MainActivity.CART_SCREEN_ROUTE) { launchSingleTop = true }
+        navController.navigate(AppState.CART_SCREEN_ROUTE) { launchSingleTop = true }
       }) {
         BadgedBox(badge = {
           Badge(modifier = Modifier.size(10.dp))

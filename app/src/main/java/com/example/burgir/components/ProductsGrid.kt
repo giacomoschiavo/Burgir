@@ -7,7 +7,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.burgir.data.Product
 import com.example.burgir.navigation.AppState
-import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
 fun ProductsGrid(
@@ -32,21 +31,17 @@ fun ProductsGrid(
 @Preview(showBackground = true)
 @Composable
 fun ProductPreview() {
-  BurgirTheme {
 //    ProductItem(products[0], {})
-  }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun ProductsGridPreview() {
-//  BurgirTheme {
 //    ProductsGrid(
 //      products,
 //      header = { Text("An Amazing Title") },
 //      modifier = Modifier,
 //      navigateToProduct = {})
-//  }
 }
 
 

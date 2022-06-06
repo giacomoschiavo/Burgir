@@ -1,5 +1,5 @@
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -20,10 +20,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
 fun HomeScreen(
@@ -32,12 +32,17 @@ fun HomeScreen(
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
 
-  PrimaryScaffold(appState) { innerPadding ->
+  PrimaryScaffold(appState, modifier) { innerPadding ->
     LazyVerticalGrid(
       columns = GridCells.Fixed(2),
-      modifier = Modifier.padding(innerPadding)
+      contentPadding = PaddingValues(
+        top = innerPadding.calculateTopPadding(),
+        bottom = innerPadding.calculateBottomPadding(),
+        start = 10.dp,
+        end = 10.dp
+      )
     ) {
-      item(span = { GridItemSpan(2) }, key = 123) {
+      item(span = { GridItemSpan(2) }, key = 200) {
         Text(
           text = buildAnnotatedString {
             append("Hey, ")
@@ -49,21 +54,21 @@ fun HomeScreen(
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
         )
       }
-      item(key = 124) { Spacer(modifier = Modifier.size(10.dp)) }
-      item(span = { GridItemSpan(2) }, key = 125) {
+      item(key = 201) { Spacer(modifier = Modifier.size(10.dp)) }
+      item(span = { GridItemSpan(2) }, key = 202) {
         Text(
           text = "Choose Your\nBest Meal",
           style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold)
         )
       }
-      item(span = { GridItemSpan(2) }, key = 126) {
+      item(span = { GridItemSpan(2) }, key = 203) {
         CategorySlider(
           chosenCategoryId,
           { newCategoryId -> chosenCategoryId = newCategoryId },
         )
       }
-      item(key = 127) { Spacer(modifier = Modifier.size(20.dp)) }
-      item(span = { GridItemSpan(2) }, key = 128) {
+      item(key = 204) { Spacer(modifier = Modifier.size(20.dp)) }
+      item(span = { GridItemSpan(2) }, key = 205) {
         Text(
           text = "Popular",
           style = AppTypography.headlineMedium,
@@ -86,7 +91,5 @@ fun HomeScreen(
 @Preview(showBackground = true, widthDp = 400, heightDp = 800)
 @Composable
 fun ScreenPreview() {
-  BurgirTheme {
-//    HomeScreen({ }, products)
-  }
+  HomeScreen(AppState(rememberNavController(), products))
 }

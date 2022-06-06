@@ -7,7 +7,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.burgir.MainActivity
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
@@ -18,13 +18,12 @@ fun FavoriteScreen(
   modifier: Modifier = Modifier
 ) {
 
-  PrimaryScaffold(appState = appState) { innerPadding ->
-
+  PrimaryScaffold(appState = appState, modifier = modifier) { innerPadding ->
     ProductsGrid(
       products = appState.products.filter { it.isFavorite },
       navigateToProduct = { productId ->
-        appState.navController.navigate("${MainActivity.PRODUCT_SCREEN_ROUTE}/$productId") {
-          popUpTo(MainActivity.SEARCH_SCREEN_ROUTE)
+        appState.navController.navigate("${AppState.PRODUCT_SCREEN_ROUTE}/$productId") {
+          popUpTo(AppState.SEARCH_SCREEN_ROUTE)
         }
       },
       header = {
@@ -45,9 +44,5 @@ fun FavoriteScreen(
 @Preview(showBackground = true)
 @Composable
 fun FavoriteScreenPreview() {
-//  BurgirTheme() {
-//    FavoriteScreen(
-//      navController = rememberNavController(),
-//      products = products.filter { it.isFavorite })
-//  }
+  FavoriteScreen(AppState(rememberNavController(), products))
 }

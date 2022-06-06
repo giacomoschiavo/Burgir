@@ -1,6 +1,9 @@
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.*
+import androidx.compose.material3.ElevatedCard
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,7 +16,6 @@ import androidx.compose.ui.unit.dp
 import com.example.burgir.R
 import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.BurgirTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -71,15 +73,13 @@ fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Mo
 @Preview(showBackground = true, widthDp = 200, heightDp = 250)
 @Composable
 fun ProductItemPreview() {
-  BurgirTheme {
-    ProductItem(
-      product = Product(
-        0,
-        "Hamburger",
-        2.50,
-        20,
-        category = 0,
-        imageUrl = R.drawable.b_bigmac
-      ), navigateToProduct = {})
-  }
+  ProductItem(
+    product = Product(
+      0,
+      "Hamburger",
+      2.50,
+      20,
+      category = 0,
+      imageUrl = R.drawable.b_bigmac
+    ), navigateToProduct = {})
 }

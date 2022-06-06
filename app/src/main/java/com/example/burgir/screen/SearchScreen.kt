@@ -18,15 +18,15 @@ import androidx.compose.ui.unit.dp
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.BurgirTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(appState: AppState, modifier: Modifier = Modifier) {
   var searchText by rememberSaveable { mutableStateOf("") }
-
-  PrimaryScaffold(appState = appState) { innerPadding ->
-    LazyColumn(modifier = Modifier.padding(innerPadding)) {
+  PrimaryScaffold(appState = appState, modifier = modifier) { innerPadding ->
+    LazyColumn(modifier = Modifier
+      .padding(innerPadding)
+      .padding(horizontal = 20.dp)) {
       item {
         Text(
           text = "Discover\nNew Flavors",
@@ -90,7 +90,5 @@ fun SearchScreen(appState: AppState, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun SearchScreenPreview() {
-  BurgirTheme() {
 //    SearchScreen({})
-  }
 }

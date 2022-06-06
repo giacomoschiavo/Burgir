@@ -16,17 +16,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.R
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
+import com.example.compose.BurgirTheme
+import products
 
 @Composable
 fun ProfileScreen(appState: AppState) {
   PrimaryScaffold(appState = appState) { innerPadding ->
-
     LazyColumn(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
@@ -62,6 +63,6 @@ fun ProfileScreen(appState: AppState) {
 @Composable
 fun ProfileScreenPreview() {
   BurgirTheme() {
-//    ProfileScreen()
+    ProfileScreen(AppState(rememberNavController(), products))
   }
 }

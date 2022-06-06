@@ -1,15 +1,16 @@
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.BurgirTheme
 import com.example.burgir.ui.theme.Shapes
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,7 +77,5 @@ fun ProductDescription(product: Product?, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun ProductDescriptionPreview() {
-  BurgirTheme() {
-    ProductDescription(products[0])
-  }
+  ProductDescription(products[0])
 }

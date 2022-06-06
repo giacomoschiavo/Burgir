@@ -12,11 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.BurgirTheme
+import com.example.compose.BurgirTheme
 
 // TODO: solve this
 @OptIn(ExperimentalMaterial3Api::class)
@@ -76,9 +76,9 @@ fun CategorySlider(
   LazyRow(
     modifier = modifier.padding(top = 10.dp),
     horizontalArrangement = Arrangement.spacedBy(20.dp),
-    contentPadding = PaddingValues(10.dp)
+    contentPadding = PaddingValues(20.dp),
   ) {
-    items(categories) { category ->
+    items(AppState.categories) { category ->
       Category(category, category.id == chosenCategoryId, setChosenCategoryId)
     }
   }

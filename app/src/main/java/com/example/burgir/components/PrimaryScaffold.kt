@@ -10,13 +10,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import com.example.burgir.MainActivity
 import com.example.burgir.navigation.AppState
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PrimaryScaffold(appState: AppState, content: @Composable (PaddingValues) -> Unit) {
+fun PrimaryScaffold(
+  appState: AppState,
+  modifier: Modifier = Modifier,
+  content: @Composable (PaddingValues) -> Unit
+) {
 
   val scrollBehavior = remember { TopAppBarDefaults.pinnedScrollBehavior() }
 
@@ -25,7 +28,7 @@ fun PrimaryScaffold(appState: AppState, content: @Composable (PaddingValues) -> 
     topBar = { LogoWithCartTopAppBar(appState.navController, scrollBehavior) },
     bottomBar = {
       when (appState.getCurrentRoute().substringBefore("/")) {
-        MainActivity.PRODUCT_SCREEN_ROUTE, MainActivity.SPLASH_SCREEN_ROUTE, MainActivity.CATEGORY_SCREEN_ROUTE, MainActivity.CART_SCREEN_ROUTE -> {}
+        AppState.PRODUCT_SCREEN_ROUTE, AppState.SPLASH_SCREEN_ROUTE, AppState.CATEGORY_SCREEN_ROUTE, AppState.CART_SCREEN_ROUTE -> {}
         else -> MainNavigationBar(appState.navController)
       }
     },

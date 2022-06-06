@@ -17,7 +17,6 @@ import androidx.compose.ui.unit.dp
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.Product
 import com.example.burgir.navigation.AppState
-import com.example.burgir.ui.theme.BurgirTheme
 
 @Composable
 fun ProductDetailsScreen(
@@ -57,7 +56,5 @@ fun ProductDetailsScreen(
 @Preview(showBackground = true)
 @Composable
 fun ProductScreenPreview() {
-  BurgirTheme() {
 //    ProductDetailsScreen(0, products = products)
-  }
 }

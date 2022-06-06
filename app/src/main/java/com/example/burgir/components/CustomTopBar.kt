@@ -9,9 +9,8 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.burgir.MainActivity
 import com.example.burgir.data.Product
-import com.example.burgir.ui.theme.BurgirTheme
+import com.example.burgir.navigation.AppState
 
 @Composable
 fun CustomTopBar(
@@ -47,7 +46,7 @@ fun CustomTopBar(
       }
       if (showCartIcon) {
         IconButton(onClick = {
-          navController.navigate(MainActivity.CART_SCREEN_ROUTE) {
+          navController.navigate(AppState.CART_SCREEN_ROUTE) {
             launchSingleTop = true
           }
         }) {
@@ -63,37 +62,31 @@ fun CustomTopBar(
 @Preview(showBackground = true)
 @Composable
 fun ProductTopBarPreview() {
-  BurgirTheme() {
-    CustomTopBar(
-      rememberNavController(),
-      scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    )
-  }
+  CustomTopBar(
+    rememberNavController(),
+    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+  )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun ProductTopBarWithoutFavoritePreview() {
-  BurgirTheme() {
-    CustomTopBar(
-      rememberNavController(),
-      showFavoriteIcon = false,
-      scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    )
-  }
+  CustomTopBar(
+    rememberNavController(),
+    showFavoriteIcon = false,
+    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+  )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true)
 @Composable
 fun ProductTopBarWithoutBothPreview() {
-  BurgirTheme() {
-    CustomTopBar(
-      rememberNavController(),
-      showFavoriteIcon = false,
-      showCartIcon = false,
-      scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
-    )
-  }
+  CustomTopBar(
+    rememberNavController(),
+    showFavoriteIcon = false,
+    showCartIcon = false,
+    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+  )
 }
