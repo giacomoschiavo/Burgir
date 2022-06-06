@@ -30,30 +30,25 @@ interface ProductDao {
      */
     @Query("SELECT * FROM Product ORDER BY name ASC")
     fun getAllProducts(): Flow<List<Product>>
-    /**
-    /**
-     * Return the product associated to the specified element
-     */
-    @Query("SELECT * FROM Product WHERE id= :id")
-    fun getProductById(id: Int): LiveData<Product>
 
+    /**
+     * Return a list of most popular products (max 6 products as default)
+     */
+    @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 6")
+    fun getProductsByPopularity() : Flow<List<Product>>
+    /**
     /**
      * Return a list of all products that belong to the specify category
-     */
+    */
     @Query("SELECT * FROM Product WHERE category= :id")
-    fun getProductsByCategory(id: Int): LiveData<List<Product>>
-
+    fun getProductsByCategory(id: Int): Flow<List<Product>>
     /**
      * Return a list of products that are in the user's favorite list
      */
     @Query("SELECT * FROM Product WHERE Is_Favorited= :favorited")
     fun getProductsByFavorite(favorited: Boolean=true) : LiveData<List<Product>>
 
-    /**
-     * Return a list of most popular products (max 6 products as default)
-     */
-    @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 6")
-    fun getProductsByPopularity() : LiveData<List<Product>>
+
     /**
      * Return a list of products that are in the cart at the moment
      */

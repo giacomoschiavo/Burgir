@@ -12,7 +12,7 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
      * QUINDI PER RIAVERLI TUTTI BISOGNERA' RICHIAMARE getAllProducts
      *
      */
-    val products : Flow<List<Product>> = productDao.getAllProducts()
+    var products : Flow<List<Product>> = productDao.getAllProducts()
     val categories : Flow<List<Category>> = categoryDao.getAllCategories()
     val carts : Flow<List<Cart>> = cartDao.getAllCarts()
     /**
@@ -80,29 +80,22 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
     suspend fun updateProduct(product: Product){
         productDao.update(product)
     }
-    /**
-    fun getAllProducts(): LiveData<List<Product>>{
-        return productDao.getAllProducts()
-    }
-
-    fun getProductById(id: Int): LiveData<Product>{
-        return productDao.getProductById(id)
-    }
-
-    fun getProductsByCategory(id: Int): LiveData<List<Product>>{
-        return productDao.getProductsByCategory(id)
-    }
-
-    fun getProductsByFavorite(){
-        products=productDao.getProductsByFavorite()
-    }
 
     fun getProductsByPopularity() {
         products = productDao.getProductsByPopularity()
     }
 
+    /**
+    fun getProductsByFavorite(){
+    products=productDao.getProductsByFavorite()
+    }
+    suspend fun getProductsByCategory(id: Int){
+    products=productDao.getProductsByCategory(id)
+    }
+
+
     fun getProductsInCart(){
-        products=productDao.getProductsInCart()
+    products=productDao.getProductsInCart()
     }
 
     suspend fun checkout(id:Int){
