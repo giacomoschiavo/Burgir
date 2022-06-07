@@ -18,7 +18,7 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
      */
 
 
-    val products : LiveData<List<Product>> =repository.products.asLiveData()
+    var products : LiveData<List<Product>> =repository.products.asLiveData()
     val categories : LiveData<List<Category>> =repository.categories.asLiveData()
     val carts : LiveData<List<Cart>> = repository.carts.asLiveData()
 
@@ -69,60 +69,39 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
         repository.getProductsByPopularity()
     }
 
-    /**
-    fun getProductById(id: Int) : LiveData<Product>{
-        return repository.getProductById(id)
-    }
-
     fun getAllProducts(){
-        products=repository.getAllProducts()
-
+        repository.getAllProducts()
+        products=repository.products.asLiveData()
     }
 
-    fun getProductsByCategory(id: Int){
+    fun getProductsByCategory(id:Int){
         repository.getProductsByCategory(id)
-        products=repository.getActualProducts()
+        products=repository.products.asLiveData()
     }
 
     fun getProductsByFavorite(){
         repository.getProductsByFavorite()
-        products=repository.getActualProducts()
+        products=repository.products.asLiveData()
     }
-
-
 
     fun getProductsinCart(){
         repository.getProductsInCart()
-        products=repository.getActualProducts()
+        products=repository.products.asLiveData()
     }
 
 
-    fun checkout(id: Int){
-        viewModelScope.launch(Dispatchers.IO){
-            repository.checkout(id)
-        }
+    fun checkout()= viewModelScope.launch{
+            repository.checkout()
     }
 
-    fun addToCart(id: Int){
-        viewModelScope.launch(Dispatchers.IO){
+    fun addToCart(id: Int)=viewModelScope.launch{
             repository.addToCart(id)
-        }
     }
 
-    fun removeFromCart(id: Int){
-        viewModelScope.launch(Dispatchers.IO){
+
+    fun removeFromCart(id: Int)=viewModelScope.launch{
             repository.removeFromCart(id)
-        }
     }
-
-    fun size(): Int{
-        return repository.size()
-    }
-
-    fun cartSize() : LiveData<Int>{
-        return repository.cartSize()
-    }
-    */
 }
 class BurgirViewModelFactory(private val repository: BurgirRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

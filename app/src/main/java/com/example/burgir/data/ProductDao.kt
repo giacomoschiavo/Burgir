@@ -36,31 +36,32 @@ interface ProductDao {
      */
     @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 6")
     fun getProductsByPopularity() : Flow<List<Product>>
-    /**
+
     /**
      * Return a list of all products that belong to the specify category
     */
     @Query("SELECT * FROM Product WHERE category= :id")
     fun getProductsByCategory(id: Int): Flow<List<Product>>
+
     /**
      * Return a list of products that are in the user's favorite list
      */
-    @Query("SELECT * FROM Product WHERE Is_Favorited= :favorited")
-    fun getProductsByFavorite(favorited: Boolean=true) : LiveData<List<Product>>
+    @Query("SELECT * FROM Product WHERE Is_Favorited= :favorite")
+    fun getProductsByFavorite(favorite: Boolean=true) : Flow<List<Product>>
 
 
     /**
      * Return a list of products that are in the cart at the moment
      */
     @Query("SELECT * FROM Product WHERE cart_quantity>0")
-    fun getProductsInCart() : LiveData<List<Product>>
+    fun getProductsInCart() : Flow<List<Product>>
 
     /**
      * Increase the number of times the product has been ordered and set cartQuantity = 0.
      * This action is performed for every product after a checkout.
      */
-    @Query("UPDATE Product SET times_purchased= times_purchased + cart_quantity, cart_quantity = 0 WHERE id= :id")
-    suspend fun checkout(id:Int)
+    @Query("UPDATE Product SET times_purchased= times_purchased + cart_quantity, cart_quantity = 0")
+    suspend fun checkout()
 
     /**
      * Add a product to the cart by 1 quantity
@@ -73,17 +74,4 @@ interface ProductDao {
      */
     @Query("UPDATE Product SET cart_quantity = cart_quantity-1 WHERE id= :id")
     suspend fun removeFromCart(id: Int)
-
-    /**
-     * Get the number of total Products
-     */
-    @Query("SELECT COUNT(*) FROM Product")
-    fun size() : Int
-
-    /**
-     * Return the actual number of products in the chart
-     */
-    @Query("SELECT SUM(cart_quantity) FROM Product WHERE cart_quantity>0")
-    fun cartSize() : LiveData<Int>
-    */
 }

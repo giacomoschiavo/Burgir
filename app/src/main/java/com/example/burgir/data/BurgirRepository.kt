@@ -4,7 +4,7 @@ import androidx.annotation.WorkerThread
 import kotlinx.coroutines.flow.Flow
 
 //TODO COMMENTARE
-class BurgirRepository(private val productDao: ProductDao, private val cartDao: CartDao, private val categoryDao: CategoryDao) {
+class  BurgirRepository(private val productDao: ProductDao, private val cartDao: CartDao, private val categoryDao: CategoryDao) {
     /**
      * NOTA PER IL PRESENTATORE
      * QUESTA LISTA RAPPRESENTA L'ATTUALE LISTA DI PRODOTTI CHE TI INTERESSA MOSTRARE NELL'UI.
@@ -36,9 +36,6 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
         categoryDao.update(category)
     }
 
-    //    fun getCategoryById(id: Int) : Category{
-    //     return categoryDao.getCategoryById(id);
-    //}
     /**
      * CART METHODS
      */
@@ -81,41 +78,41 @@ class BurgirRepository(private val productDao: ProductDao, private val cartDao: 
         productDao.update(product)
     }
 
+    fun getAllProducts(){
+        products=productDao.getAllProducts()
+    }
+
     fun getProductsByPopularity() {
         products = productDao.getProductsByPopularity()
     }
 
-    /**
     fun getProductsByFavorite(){
-    products=productDao.getProductsByFavorite()
-    }
-    suspend fun getProductsByCategory(id: Int){
-    products=productDao.getProductsByCategory(id)
+        products=productDao.getProductsByFavorite()
     }
 
+    fun getProductsByCategory(id: Int){
+        products=productDao.getProductsByCategory(id)
+    }
 
     fun getProductsInCart(){
-    products=productDao.getProductsInCart()
+        products=productDao.getProductsInCart()
     }
 
-    suspend fun checkout(id:Int){
-        productDao.checkout(id)
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun checkout(){
+        productDao.checkout()
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun addToCart(id : Int){
         productDao.addToCart(id)
     }
 
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
     suspend fun removeFromCart(id: Int){
         productDao.removeFromCart(id)
     }
-
-    fun size() : Int{
-        return productDao.size()
-    }
-
-    fun cartSize(): LiveData<Int>{
-        return productDao.cartSize()
-    }
-    */
 }
