@@ -82,8 +82,9 @@ class  BurgirRepository(private val productDao: ProductDao, private val cartDao:
         products=productDao.getAllProducts()
     }
 
-    fun getProductsByPopularity() {
+    fun getProductsByPopularity(): Flow<List<Product>> {
         products = productDao.getProductsByPopularity()
+        return products
     }
 
     fun getProductsByFavorite(){

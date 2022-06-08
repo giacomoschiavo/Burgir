@@ -1,6 +1,5 @@
 package com.example.burgir.navigation
 
-import CategoryUiState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Home
@@ -12,16 +11,16 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.burgir.R
+import com.example.burgir.data.Category
 import com.example.burgir.data.Product
 
 class AppState(
   var navController: NavController,
-  var products: List<Product>
+  var products: List<Product>,
+  var categories: List<Category>
 ) {
   @Composable
   fun getCurrentRoute(): String {
@@ -57,7 +56,7 @@ class AppState(
     if (categoryId == -1) return ""
     val name = categories.find { category ->
       category.id == categoryId
-    }?.name
+    }?.categoryName
     return name ?: ""
   }
 
@@ -72,39 +71,39 @@ class AppState(
     const val FAVORITE_SCREEN_ROUTE = "favoriteScreen"
     const val CATEGORY_SCREEN_ROUTE = "categoryScreen"
 
-    val categories = listOf(
-      CategoryUiState(
-        id = 0,
-        name = "Burger",
-        imageRes = R.drawable.b_bigmac,
-        color = Color.hsv(25f, 0.96f, 1f)
-      ),
-      CategoryUiState(
-        id = 1,
-        name = "Chickens",
-        imageRes = R.drawable.c_mcchicken,
-        color = Color.hsv(120f, 0.7f, 1f)
-      ),
-      CategoryUiState(
-        id = 2,
-        name = "Snacks",
-        imageRes = R.drawable.s_mcnuggets,
-        color = Color.hsv(45f, 0.96f, 1f)
-      ),
-      CategoryUiState(
-        id = 3,
-        name = "Ice Creams",
-        imageRes = R.drawable.i_mcflurrybacio,
-        color = Color.hsv(200f, 0.96f, 1f)
-      ),
-      CategoryUiState(
-        id = 4,
-        name = "Drinks",
-        imageRes = R.drawable.d_cocacola_m,
-        color = Color.hsv(285f, 0.96f, 1f)
-      ),
-
-      )
+//    val categories = listOf(
+//      CategoryUiState(
+//        id = 0,
+//        name = "Burger",
+//        imageRes = R.drawable.b_bigmac,
+//        color = Color.hsv(25f, 0.96f, 1f)
+//      ),
+//      CategoryUiState(
+//        id = 1,
+//        name = "Chickens",
+//        imageRes = R.drawable.c_mcchicken,
+//        color = Color.hsv(120f, 0.7f, 1f)
+//      ),
+//      CategoryUiState(
+//        id = 2,
+//        name = "Snacks",
+//        imageRes = R.drawable.s_mcnuggets,
+//        color = Color.hsv(45f, 0.96f, 1f)
+//      ),
+//      CategoryUiState(
+//        id = 3,
+//        name = "Ice Creams",
+//        imageRes = R.drawable.i_mcflurrybacio,
+//        color = Color.hsv(200f, 0.96f, 1f)
+//      ),
+//      CategoryUiState(
+//        id = 4,
+//        name = "Drinks",
+//        imageRes = R.drawable.d_cocacola_m,
+//        color = Color.hsv(285f, 0.96f, 1f)
+//      ),
+//
+//      )
 
 
     val routes = listOf(

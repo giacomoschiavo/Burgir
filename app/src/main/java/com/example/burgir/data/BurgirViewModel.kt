@@ -1,10 +1,7 @@
 package com.example.burgir.data
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.asLiveData
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 //TODO COMMENTARE
@@ -65,8 +62,11 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
     fun updateProduct(product: Product) = viewModelScope.launch {
         repository.updateProduct(product)
     }
-    fun getProductsByPopularity(){
+
+    fun getProductsByPopularity(): Flow<List<Product>> {
         repository.getProductsByPopularity()
+        products = repository.products.asLiveData()
+        return repository.products
     }
 
     fun getAllProducts(){

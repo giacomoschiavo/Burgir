@@ -26,6 +26,11 @@ fun ProductDetailsScreen(
   appState: AppState
 ) {
 
+  if (productId == -1) {
+    Text(text = "Product not found!")
+    return
+  }
+
   val product = products.find { product -> product.id == productId }
 
   SecondaryScaffold(

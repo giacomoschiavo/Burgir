@@ -20,7 +20,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
@@ -28,7 +27,7 @@ import com.example.burgir.ui.theme.AppTypography
 @Composable
 fun HomeScreen(
   appState: AppState,
-  modifier: Modifier = Modifier
+  modifier: Modifier = Modifier,
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
 
@@ -65,6 +64,7 @@ fun HomeScreen(
         CategorySlider(
           chosenCategoryId,
           { newCategoryId -> chosenCategoryId = newCategoryId },
+          categories = appState.categories
         )
       }
       item(key = 204) { Spacer(modifier = Modifier.size(20.dp)) }
@@ -75,12 +75,14 @@ fun HomeScreen(
           modifier = Modifier.paddingFromBaseline(top = 10.dp)
         )
       }
-      items(
-        appState.products.filter { it.category == chosenCategoryId }
-          .sortedByDescending { it.timesPurchased }
-          .take(5),
-        key = { product -> product.id }) { product ->
-        ProductItem(product, appState.navigateToProduct)
+      if (appState.products != null) {
+        items(
+          appState.products.filter { it.category == chosenCategoryId }
+            .sortedByDescending { it.timesPurchased }
+            .take(5),
+          key = { product -> product.id }) { product ->
+          ProductItem(product, appState.navigateToProduct)
+        }
       }
     }
   }
@@ -91,5 +93,5 @@ fun HomeScreen(
 @Preview(showBackground = true, widthDp = 400, heightDp = 800)
 @Composable
 fun ScreenPreview() {
-  HomeScreen(AppState(rememberNavController(), products))
+//  HomeScreen(AppState(rememberNavController(), products))
 }

@@ -8,7 +8,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
 import androidx.compose.material3.Surface
-import com.example.burgir.data.*
+import com.example.burgir.data.BurgirApplication
+import com.example.burgir.data.BurgirViewModel
+import com.example.burgir.data.BurgirViewModelFactory
+import com.example.burgir.data.Product
 import com.example.compose.BurgirTheme
 import com.google.android.material.color.DynamicColors
 import kotlin.random.Random
@@ -16,24 +19,18 @@ import kotlin.random.Random
 
 class MainActivity : ComponentActivity() {
 
-  private val myViewModel: BurgirViewModel by viewModels {
+  private val burgirViewModel: BurgirViewModel by viewModels {
     BurgirViewModelFactory((application as BurgirApplication).repository)
   }
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
 
-    var xxx = listOf<Product>()
-    myViewModel.getProductsByPopularity()
-    myViewModel.products.observe(this) { products -> xxx = products }
-
-    val products = loadAllProducts(resources)
-
     DynamicColors.applyIfAvailable(this)
     setContent {
       BurgirTheme() {
         Surface() {
-          NavigationController(products)
+          NavigationController(burgirViewModel)
         }
       }
     }

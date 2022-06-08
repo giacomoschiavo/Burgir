@@ -1,8 +1,11 @@
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.burgir.data.Product
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.navigation.AppState
 import com.example.burgir.screen.CartScreen
 import com.example.burgir.screen.ProductDetailsScreen
@@ -10,10 +13,17 @@ import com.example.burgir.screen.ProfileScreen
 import com.example.burgir.screen.SplashScreen
 
 @Composable
-fun NavigationController(products: List<Product>) {
+fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
 
   val navController = rememberNavController()
-  val appState = AppState(navController, products)
+
+
+  val products by burgirViewModel.products.observeAsState(emptyList())
+  val categories by burgirViewModel.categories.observeAsState(emptyList())
+  val appState =
+    AppState(navController = navController, products = products, categories = categories)
+
+  burgirViewModel.getAllProducts()
 
   NavHost(
     navController = navController,
@@ -33,7 +43,7 @@ fun NavigationController(products: List<Product>) {
     composable(AppState.SEARCH_SCREEN_ROUTE) { SearchScreen(appState) }
     composable("${AppState.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
       ProductDetailsScreen(
-        productId = backStackEntry.arguments?.getString("productId")!!.toInt(),
+        productId = backStackEntry.arguments?.getString("productId")?.toInt() ?: -1,
         products = products,
         appState = appState
       )

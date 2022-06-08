@@ -7,7 +7,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.compose.rememberNavController
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
@@ -44,5 +43,5 @@ fun FavoriteScreen(
 @Preview(showBackground = true)
 @Composable
 fun FavoriteScreenPreview() {
-  FavoriteScreen(AppState(rememberNavController(), products))
+//  FavoriteScreen(AppState(rememberNavController(), products))
 }
