@@ -3,7 +3,6 @@ package com.example.burgir.screen
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,12 +15,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.burgir.R
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 import kotlinx.coroutines.delay
@@ -53,7 +50,7 @@ fun SplashScreen(navController: NavController) {
         .background(MaterialTheme.colorScheme.primary)
     ) {
       Text(
-        "Boorgir.",
+        "Burgir.",
         style = AppTypography.displayMedium,
         fontWeight = FontWeight.ExtraBold,
         color = MaterialTheme.colorScheme.onPrimary,

@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.components.SecondaryScaffold
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.Product
 import com.example.burgir.navigation.AppState
 
@@ -23,7 +24,8 @@ fun ProductDetailsScreen(
   productId: Int,
   modifier: Modifier = Modifier,
   products: List<Product>,
-  appState: AppState
+  appState: AppState,
+  burgirViewModel: BurgirViewModel
 ) {
 
   if (productId == -1) {
@@ -37,22 +39,31 @@ fun ProductDetailsScreen(
     appState = appState,
     showFavoriteIcon = true,
     showCartIcon = true,
-    title = product!!.productName,
+    title = product?.productName ?: "",
+    onFavoriteClick = { product ->
+      burgirViewModel.updateProduct(
+        product.copy(
+          isFavorite = !product.isFavorite
+        )
+      )
+    },
     productId = productId,
     content = { innerPadding ->
       LazyColumn(modifier = modifier.padding(innerPadding)) {
         item {
           Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
-            Image(
-              modifier = Modifier
-                .size(220.dp),
-              painter = painterResource(id = product.imageUrl),
-              contentDescription = "image of the product"
-            )
+            if (product != null) {
+              Image(
+                modifier = Modifier
+                  .size(220.dp),
+                painter = painterResource(id = product.imageUrl),
+                contentDescription = "image of the product"
+              )
+            }
           }
         }
         item { ProductDescription(product) }
-        item { Text("Times Purchased: ${product.timesPurchased}") }
+        item { Text("Times Purchased: ${product?.timesPurchased ?: 0}") }
       }
     }
   )

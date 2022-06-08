@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import com.example.burgir.data.Product
 import com.example.burgir.navigation.AppState
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,8 +21,11 @@ fun SecondaryScaffold(
   showFavoriteIcon: Boolean = false,
   showCartIcon: Boolean = false,
   title: String = "",
-  productId: Int = -1
+  productId: Int = -1,
+  onFavoriteClick: (Product) -> Unit = {}
 ) {
+
+  if (productId == -1) return
 
   val decayAnimationSpec = rememberSplineBasedDecay<Float>()
   val scrollBehavior =
@@ -37,7 +41,8 @@ fun SecondaryScaffold(
         products = appState.products,
         productId = productId,
         showCartIcon = showCartIcon,
-        showFavoriteIcon = showFavoriteIcon
+        showFavoriteIcon = showFavoriteIcon,
+        onFavoriteClick = onFavoriteClick
       )
     },
     content = { content(it) }

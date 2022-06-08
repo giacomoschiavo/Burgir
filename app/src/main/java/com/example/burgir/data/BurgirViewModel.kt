@@ -69,29 +69,30 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
         return repository.products
     }
 
-    fun getAllProducts(){
-        repository.getAllProducts()
-        products=repository.products.asLiveData()
-    }
+  fun getAllProducts() {
+    repository.getAllProducts()
+    products = repository.products.asLiveData()
+  }
 
-    fun getProductsByCategory(id:Int){
-        repository.getProductsByCategory(id)
-        products=repository.products.asLiveData()
-    }
+  fun getProductsByCategory(id: Int) {
+    repository.getProductsByCategory(id)
+    products = repository.products.asLiveData()
+  }
 
-    fun getProductsByFavorite(){
-        repository.getProductsByFavorite()
-        products=repository.products.asLiveData()
-    }
+  fun getProductsByFavorite(): Flow<List<Product>> {
+    repository.getProductsByFavorite()
+    products = repository.products.asLiveData()
+    return repository.products
+  }
 
-    fun getProductsinCart(){
-        repository.getProductsInCart()
-        products=repository.products.asLiveData()
-    }
+  fun getProductsinCart() {
+    repository.getProductsInCart()
+    products = repository.products.asLiveData()
+  }
 
 
-    fun checkout()= viewModelScope.launch{
-            repository.checkout()
+  fun checkout() = viewModelScope.launch {
+    repository.checkout()
     }
 
     fun addToCart(id: Int)=viewModelScope.launch{

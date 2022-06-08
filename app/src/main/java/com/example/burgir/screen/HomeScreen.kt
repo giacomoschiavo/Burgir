@@ -10,6 +10,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -21,6 +22,7 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.components.PrimaryScaffold
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 
@@ -28,8 +30,14 @@ import com.example.burgir.ui.theme.AppTypography
 fun HomeScreen(
   appState: AppState,
   modifier: Modifier = Modifier,
+  burgirViewModel: BurgirViewModel
 ) {
-  var chosenCategoryId by rememberSaveable { mutableStateOf(0) }
+  var chosenCategoryId by rememberSaveable { mutableStateOf(1) }
+
+  burgirViewModel.getProductsByPopularity()
+  val popularProducts by burgirViewModel.products.observeAsState(emptyList())
+  val categories by burgirViewModel.categories.observeAsState(emptyList())
+
 
   PrimaryScaffold(appState, modifier) { innerPadding ->
     LazyVerticalGrid(
@@ -62,9 +70,9 @@ fun HomeScreen(
       }
       item(span = { GridItemSpan(2) }, key = 203) {
         CategorySlider(
-          chosenCategoryId,
-          { newCategoryId -> chosenCategoryId = newCategoryId },
-          categories = appState.categories
+          chosenCategoryId = chosenCategoryId,
+          setChosenCategoryId = { newCategoryId -> chosenCategoryId = newCategoryId },
+          categories = categories
         )
       }
       item(key = 204) { Spacer(modifier = Modifier.size(20.dp)) }
@@ -75,14 +83,12 @@ fun HomeScreen(
           modifier = Modifier.paddingFromBaseline(top = 10.dp)
         )
       }
-      if (appState.products != null) {
-        items(
-          appState.products.filter { it.category == chosenCategoryId }
-            .sortedByDescending { it.timesPurchased }
-            .take(5),
-          key = { product -> product.id }) { product ->
-          ProductItem(product, appState.navigateToProduct)
-        }
+      items(
+        popularProducts.filter { it.category == chosenCategoryId }
+          .sortedByDescending { it.timesPurchased }
+          .take(5),
+        key = { product -> product.id }) { product ->
+        ProductItem(product, appState.navigateToProduct)
       }
     }
   }

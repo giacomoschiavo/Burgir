@@ -3,6 +3,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.burgir.components.SecondaryScaffold
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.Product
 import com.example.burgir.navigation.AppState
 
@@ -12,7 +13,8 @@ fun CategoryScreen(
   navigateToProduct: (Int) -> Unit,
   modifier: Modifier = Modifier,
   products: List<Product>,
-  appState: AppState
+  appState: AppState,
+  burgirViewModel: BurgirViewModel
 ) {
   SecondaryScaffold(
     appState = appState,

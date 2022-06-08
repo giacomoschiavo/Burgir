@@ -18,13 +18,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.R
 import com.example.burgir.components.PrimaryScaffold
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.Shapes
 import com.example.compose.BurgirTheme
 
 @Composable
-fun ProfileScreen(appState: AppState) {
+fun ProfileScreen(appState: AppState, burgirViewModel: BurgirViewModel) {
   PrimaryScaffold(appState = appState) { innerPadding ->
     LazyColumn(
       horizontalAlignment = Alignment.CenterHorizontally,

@@ -35,11 +35,11 @@ abstract class BurgirRoomDatabase : RoomDatabase() {
           var productDao = database.productDao()
           var categoryDao = database.categoryDao()
 
-          categoryDao.insert(Category(0, "Burgers", R.drawable.b_bigmac, 25f, 0.96f, 1f))
-          categoryDao.insert(Category(0, "Chickens", R.drawable.c_mcchicken, 120f, 0.7f, 1f))
-          categoryDao.insert(Category(0, "Snacks", R.drawable.s_mcnuggets, 45f, 0.96f, 1f))
-          categoryDao.insert(Category(0, "Ice creams", R.drawable.i_mcflurrybacio, 200f, 0.96f, 1f))
-          categoryDao.insert(Category(0, "Drinks", R.drawable.d_cocacola_m, 285f, 0.96f, 1f))
+          categoryDao.insert(Category(1, "Burgers", R.drawable.b_bigmac, 25f, 0.96f, 1f))
+          categoryDao.insert(Category(2, "Chickens", R.drawable.c_mcchicken, 120f, 0.7f, 1f))
+          categoryDao.insert(Category(3, "Snacks", R.drawable.s_mcnuggets, 45f, 0.96f, 1f))
+          categoryDao.insert(Category(4, "Ice creams", R.drawable.i_mcflurrybacio, 200f, 0.96f, 1f))
+          categoryDao.insert(Category(5, "Drinks", R.drawable.d_cocacola_m, 285f, 0.96f, 1f))
 
           val burgerImageTypedArray: TypedArray =
             resources.obtainTypedArray(R.array.burgers)
@@ -84,7 +84,7 @@ abstract class BurgirRoomDatabase : RoomDatabase() {
                   id = indexes++,
                   imageUrl = typedArray.getResourceId(it, 0),
                   productName = arrays[i + 1].getString(it)!!,
-                  category = i / 2,
+                  category = i / 2 + 1,
                   discount = Random.nextInt(0, 9) * 10,
                   isFavorite = Random.nextBoolean(),
                   timesPurchased = Random.nextInt(0, 5)

@@ -30,14 +30,30 @@ fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
     startDestination = AppState.SPLASH_SCREEN_ROUTE,
   ) {
     composable(AppState.SPLASH_SCREEN_ROUTE) { SplashScreen(navController) }
-    composable(AppState.MENU_SCREEN_ROUTE) { HomeScreen(appState) }
-    composable(AppState.PROFILE_SCREEN_ROUTE) { ProfileScreen(appState) }
-    composable(AppState.FAVORITE_SCREEN_ROUTE) { FavoriteScreen(appState) }
+    composable(AppState.MENU_SCREEN_ROUTE) {
+      HomeScreen(
+        appState,
+        burgirViewModel = burgirViewModel
+      )
+    }
+    composable(AppState.PROFILE_SCREEN_ROUTE) {
+      ProfileScreen(
+        appState,
+        burgirViewModel = burgirViewModel
+      )
+    }
+    composable(AppState.FAVORITE_SCREEN_ROUTE) {
+      FavoriteScreen(
+        appState,
+        burgirViewModel = burgirViewModel
+      )
+    }
     composable(AppState.CART_SCREEN_ROUTE) {
       CartScreen(
         navController = navController,
         products = products,
-        appState = appState
+        appState = appState,
+        burgirViewModel = burgirViewModel
       )
     }
     composable(AppState.SEARCH_SCREEN_ROUTE) { SearchScreen(appState) }
@@ -45,7 +61,8 @@ fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
       ProductDetailsScreen(
         productId = backStackEntry.arguments?.getString("productId")?.toInt() ?: -1,
         products = products,
-        appState = appState
+        appState = appState,
+        burgirViewModel = burgirViewModel
       )
     }
     composable("${AppState.CATEGORY_SCREEN_ROUTE}/{categoryId}") { backStackEntry ->
@@ -53,7 +70,8 @@ fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
         categoryId = backStackEntry.arguments?.getString("categoryId")!!.toInt(),
         navigateToProduct = appState.navigateToProduct,
         products = products,
-        appState = appState
+        appState = appState,
+        burgirViewModel = burgirViewModel
       )
     }
   }

@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.burgir.R
 import com.example.burgir.components.SecondaryScaffold
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.Product
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
@@ -74,7 +75,12 @@ val cartList = listOf(
 )
 
 @Composable
-fun CartScreen(navController: NavController, products: List<Product>, appState: AppState) {
+fun CartScreen(
+  navController: NavController,
+  products: List<Product>,
+  appState: AppState,
+  burgirViewModel: BurgirViewModel
+) {
   val purchasedProducts = products.filter { it.cartQuantity > 0 }
   val originalPrice = purchasedProducts.sumOf { it.productPrice * it.cartQuantity }
   val discount = purchasedProducts.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }

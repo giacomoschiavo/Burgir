@@ -24,7 +24,7 @@ fun CategorySlider(
     contentPadding = PaddingValues(20.dp),
   ) {
     items(categories) { category ->
-      Category(category, category.id == chosenCategoryId, setChosenCategoryId)
+      Category(category, isChosen = category.id == chosenCategoryId, setChosenCategoryId)
     }
   }
 }

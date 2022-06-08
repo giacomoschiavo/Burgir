@@ -22,7 +22,7 @@ fun LogoWithCartTopAppBar(
   CenterAlignedTopAppBar(
     title = {
       Text(
-        "Boorgir.",
+        "Burgir.",
         style = AppTypography.headlineMedium,
         fontWeight = FontWeight.ExtraBold,
         color = MaterialTheme.colorScheme.primary

@@ -5,7 +5,11 @@ import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -20,7 +24,8 @@ fun CustomTopBar(
   showCartIcon: Boolean = true,
   title: String = "",
   productId: Int = -1,
-  products: List<Product> = listOf()
+  products: List<Product> = listOf(),
+  onFavoriteClick: (Product) -> Unit = {}
 ) {
 
   MediumTopAppBar(
@@ -33,15 +38,17 @@ fun CustomTopBar(
     actions = {
       if (showFavoriteIcon) {
         val product = products.find { it.id == productId }
-        var isFavorite by remember { mutableStateOf(product!!.isFavorite) }
-        IconButton(onClick = {
-          product!!.isFavorite = !product.isFavorite
-          isFavorite = !isFavorite
-        }) {
-          Icon(
-            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-            contentDescription = "Favorite"
-          )
+        if (product != null) {
+          var isFavorite by rememberSaveable { mutableStateOf(product.isFavorite) }
+          IconButton(onClick = {
+            onFavoriteClick(product)
+            isFavorite = !isFavorite
+          }) {
+            Icon(
+              imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+              contentDescription = "Favorite"
+            )
+          }
         }
       }
       if (showCartIcon) {
