@@ -46,7 +46,7 @@ interface ProductDao {
     /**
      * Return a list of products that are in the user's favorite list
      */
-    @Query("SELECT * FROM Product WHERE Is_Favorited= :favorite")
+    @Query("SELECT * FROM Product WHERE Is_Favorite= :favorite")
     fun getProductsByFavorite(favorite: Boolean=true) : Flow<List<Product>>
 
 
@@ -66,12 +66,25 @@ interface ProductDao {
     /**
      * Add a product to the cart by 1 quantity
      */
-    @Query("UPDATE Product SET cart_quantity= cart_quantity + 1 WHERE id= :id")
-    suspend fun addToCart(id : Int)
+    @Query("UPDATE Product SET cart_quantity= cart_quantity + :quantity WHERE id= :id")
+    suspend fun addToCart(id : Int,quantity : Int = 1)
 
     /**
      * Remove the quantity of the specified product (identified by ID)
      */
     @Query("UPDATE Product SET cart_quantity = cart_quantity-1 WHERE id= :id")
     suspend fun removeFromCart(id: Int)
+
+    /**
+     * Modify the favorite field of the specified product
+     */
+    @Query("UPDATE Product SET Is_Favorite=CASE WHEN Is_Favorite=1 THEN 0 WHEN Is_Favorite=0 THEN 1 END WHERE id= :id")
+    suspend fun updateFavorite(id: Int)
+
+    /**
+     *
+     */
+    @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 4")
+    fun getPopularProductsByCategory(id: Int): Flow<List<Product>>
+
 }

@@ -99,6 +99,10 @@ class  BurgirRepository(private val productDao: ProductDao, private val cartDao:
         products=productDao.getProductsInCart()
     }
 
+    fun getPopularProductsByCategory(id: Int){
+        products=productDao.getPopularProductsByCategory(id)
+    }
+
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun checkout(){
@@ -107,13 +111,19 @@ class  BurgirRepository(private val productDao: ProductDao, private val cartDao:
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
-    suspend fun addToCart(id : Int){
-        productDao.addToCart(id)
+    suspend fun addToCart(id : Int,quantity: Int=1){
+        productDao.addToCart(id,quantity)
     }
 
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun removeFromCart(id: Int){
         productDao.removeFromCart(id)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun updateFavorite(id: Int) {
+        productDao.updateFavorite(id)
     }
 }
