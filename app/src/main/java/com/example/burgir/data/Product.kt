@@ -34,7 +34,7 @@ data class Product(
    * boolean value that tells if the product is a user's favorite
    */
 
-  @ColumnInfo(name = "Is_Favorited") var isFavorite: Boolean = false,
+  @ColumnInfo(name = "Is_Favorite") var isFavorite: Boolean = false,
   /**
    * number of times the user has purchased that specific element. (0 by default)
    */

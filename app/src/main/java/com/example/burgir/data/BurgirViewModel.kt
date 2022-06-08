@@ -1,6 +1,7 @@
 package com.example.burgir.data
 
 import androidx.lifecycle.*
+import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
@@ -69,39 +70,52 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
         return repository.products
     }
 
-  fun getAllProducts() {
-    repository.getAllProducts()
-    products = repository.products.asLiveData()
-  }
+    fun getAllProducts(): Flow<List<Product>> {
+        repository.getAllProducts()
+        products = repository.products.asLiveData()
+        return repository.products
+    }
 
-  fun getProductsByCategory(id: Int) {
-    repository.getProductsByCategory(id)
-    products = repository.products.asLiveData()
-  }
+    fun getProductsByCategory(id:Int): Flow<List<Product>> {
+        repository.getProductsByCategory(id)
+        products=repository.products.asLiveData()
+        return repository.products
+    }
 
-  fun getProductsByFavorite(): Flow<List<Product>> {
-    repository.getProductsByFavorite()
-    products = repository.products.asLiveData()
-    return repository.products
-  }
+    fun getProductsByFavorite(): Flow<List<Product>> {
+        repository.getProductsByFavorite()
+        products=repository.products.asLiveData()
+        return repository.products
+    }
 
-  fun getProductsinCart() {
-    repository.getProductsInCart()
-    products = repository.products.asLiveData()
-  }
+    fun getProductsinCart(): Flow<List<Product>> {
+        repository.getProductsInCart()
+        products=repository.products.asLiveData()
+        return repository.products
+    }
+
+    fun getPopularProductsByCategory(id: Int): Flow<List<Product>>{
+        repository.getPopularProductsByCategory(id)
+        products=repository.products.asLiveData()
+        return repository.products
+    }
 
 
-  fun checkout() = viewModelScope.launch {
-    repository.checkout()
+    fun checkout()= viewModelScope.launch{
+        repository.checkout()
     }
 
     fun addToCart(id: Int)=viewModelScope.launch{
-            repository.addToCart(id)
+        repository.addToCart(id)
     }
 
 
     fun removeFromCart(id: Int)=viewModelScope.launch{
-            repository.removeFromCart(id)
+        repository.removeFromCart(id)
+    }
+
+    fun updateFavorite(id: Int) = viewModelScope.launch{
+        repository.updateFavorite(id)
     }
 }
 class BurgirViewModelFactory(private val repository: BurgirRepository) : ViewModelProvider.Factory {
