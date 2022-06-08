@@ -84,7 +84,7 @@ interface ProductDao {
     /**
      *
      */
-    @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 4")
+    @Query("SELECT * FROM Product WHERE category= :id ORDER BY times_purchased DESC LIMIT 4 ")
     fun getPopularProductsByCategory(id: Int): Flow<List<Product>>
 
 }
