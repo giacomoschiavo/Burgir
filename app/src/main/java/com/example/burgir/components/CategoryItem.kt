@@ -40,7 +40,7 @@ fun Category(
   ElevatedCard(
     onClick = { onCategoryClicked(category.id) },
     modifier = modifier
-      .size(110.dp)
+      .size(90.dp)
       .scale(scale),
     colors = CardDefaults.elevatedCardColors(containerColor = backgroundColor),
   ) {
@@ -57,7 +57,7 @@ fun Category(
       )
       Text(
         text = category.categoryName,
-        style = if (isChosen) AppTypography.labelLarge.copy(fontWeight = FontWeight.Bold) else AppTypography.labelLarge,
+        style = if (isChosen) AppTypography.labelSmall.copy(fontWeight = FontWeight.Bold) else AppTypography.labelSmall,
         modifier = Modifier.padding(5.dp)
       )
     }

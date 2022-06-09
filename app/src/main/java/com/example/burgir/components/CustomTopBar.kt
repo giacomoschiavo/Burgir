@@ -23,9 +23,8 @@ fun CustomTopBar(
   showFavoriteIcon: Boolean = true,
   showCartIcon: Boolean = true,
   title: String = "",
-  productId: Int = -1,
-  products: List<Product> = listOf(),
-  onFavoriteClick: (Product) -> Unit = {}
+  product: Product? = null,
+  onFavoriteClick: (Product) -> Unit = {},
 ) {
 
   MediumTopAppBar(
@@ -36,19 +35,16 @@ fun CustomTopBar(
       }
     },
     actions = {
-      if (showFavoriteIcon) {
-        val product = products.find { it.id == productId }
-        if (product != null) {
-          var isFavorite by rememberSaveable { mutableStateOf(product.isFavorite) }
-          IconButton(onClick = {
-            onFavoriteClick(product)
-            isFavorite = !isFavorite
-          }) {
-            Icon(
-              imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-              contentDescription = "Favorite"
-            )
-          }
+      if (showFavoriteIcon && product != null) {
+        var isFavorite by rememberSaveable { mutableStateOf(product.isFavorite) }
+        IconButton(onClick = {
+          onFavoriteClick(product)
+          isFavorite = !isFavorite
+        }) {
+          Icon(
+            imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
+            contentDescription = "Favorite"
+          )
         }
       }
       if (showCartIcon) {
@@ -71,7 +67,7 @@ fun CustomTopBar(
 fun ProductTopBarPreview() {
   CustomTopBar(
     rememberNavController(),
-    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
   )
 }
 
@@ -82,7 +78,7 @@ fun ProductTopBarWithoutFavoritePreview() {
   CustomTopBar(
     rememberNavController(),
     showFavoriteIcon = false,
-    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
   )
 }
 
@@ -94,6 +90,6 @@ fun ProductTopBarWithoutBothPreview() {
     rememberNavController(),
     showFavoriteIcon = false,
     showCartIcon = false,
-    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+    scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior(),
   )
 }

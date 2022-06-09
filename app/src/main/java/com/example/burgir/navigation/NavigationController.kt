@@ -56,11 +56,10 @@ fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
         burgirViewModel = burgirViewModel
       )
     }
-    composable(AppState.SEARCH_SCREEN_ROUTE) { SearchScreen(appState) }
+    composable(AppState.SEARCH_SCREEN_ROUTE) { SearchScreen(appState, categories) }
     composable("${AppState.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
       ProductDetailsScreen(
         productId = backStackEntry.arguments?.getString("productId")?.toInt() ?: -1,
-        products = products,
         appState = appState,
         burgirViewModel = burgirViewModel
       )
@@ -69,7 +68,6 @@ fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
       CategoryScreen(
         categoryId = backStackEntry.arguments?.getString("categoryId")!!.toInt(),
         navigateToProduct = appState.navigateToProduct,
-        products = products,
         appState = appState,
         burgirViewModel = burgirViewModel
       )

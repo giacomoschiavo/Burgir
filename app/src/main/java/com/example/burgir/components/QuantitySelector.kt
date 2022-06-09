@@ -20,7 +20,8 @@ import com.example.burgir.R
 
 @Composable
 fun QuantitySelector(
-  setQuantity: (Int) -> Unit,
+  onAdd: (Int) -> Unit,
+  onRemove: (Int) -> Unit,
   modifier: Modifier = Modifier,
   initialQuantity: Int = 1
 ) {
@@ -31,7 +32,10 @@ fun QuantitySelector(
     horizontalArrangement = Arrangement.SpaceAround,
     modifier = modifier
   ) {
-    IconButton(onClick = { setQuantity(if (counter == 1) 1 else --counter) }) {
+    IconButton(onClick = {
+      counter--
+      onRemove(counter)
+    }) {
       Icon(
         painter = painterResource(id = R.drawable.ic_baseline_remove_24),
         contentDescription = null
@@ -43,7 +47,10 @@ fun QuantitySelector(
         .padding(10.dp),
       textAlign = TextAlign.Center
     )
-    IconButton(onClick = { setQuantity(++counter) }) {
+    IconButton(onClick = {
+      counter++
+      onAdd(counter)
+    }) {
       Icon(
         imageVector = Icons.Filled.Add,
         contentDescription = null

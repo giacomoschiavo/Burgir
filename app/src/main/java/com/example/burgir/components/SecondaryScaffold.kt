@@ -21,12 +21,9 @@ fun SecondaryScaffold(
   showFavoriteIcon: Boolean = false,
   showCartIcon: Boolean = false,
   title: String = "",
-  productId: Int = -1,
-  onFavoriteClick: (Product) -> Unit = {}
+  product: Product? = null,
+  onFavoriteClick: (Product) -> Unit = {},
 ) {
-
-  if (productId == -1) return
-
   val decayAnimationSpec = rememberSplineBasedDecay<Float>()
   val scrollBehavior =
     remember { TopAppBarDefaults.exitUntilCollapsedScrollBehavior(decayAnimationSpec) }
@@ -38,11 +35,10 @@ fun SecondaryScaffold(
         navController = appState.navController,
         scrollBehavior = scrollBehavior,
         title = title,
-        products = appState.products,
-        productId = productId,
+        product = product,
         showCartIcon = showCartIcon,
         showFavoriteIcon = showFavoriteIcon,
-        onFavoriteClick = onFavoriteClick
+        onFavoriteClick = onFavoriteClick,
       )
     },
     content = { content(it) }

@@ -5,6 +5,10 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,13 +19,17 @@ import com.example.burgir.ui.theme.Shapes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductDescription(product: Product?, modifier: Modifier = Modifier) {
+fun ProductDescription(
+  product: Product?,
+  onAddToCart: (productId: Int, quantity: Int) -> Unit,
+  modifier: Modifier = Modifier
+) {
   Surface(
     shape = Shapes.large,
     modifier = modifier
   ) {
 
-    var quantity = 1
+    var quantity by rememberSaveable { mutableStateOf(1) }
 
     if (product == null) {
       Text("No products found :(")
@@ -54,9 +62,13 @@ fun ProductDescription(product: Product?, modifier: Modifier = Modifier) {
           verticalAlignment = Alignment.CenterVertically,
           modifier = Modifier.padding(vertical = 10.dp)
         ) {
-          QuantitySelector({ quantity = it }, modifier = Modifier.padding(horizontal = 10.dp))
+          QuantitySelector(
+            onAdd = { quantity = it },
+            onRemove = { quantity = it },
+            modifier = Modifier.padding(horizontal = 10.dp)
+          )
           Button(
-            onClick = { product.cartQuantity += quantity },
+            onClick = { onAddToCart(product.id, quantity) },
             modifier = Modifier.weight(1f)
           ) {
             Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = "Cart")
@@ -77,5 +89,5 @@ fun ProductDescription(product: Product?, modifier: Modifier = Modifier) {
 @Preview(showBackground = true)
 @Composable
 fun ProductDescriptionPreview() {
-  ProductDescription(products[0])
+//  ProductDescription(products[0])
 }

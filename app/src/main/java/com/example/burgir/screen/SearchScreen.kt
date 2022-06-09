@@ -16,17 +16,21 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.components.PrimaryScaffold
+import com.example.burgir.data.Category
 import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(appState: AppState, modifier: Modifier = Modifier) {
+fun SearchScreen(appState: AppState, categories: List<Category>, modifier: Modifier = Modifier) {
   var searchText by rememberSaveable { mutableStateOf("") }
+
   PrimaryScaffold(appState = appState, modifier = modifier) { innerPadding ->
-    LazyColumn(modifier = Modifier
-      .padding(innerPadding)
-      .padding(horizontal = 20.dp)) {
+    LazyColumn(
+      modifier = Modifier
+        .padding(innerPadding)
+        .padding(horizontal = 20.dp)
+    ) {
       item {
         Text(
           text = "Discover\nNew Flavors",
@@ -56,7 +60,11 @@ fun SearchScreen(appState: AppState, modifier: Modifier = Modifier) {
             .fillMaxWidth()
             .padding(vertical = 10.dp),
           colors = CardDefaults.cardColors(
-            containerColor = category.color,
+            containerColor = Color.hsv(
+              hue = category.categoryColor1,
+              saturation = category.categoryColor2,
+              value = category.categoryColor3
+            ),
             contentColor = Color.White
           )
         ) {
@@ -66,7 +74,7 @@ fun SearchScreen(appState: AppState, modifier: Modifier = Modifier) {
             modifier = Modifier.height(100.dp)
           ) {
             Text(
-              text = category.name,
+              text = category.categoryName,
               modifier = Modifier
                 .weight(1f)
                 .padding(25.dp),

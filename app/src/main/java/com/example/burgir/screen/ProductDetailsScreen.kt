@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -16,14 +18,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
-import com.example.burgir.data.Product
 import com.example.burgir.navigation.AppState
 
 @Composable
 fun ProductDetailsScreen(
   productId: Int,
   modifier: Modifier = Modifier,
-  products: List<Product>,
   appState: AppState,
   burgirViewModel: BurgirViewModel
 ) {
@@ -33,7 +33,9 @@ fun ProductDetailsScreen(
     return
   }
 
-  val product = products.find { product -> product.id == productId }
+  burgirViewModel.getAllProducts()
+  val products by burgirViewModel.products.observeAsState()
+  val product = products?.find { product -> product.id == productId }
 
   SecondaryScaffold(
     appState = appState,
@@ -41,13 +43,9 @@ fun ProductDetailsScreen(
     showCartIcon = true,
     title = product?.productName ?: "",
     onFavoriteClick = { product ->
-      burgirViewModel.updateProduct(
-        product.copy(
-          isFavorite = !product.isFavorite
-        )
-      )
+      burgirViewModel.updateFavorite(product.id)
     },
-    productId = productId,
+    product = product,
     content = { innerPadding ->
       LazyColumn(modifier = modifier.padding(innerPadding)) {
         item {
@@ -62,8 +60,13 @@ fun ProductDetailsScreen(
             }
           }
         }
-        item { ProductDescription(product) }
-        item { Text("Times Purchased: ${product?.timesPurchased ?: 0}") }
+        item {
+          ProductDescription(product, onAddToCart = { productId, quantity ->
+            repeat(quantity) {
+              burgirViewModel.addToCart(productId)
+            }
+          })
+        }
       }
     }
   )

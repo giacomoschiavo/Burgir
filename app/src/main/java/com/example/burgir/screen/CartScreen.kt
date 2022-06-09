@@ -14,12 +14,15 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.burgir.R
 import com.example.burgir.components.SecondaryScaffold
@@ -81,9 +84,10 @@ fun CartScreen(
   appState: AppState,
   burgirViewModel: BurgirViewModel
 ) {
-  val purchasedProducts = products.filter { it.cartQuantity > 0 }
-  val originalPrice = purchasedProducts.sumOf { it.productPrice * it.cartQuantity }
-  val discount = purchasedProducts.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }
+
+  burgirViewModel.getProductsinCart()
+  val productsOnCart by burgirViewModel.products.observeAsState()
+
   SecondaryScaffold(appState = appState, title = "Your Cart", content = { innerPadding ->
     Column(modifier = Modifier.padding(innerPadding)) {
       LazyColumn(
@@ -91,14 +95,20 @@ fun CartScreen(
         contentPadding = PaddingValues(vertical = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
       ) {
-        items(purchasedProducts, key = { product -> product.id }) { product ->
-          RowCartItem(product, modifier = Modifier.padding(10.dp))
+        items(productsOnCart ?: emptyList(), key = { product -> product.id }) { product ->
+          RowCartItem(
+            product,
+            modifier = Modifier.padding(10.dp),
+            burgirViewModel = burgirViewModel
+          )
         }
       }
+      val originalPrice = productsOnCart?.sumOf { it.productPrice * it.cartQuantity } ?: 0.0
+      val discount =
+        productsOnCart?.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity } ?: 0.0
       PaymentSummary(
         originalPrice = originalPrice,
         discount = discount,
-        finalPrice = originalPrice - discount,
         modifier = Modifier
           .weight(0.3f)
           .padding(15.dp)
@@ -110,7 +120,7 @@ fun CartScreen(
 
 
 @Composable
-fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
+fun RowCartItem(product: Product, burgirViewModel: BurgirViewModel, modifier: Modifier = Modifier) {
   Row(
     horizontalArrangement = Arrangement.SpaceEvenly,
     verticalAlignment = Alignment.CenterVertically,
@@ -131,7 +141,8 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
           style = AppTypography.titleSmall.copy(fontWeight = FontWeight.Bold)
         )
         QuantitySelector(
-          { product.cartQuantity = it },
+          onAdd = { burgirViewModel.addToCart(product.id) },
+          onRemove = { burgirViewModel.removeFromCart(product.id) },
           modifier = Modifier.padding(top = 10.dp),
           initialQuantity = product.cartQuantity
         )
@@ -143,7 +154,7 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
       verticalArrangement = Arrangement.Top,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      IconButton(onClick = { product.cartQuantity = 0 }) {
+      IconButton(onClick = { }) {
         Icon(imageVector = Icons.Outlined.Delete, contentDescription = "delete icon")
       }
       PriceLabel(price = product.productPrice)
@@ -156,7 +167,6 @@ fun RowCartItem(product: Product, modifier: Modifier = Modifier) {
 fun PaymentSummary(
   originalPrice: Double,
   discount: Double,
-  finalPrice: Double,
   modifier: Modifier = Modifier
 ) {
 
@@ -169,7 +179,7 @@ fun PaymentSummary(
     ) {
       PaymentSummaryItem("Items", originalPrice)
       PaymentSummaryItem("Discount", discount)
-      PaymentSummaryItem("Cost", finalPrice)
+      PaymentSummaryItem("Cost", originalPrice - discount)
     }
     Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
       Text(text = "Payment & delivery")
@@ -192,14 +202,14 @@ fun PaymentSummaryItem(key: String, value: Double) {
 @Preview(showBackground = true, heightDp = 120)
 @Composable
 fun RowCartItemPreview() {
-  RowCartItem(cartList[0])
+  RowCartItem(cartList[0], viewModel())
 }
 
 
 @Preview(showBackground = true, heightDp = 150)
 @Composable
 fun PaymentSummaryPreview() {
-  PaymentSummary(discount = 0.0, finalPrice = 12.32, originalPrice = 12.34)
+  PaymentSummary(discount = 12.0, originalPrice = 12.34)
 }
 
 
