@@ -13,13 +13,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.R
 import com.example.burgir.data.Product
+import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ProductItem(product: Product, navigateToProduct: (Int) -> Unit, modifier: Modifier = Modifier) {
+fun ProductItem(product: Product, navController: NavController, modifier: Modifier = Modifier) {
+
+  val navigateToProduct: (Int) -> Unit = {
+    navController.navigate("${RouteConfig.PRODUCT_SCREEN_ROUTE}/$it") { launchSingleTop }
+  }
 
   Box(
     contentAlignment = Alignment.Center,
@@ -81,5 +88,6 @@ fun ProductItemPreview() {
       20,
       category = 0,
       imageUrl = R.drawable.b_bigmac
-    ), navigateToProduct = {})
+    ), rememberNavController()
+  )
 }

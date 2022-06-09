@@ -16,15 +16,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
-import com.example.burgir.navigation.AppState
 
 @Composable
 fun ProductDetailsScreen(
+  navController: NavController,
   productId: Int,
   modifier: Modifier = Modifier,
-  appState: AppState,
   burgirViewModel: BurgirViewModel
 ) {
 
@@ -38,7 +38,7 @@ fun ProductDetailsScreen(
   val product = products?.find { product -> product.id == productId }
 
   SecondaryScaffold(
-    appState = appState,
+    navController = navController,
     showFavoriteIcon = true,
     showCartIcon = true,
     title = product?.productName ?: "",

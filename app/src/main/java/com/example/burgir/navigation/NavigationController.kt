@@ -6,7 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.data.BurgirViewModel
-import com.example.burgir.navigation.AppState
+import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.screen.CartScreen
 import com.example.burgir.screen.ProductDetailsScreen
 import com.example.burgir.screen.ProfileScreen
@@ -16,59 +16,49 @@ import com.example.burgir.screen.SplashScreen
 fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
 
   val navController = rememberNavController()
-
-
-  val products by burgirViewModel.products.observeAsState(emptyList())
   val categories by burgirViewModel.categories.observeAsState(emptyList())
-  val appState =
-    AppState(navController = navController, products = products, categories = categories)
-
-  burgirViewModel.getAllProducts()
 
   NavHost(
     navController = navController,
-    startDestination = AppState.SPLASH_SCREEN_ROUTE,
+    startDestination = RouteConfig.SPLASH_SCREEN_ROUTE,
   ) {
-    composable(AppState.SPLASH_SCREEN_ROUTE) { SplashScreen(navController) }
-    composable(AppState.MENU_SCREEN_ROUTE) {
+    composable(RouteConfig.SPLASH_SCREEN_ROUTE) { SplashScreen(navController) }
+    composable(RouteConfig.MENU_SCREEN_ROUTE) {
       HomeScreen(
-        appState,
+        navController = navController,
         burgirViewModel = burgirViewModel
       )
     }
-    composable(AppState.PROFILE_SCREEN_ROUTE) {
+    composable(RouteConfig.PROFILE_SCREEN_ROUTE) {
       ProfileScreen(
-        appState,
+        navController = navController,
         burgirViewModel = burgirViewModel
       )
     }
-    composable(AppState.FAVORITE_SCREEN_ROUTE) {
+    composable(RouteConfig.FAVORITE_SCREEN_ROUTE) {
       FavoriteScreen(
-        appState,
+        navController = navController,
         burgirViewModel = burgirViewModel
       )
     }
-    composable(AppState.CART_SCREEN_ROUTE) {
+    composable(RouteConfig.CART_SCREEN_ROUTE) {
       CartScreen(
         navController = navController,
-        products = products,
-        appState = appState,
         burgirViewModel = burgirViewModel
       )
     }
-    composable(AppState.SEARCH_SCREEN_ROUTE) { SearchScreen(appState, categories) }
-    composable("${AppState.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
+    composable(RouteConfig.SEARCH_SCREEN_ROUTE) { SearchScreen(navController, categories) }
+    composable("${RouteConfig.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
       ProductDetailsScreen(
         productId = backStackEntry.arguments?.getString("productId")?.toInt() ?: -1,
-        appState = appState,
+        navController = navController,
         burgirViewModel = burgirViewModel
       )
     }
-    composable("${AppState.CATEGORY_SCREEN_ROUTE}/{categoryId}") { backStackEntry ->
+    composable("${RouteConfig.CATEGORY_SCREEN_ROUTE}/{categoryId}") { backStackEntry ->
       CategoryScreen(
         categoryId = backStackEntry.arguments?.getString("categoryId")!!.toInt(),
-        navigateToProduct = appState.navigateToProduct,
-        appState = appState,
+        navController = navController,
         burgirViewModel = burgirViewModel
       )
     }

@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.burgir.navigation.AppState
+import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 import kotlinx.coroutines.delay
 
@@ -37,8 +37,8 @@ fun SplashScreen(navController: NavController) {
         })
     )
     delay(800L)
-    navController.navigate(AppState.MENU_SCREEN_ROUTE) {
-      popUpTo(AppState.SPLASH_SCREEN_ROUTE) { inclusive = true }
+    navController.navigate(RouteConfig.MENU_SCREEN_ROUTE) {
+      popUpTo(RouteConfig.SPLASH_SCREEN_ROUTE) { inclusive = true }
     }
   }
 

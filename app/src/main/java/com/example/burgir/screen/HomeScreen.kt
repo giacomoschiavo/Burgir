@@ -21,14 +21,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
-import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 
 @Composable
 fun HomeScreen(
-  appState: AppState,
+  navController: NavController,
   modifier: Modifier = Modifier,
   burgirViewModel: BurgirViewModel
 ) {
@@ -39,7 +39,8 @@ fun HomeScreen(
   val categories by burgirViewModel.categories.observeAsState(emptyList())
 
 
-  PrimaryScaffold(appState, modifier) { innerPadding ->
+
+  PrimaryScaffold(navController, modifier) { innerPadding ->
     LazyVerticalGrid(
       columns = GridCells.Fixed(2),
       contentPadding = PaddingValues(
@@ -88,7 +89,7 @@ fun HomeScreen(
           .sortedByDescending { it.timesPurchased }
           .take(5),
         key = { product -> product.id }) { product ->
-        ProductItem(product, appState.navigateToProduct)
+        ProductItem(product, navController)
       }
     }
   }

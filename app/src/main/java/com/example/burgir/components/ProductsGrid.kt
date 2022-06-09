@@ -5,16 +5,15 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.burgir.data.Product
-import com.example.burgir.navigation.AppState
 
 @Composable
 fun ProductsGrid(
+  navController: NavController,
   products: List<Product>,
-  navigateToProduct: (Int) -> Unit,
   modifier: Modifier = Modifier,
   header: @Composable () -> Unit = {},
-  appState: AppState
 ) {
   LazyVerticalGrid(
     columns = GridCells.Fixed(2),
@@ -22,7 +21,7 @@ fun ProductsGrid(
   ) {
     item(span = { GridItemSpan(2) }) { header() }
     items(products, key = { product -> product.id }) { product ->
-      ProductItem(product, navigateToProduct)
+      ProductItem(product, navController)
     }
   }
 }

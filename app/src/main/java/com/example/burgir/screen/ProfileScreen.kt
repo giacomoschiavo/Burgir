@@ -10,23 +10,29 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.example.burgir.R
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
-import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.Shapes
 import com.example.compose.BurgirTheme
 
 @Composable
-fun ProfileScreen(appState: AppState, burgirViewModel: BurgirViewModel) {
-  PrimaryScaffold(appState = appState) { innerPadding ->
+fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel) {
+
+  burgirViewModel.getProductsByPopularity()
+  val products by burgirViewModel.products.observeAsState(emptyList())
+
+  PrimaryScaffold(navController) { innerPadding ->
     LazyColumn(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
@@ -50,8 +56,8 @@ fun ProfileScreen(appState: AppState, burgirViewModel: BurgirViewModel) {
         )
       }
       item { Text(text = "Your Latest") }
-      items(appState.products) { product ->
-        ProductItem(product = product, navigateToProduct = {})
+      items(products) { product ->
+        ProductItem(product = product, navController)
       }
     }
   }

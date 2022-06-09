@@ -9,29 +9,27 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
-import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 
 @Composable
 fun FavoriteScreen(
-  appState: AppState,
-  modifier: Modifier = Modifier,
-  burgirViewModel: BurgirViewModel
+  navController: NavController,
+  burgirViewModel: BurgirViewModel,
+  modifier: Modifier = Modifier
 ) {
 
   burgirViewModel.getProductsByFavorite()
   val favoriteProducts by burgirViewModel.products.observeAsState(emptyList())
 
-  PrimaryScaffold(appState = appState, modifier = modifier) { innerPadding ->
+  PrimaryScaffold(navController = navController, modifier = modifier) { innerPadding ->
     ProductsGrid(
+      navController = navController,
       products = favoriteProducts,
-      navigateToProduct = { productId ->
-        appState.navController.navigate("${AppState.PRODUCT_SCREEN_ROUTE}/$productId") {
-          popUpTo(AppState.SEARCH_SCREEN_ROUTE)
-        }
-      },
       header = {
         Text(
           text = "Your Favorites♥",
@@ -40,7 +38,6 @@ fun FavoriteScreen(
           modifier = modifier.paddingFromBaseline(bottom = 15.dp)
         )
       },
-      appState = appState,
       modifier = Modifier.padding(innerPadding)
     )
   }
@@ -50,5 +47,5 @@ fun FavoriteScreen(
 @Preview(showBackground = true)
 @Composable
 fun FavoriteScreenPreview() {
-//  FavoriteScreen(AppState(rememberNavController(), products))
+  FavoriteScreen(rememberNavController(), viewModel())
 }

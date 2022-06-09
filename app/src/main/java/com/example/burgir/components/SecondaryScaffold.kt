@@ -10,13 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.navigation.NavController
 import com.example.burgir.data.Product
-import com.example.burgir.navigation.AppState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SecondaryScaffold(
-  appState: AppState,
+  navController: NavController,
   content: @Composable (PaddingValues) -> Unit,
   showFavoriteIcon: Boolean = false,
   showCartIcon: Boolean = false,
@@ -32,7 +32,7 @@ fun SecondaryScaffold(
     modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
     topBar = {
       CustomTopBar(
-        navController = appState.navController,
+        navController = navController,
         scrollBehavior = scrollBehavior,
         title = title,
         product = product,

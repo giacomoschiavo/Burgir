@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.burgir.navigation.AppState
+import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 
 // questo componente compare nelle 4 schermate principali
@@ -30,7 +30,7 @@ fun LogoWithCartTopAppBar(
     },
     actions = {
       IconButton(onClick = {
-        navController.navigate(AppState.CART_SCREEN_ROUTE) { launchSingleTop = true }
+        navController.navigate(RouteConfig.CART_SCREEN_ROUTE) { launchSingleTop = true }
       }) {
         BadgedBox(badge = {
           Badge(modifier = Modifier.size(10.dp))

@@ -14,7 +14,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.data.Product
-import com.example.burgir.navigation.AppState
+import com.example.burgir.navigation.RouteConfig
 
 @Composable
 fun CustomTopBar(
@@ -49,7 +49,7 @@ fun CustomTopBar(
       }
       if (showCartIcon) {
         IconButton(onClick = {
-          navController.navigate(AppState.CART_SCREEN_ROUTE) {
+          navController.navigate(RouteConfig.CART_SCREEN_ROUTE) {
             launchSingleTop = true
           }
         }) {

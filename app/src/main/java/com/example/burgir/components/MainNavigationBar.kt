@@ -9,7 +9,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.burgir.navigation.AppState.RouteConfig.routes
+import com.example.burgir.navigation.RouteConfig.routes.routesInfo
 import com.example.burgir.ui.theme.AppTypography
 
 
@@ -21,7 +21,7 @@ fun MainNavigationBar(navController: NavController, modifier: Modifier = Modifie
   NavigationBar(
     modifier = modifier
   ) {
-    routes.forEachIndexed { _, item ->
+    routesInfo.forEachIndexed { _, item ->
       val isSelected = currentRoute == item.route
       val fontStyle = AppTypography.labelMedium
       NavigationBarItem(

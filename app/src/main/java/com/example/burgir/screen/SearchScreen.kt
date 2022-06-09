@@ -15,17 +15,27 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.Category
-import com.example.burgir.navigation.AppState
+import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(appState: AppState, categories: List<Category>, modifier: Modifier = Modifier) {
+fun SearchScreen(
+  navController: NavController,
+  categories: List<Category>,
+  modifier: Modifier = Modifier
+) {
   var searchText by rememberSaveable { mutableStateOf("") }
 
-  PrimaryScaffold(appState = appState, modifier = modifier) { innerPadding ->
+  val navigateToCategory: (Int) -> Unit = {
+    navController.navigate("${RouteConfig.CATEGORY_SCREEN_ROUTE}/$it") { launchSingleTop }
+  }
+
+  PrimaryScaffold(navController = navController, modifier = modifier) { innerPadding ->
     LazyColumn(
       modifier = Modifier
         .padding(innerPadding)
@@ -55,7 +65,7 @@ fun SearchScreen(appState: AppState, categories: List<Category>, modifier: Modif
       }
       items(categories) { category ->
         Card(
-          onClick = { appState.navigateToCategory(category.id) },
+          onClick = { navigateToCategory(category.id) },
           modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp),
@@ -98,5 +108,5 @@ fun SearchScreen(appState: AppState, categories: List<Category>, modifier: Modif
 @Preview(showBackground = true)
 @Composable
 fun SearchScreenPreview() {
-//    SearchScreen({})
+  SearchScreen(rememberNavController(), emptyList())
 }

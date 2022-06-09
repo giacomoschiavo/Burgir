@@ -4,32 +4,32 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
-import com.example.burgir.navigation.AppState
 
 @Composable
 fun CategoryScreen(
+  navController: NavController,
   categoryId: Int,
-  navigateToProduct: (Int) -> Unit,
   modifier: Modifier = Modifier,
-  appState: AppState,
   burgirViewModel: BurgirViewModel
 ) {
 
   burgirViewModel.getProductsByCategory(categoryId)
   val productsByCategory by burgirViewModel.products.observeAsState(emptyList())
+  val categories by burgirViewModel.categories.observeAsState(emptyList())
+  val category = categories.find { category -> categoryId == category.id }
 
   SecondaryScaffold(
-    appState = appState,
+    navController = navController,
     showCartIcon = true,
-    title = appState.getCategoryNameById(categoryId),
+    title = category?.categoryName ?: "",
     content = { innerPadding ->
       ProductsGrid(
+        navController = navController,
         products = productsByCategory,
-        navigateToProduct = navigateToProduct,
         modifier = modifier.padding(innerPadding),
-        appState = appState
       )
     })
 }

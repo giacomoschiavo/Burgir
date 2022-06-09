@@ -24,11 +24,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.burgir.R
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.Product
-import com.example.burgir.navigation.AppState
 import com.example.burgir.ui.theme.AppTypography
 
 val cartList = listOf(
@@ -80,15 +80,13 @@ val cartList = listOf(
 @Composable
 fun CartScreen(
   navController: NavController,
-  products: List<Product>,
-  appState: AppState,
   burgirViewModel: BurgirViewModel
 ) {
 
   burgirViewModel.getProductsinCart()
   val productsOnCart by burgirViewModel.products.observeAsState()
 
-  SecondaryScaffold(appState = appState, title = "Your Cart", content = { innerPadding ->
+  SecondaryScaffold(navController = navController, title = "Your Cart", content = { innerPadding ->
     Column(modifier = Modifier.padding(innerPadding)) {
       LazyColumn(
         modifier = Modifier.weight(0.8f),
@@ -216,7 +214,7 @@ fun PaymentSummaryPreview() {
 @Preview(showBackground = true, heightDp = 700, widthDp = 400)
 @Composable
 fun CartScreenPreview() {
-//  CartScreen(rememberNavController(), cartList, appState)
+  CartScreen(rememberNavController(), viewModel())
 }
 
 
