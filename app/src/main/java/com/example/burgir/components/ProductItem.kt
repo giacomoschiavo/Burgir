@@ -30,7 +30,7 @@ fun ProductItem(product: Product, navController: NavController, modifier: Modifi
 
   Box(
     contentAlignment = Alignment.Center,
-    modifier = modifier.padding(12.dp)
+    modifier = modifier.padding(vertical = 12.dp, horizontal = 5.dp)
   ) {
     ElevatedCard(
       onClick = { navigateToProduct(product.id) },

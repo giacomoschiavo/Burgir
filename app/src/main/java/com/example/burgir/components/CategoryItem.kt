@@ -57,7 +57,7 @@ fun Category(
       )
       Text(
         text = category.categoryName,
-        style = if (isChosen) AppTypography.labelSmall.copy(fontWeight = FontWeight.Bold) else AppTypography.labelSmall,
+        style = if (isChosen) AppTypography.labelMedium.copy(fontWeight = FontWeight.Bold) else AppTypography.labelMedium,
         modifier = Modifier.padding(5.dp)
       )
     }

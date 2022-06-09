@@ -1,7 +1,6 @@
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -18,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -34,7 +34,7 @@ fun HomeScreen(
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(1) }
 
-  burgirViewModel.getPopularProductsByCategory(chosenCategoryId)
+  burgirViewModel.getProductsByPopularity()
   val popularProducts by burgirViewModel.products.observeAsState(emptyList())
   val categories by burgirViewModel.categories.observeAsState(emptyList())
 
@@ -46,29 +46,32 @@ fun HomeScreen(
     LazyVerticalGrid(
       columns = GridCells.Fixed(2),
       contentPadding = PaddingValues(
-        top = innerPadding.calculateTopPadding(),
+        top = innerPadding.calculateTopPadding() + 10.dp,
         bottom = innerPadding.calculateBottomPadding(),
-        start = 10.dp,
-        end = 10.dp
-      )
+        start = 15.dp,
+        end = 20.dp
+      ),
+      horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
       item(span = { GridItemSpan(2) }, key = 200) {
         Text(
           text = buildAnnotatedString {
             append("Hey, ")
             withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-              append("Mike")
+              append("Shagon")
             }
           },
           style = AppTypography.titleMedium,
-          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f)
+          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+          modifier = Modifier.padding(vertical = 10.dp)
         )
       }
-      item(key = 201) { Spacer(modifier = Modifier.size(10.dp)) }
       item(span = { GridItemSpan(2) }, key = 202) {
         Text(
           text = "Choose Your\nBest Meal",
-          style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Bold)
+          style = AppTypography.displayMedium.copy(fontWeight = FontWeight.Bold),
+          textAlign = TextAlign.Center
+
         )
       }
       item(span = { GridItemSpan(2) }, key = 203) {
@@ -78,16 +81,17 @@ fun HomeScreen(
           categories = categories
         )
       }
-      item(key = 204) { Spacer(modifier = Modifier.size(20.dp)) }
       item(span = { GridItemSpan(2) }, key = 205) {
         Text(
-          text = "Popular",
-          style = AppTypography.headlineMedium,
-          modifier = Modifier.paddingFromBaseline(top = 10.dp)
+          text = "Popular in ${if (categories.isNotEmpty()) categories[chosenCategoryId - 1].categoryName else ""}",
+          style = AppTypography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
+          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+          modifier = Modifier.padding(vertical = 5.dp),
+          textAlign = TextAlign.Center
         )
       }
       items(
-        popularProducts,
+        popularProducts.filter { it.category == chosenCategoryId },
         key = { product -> product.id }) { product ->
         ProductItem(product, navController)
       }
