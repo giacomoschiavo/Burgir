@@ -23,6 +23,7 @@ fun CategoryScreen(
 
   SecondaryScaffold(
     navController = navController,
+    burgirViewModel = burgirViewModel,
     showCartIcon = true,
     title = category?.categoryName ?: "",
     content = { innerPadding ->

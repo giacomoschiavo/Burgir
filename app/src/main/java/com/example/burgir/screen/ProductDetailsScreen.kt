@@ -39,6 +39,7 @@ fun ProductDetailsScreen(
 
   SecondaryScaffold(
     navController = navController,
+    burgirViewModel = burgirViewModel,
     showFavoriteIcon = true,
     showCartIcon = true,
     title = product?.productName ?: "",

@@ -31,51 +31,6 @@ import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.AppTypography
 
-val cartList = listOf(
-  Product(
-    id = 0,
-    productName = "Insalata strana",
-    imageUrl = R.drawable.burger,
-    category = 1,
-    discount = 10,
-    isFavorite = true,
-  ),
-  Product(
-    id = 2,
-    productName = "Dolce buonissimo",
-    imageUrl = R.drawable.burger,
-    category = 2,
-    cartQuantity = 1,
-  ),
-  Product(
-    id = 6,
-    cartQuantity = 1,
-    productName = "Burger",
-    imageUrl = R.drawable.burger,
-    category = 0,
-  ),
-  Product(
-    id = 7,
-    productName = "Burger",
-    cartQuantity = 1,
-    imageUrl = R.drawable.burger,
-    category = 0,
-  ),
-  Product(
-    id = 8,
-    productName = "Burger",
-    cartQuantity = 1,
-    imageUrl = R.drawable.burger,
-    category = 0,
-  ),
-  Product(
-    id = 9,
-    productName = "Burger",
-    cartQuantity = 1,
-    imageUrl = R.drawable.burger,
-    category = 0,
-  ),
-)
 
 @Composable
 fun CartScreen(
@@ -84,33 +39,38 @@ fun CartScreen(
 ) {
 
   burgirViewModel.getProductsinCart()
-  val productsOnCart by burgirViewModel.products.observeAsState()
+  val productsOnCart by burgirViewModel.products.observeAsState(emptyList())
 
-  SecondaryScaffold(navController = navController, title = "Your Cart", content = { innerPadding ->
-    Column(modifier = Modifier.padding(innerPadding)) {
-      LazyColumn(
-        modifier = Modifier.weight(0.8f),
-        contentPadding = PaddingValues(vertical = 10.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-      ) {
-        items(productsOnCart ?: emptyList(), key = { product -> product.id }) { product ->
-          RowCartItem(
-            product,
-            modifier = Modifier.padding(10.dp),
-            burgirViewModel = burgirViewModel
-          )
+  SecondaryScaffold(
+    navController = navController,
+    burgirViewModel = burgirViewModel,
+    title = "Your Cart",
+    content = { innerPadding ->
+      Column(modifier = Modifier.padding(innerPadding)) {
+        LazyColumn(
+          modifier = Modifier.weight(0.8f),
+          contentPadding = PaddingValues(vertical = 10.dp),
+          horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+          items(productsOnCart, key = { product -> product.id }) { product ->
+            RowCartItem(
+              product,
+              modifier = Modifier.padding(10.dp),
+              burgirViewModel = burgirViewModel
+            )
+          }
         }
-      }
-      val originalPrice = productsOnCart?.sumOf { it.productPrice * it.cartQuantity } ?: 0.0
-      val discount =
-        productsOnCart?.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity } ?: 0.0
-      PaymentSummary(
-        originalPrice = originalPrice,
-        discount = discount,
-        modifier = Modifier
-          .weight(0.3f)
-          .padding(15.dp)
-      )
+
+        val originalPrice = productsOnCart.sumOf { it.productPrice * it.cartQuantity }
+        val discount =
+          productsOnCart.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }
+        PaymentSummary(
+          originalPrice = originalPrice,
+          discount = discount,
+          modifier = Modifier
+            .weight(0.3f)
+            .padding(15.dp)
+        )
     }
   })
 
@@ -184,9 +144,53 @@ fun PaymentSummary(
       Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "arrow")
     }
   }
-
-
 }
+
+val cartList = listOf(
+  Product(
+    id = 0,
+    productName = "Insalata strana",
+    imageUrl = R.drawable.burger,
+    category = 1,
+    discount = 10,
+    isFavorite = true,
+  ),
+  Product(
+    id = 2,
+    productName = "Dolce buonissimo",
+    imageUrl = R.drawable.burger,
+    category = 2,
+    cartQuantity = 1,
+  ),
+  Product(
+    id = 6,
+    cartQuantity = 1,
+    productName = "Burger",
+    imageUrl = R.drawable.burger,
+    category = 0,
+  ),
+  Product(
+    id = 7,
+    productName = "Burger",
+    cartQuantity = 1,
+    imageUrl = R.drawable.burger,
+    category = 0,
+  ),
+  Product(
+    id = 8,
+    productName = "Burger",
+    cartQuantity = 1,
+    imageUrl = R.drawable.burger,
+    category = 0,
+  ),
+  Product(
+    id = 9,
+    productName = "Burger",
+    cartQuantity = 1,
+    imageUrl = R.drawable.burger,
+    category = 0,
+  ),
+)
 
 @Composable
 fun PaymentSummaryItem(key: String, value: Double) {

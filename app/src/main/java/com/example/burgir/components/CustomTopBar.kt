@@ -9,6 +9,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
@@ -18,11 +19,13 @@ import com.example.burgir.data.Product
 fun CustomTopBar(
   navController: NavController,
   scrollBehavior: TopAppBarScrollBehavior,
+  modifier: Modifier = Modifier,
   showFavoriteIcon: Boolean = true,
   showCartIcon: Boolean = true,
   title: String = "",
   product: Product? = null,
   onFavoriteClick: (Product) -> Unit = {},
+  showBadge: () -> Boolean = { false }
 ) {
 
   MediumTopAppBar(
@@ -46,10 +49,11 @@ fun CustomTopBar(
         }
       }
       if (showCartIcon) {
-        CartIconWithBadge(navController = navController, true)
+        CartIconWithBadge(navController = navController, showBadge())
       }
     },
-    scrollBehavior = scrollBehavior
+    scrollBehavior = scrollBehavior,
+    modifier = modifier
   )
 }
 
