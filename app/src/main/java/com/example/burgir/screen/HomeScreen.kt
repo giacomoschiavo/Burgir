@@ -46,10 +46,8 @@ fun HomeScreen(
     LazyVerticalGrid(
       columns = GridCells.Fixed(2),
       contentPadding = PaddingValues(
-        top = innerPadding.calculateTopPadding() + 10.dp,
+        top = innerPadding.calculateTopPadding(),
         bottom = innerPadding.calculateBottomPadding(),
-        start = 15.dp,
-        end = 20.dp
       ),
       horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
