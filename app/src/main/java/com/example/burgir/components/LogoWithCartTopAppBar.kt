@@ -1,15 +1,10 @@
-import androidx.compose.foundation.layout.size
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 
 // questo componente compare nelle 4 schermate principali
@@ -17,6 +12,7 @@ import com.example.burgir.ui.theme.AppTypography
 fun LogoWithCartTopAppBar(
   navController: NavController,
   scrollBehavior: TopAppBarScrollBehavior,
+  showBadge: () -> Boolean,
   modifier: Modifier = Modifier
 ) {
   CenterAlignedTopAppBar(
@@ -29,18 +25,7 @@ fun LogoWithCartTopAppBar(
       )
     },
     actions = {
-      IconButton(onClick = {
-        navController.navigate(RouteConfig.CART_SCREEN_ROUTE) { launchSingleTop = true }
-      }) {
-        BadgedBox(badge = {
-          Badge(modifier = Modifier.size(10.dp))
-        }) {
-          Icon(
-            imageVector = Icons.Outlined.ShoppingCart,
-            contentDescription = "Account Icon"
-          )
-        }
-      }
+      CartIconWithBadge(navController = navController, showBadge())
     },
     modifier = modifier,
     scrollBehavior = scrollBehavior
@@ -54,5 +39,6 @@ fun LogoWithCartTopAppBarPreview() {
   LogoWithCartTopAppBar(
     rememberNavController(),
     TopAppBarDefaults.enterAlwaysScrollBehavior { true },
+    { true }
   )
 }

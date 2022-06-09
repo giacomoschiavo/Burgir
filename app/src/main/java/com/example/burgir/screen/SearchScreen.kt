@@ -6,6 +6,7 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
@@ -15,10 +16,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.components.PrimaryScaffold
-import com.example.burgir.data.Category
+import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 
@@ -26,16 +28,22 @@ import com.example.burgir.ui.theme.AppTypography
 @Composable
 fun SearchScreen(
   navController: NavController,
-  categories: List<Category>,
+  burgirViewModel: BurgirViewModel,
   modifier: Modifier = Modifier
 ) {
   var searchText by rememberSaveable { mutableStateOf("") }
+
+  val categories by burgirViewModel.categories.observeAsState(emptyList())
 
   val navigateToCategory: (Int) -> Unit = {
     navController.navigate("${RouteConfig.CATEGORY_SCREEN_ROUTE}/$it") { launchSingleTop }
   }
 
-  PrimaryScaffold(navController = navController, modifier = modifier) { innerPadding ->
+  PrimaryScaffold(
+    navController = navController,
+    burgirViewModel = burgirViewModel,
+    modifier = modifier
+  ) { innerPadding ->
     LazyColumn(
       modifier = Modifier
         .padding(innerPadding)
@@ -108,5 +116,5 @@ fun SearchScreen(
 @Preview(showBackground = true)
 @Composable
 fun SearchScreenPreview() {
-  SearchScreen(rememberNavController(), emptyList())
+  SearchScreen(rememberNavController(), burgirViewModel = viewModel())
 }

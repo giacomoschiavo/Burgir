@@ -38,7 +38,11 @@ fun HomeScreen(
   val popularProducts by burgirViewModel.products.observeAsState(emptyList())
   val categories by burgirViewModel.categories.observeAsState(emptyList())
 
-  PrimaryScaffold(navController, modifier) { innerPadding ->
+  PrimaryScaffold(
+    navController = navController,
+    burgirViewModel = burgirViewModel,
+    modifier = modifier
+  ) { innerPadding ->
     LazyVerticalGrid(
       columns = GridCells.Fixed(2),
       contentPadding = PaddingValues(

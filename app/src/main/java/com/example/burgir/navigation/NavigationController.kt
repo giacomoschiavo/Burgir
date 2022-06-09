@@ -1,6 +1,4 @@
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -16,8 +14,6 @@ import com.example.burgir.screen.SplashScreen
 fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
 
   val navController = rememberNavController()
-  val categories by burgirViewModel.categories.observeAsState(emptyList())
-
   NavHost(
     navController = navController,
     startDestination = RouteConfig.SPLASH_SCREEN_ROUTE,
@@ -47,7 +43,7 @@ fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
         burgirViewModel = burgirViewModel
       )
     }
-    composable(RouteConfig.SEARCH_SCREEN_ROUTE) { SearchScreen(navController, categories) }
+    composable(RouteConfig.SEARCH_SCREEN_ROUTE) { SearchScreen(navController, burgirViewModel) }
     composable("${RouteConfig.PRODUCT_SCREEN_ROUTE}/{productId}") { backStackEntry ->
       ProductDetailsScreen(
         productId = backStackEntry.arguments?.getString("productId")?.toInt() ?: -1,

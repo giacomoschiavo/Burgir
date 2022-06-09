@@ -26,7 +26,11 @@ fun FavoriteScreen(
   burgirViewModel.getProductsByFavorite()
   val favoriteProducts by burgirViewModel.products.observeAsState(emptyList())
 
-  PrimaryScaffold(navController = navController, modifier = modifier) { innerPadding ->
+  PrimaryScaffold(
+    navController = navController,
+    burgirViewModel = burgirViewModel,
+    modifier = modifier
+  ) { innerPadding ->
     ProductsGrid(
       navController = navController,
       products = favoriteProducts,

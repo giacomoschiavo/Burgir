@@ -3,7 +3,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.outlined.FavoriteBorder
-import androidx.compose.material.icons.outlined.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,7 +13,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.data.Product
-import com.example.burgir.navigation.RouteConfig
 
 @Composable
 fun CustomTopBar(
@@ -48,13 +46,7 @@ fun CustomTopBar(
         }
       }
       if (showCartIcon) {
-        IconButton(onClick = {
-          navController.navigate(RouteConfig.CART_SCREEN_ROUTE) {
-            launchSingleTop = true
-          }
-        }) {
-          Icon(imageVector = Icons.Outlined.ShoppingCart, contentDescription = "Cart")
-        }
+        CartIconWithBadge(navController = navController, true)
       }
     },
     scrollBehavior = scrollBehavior

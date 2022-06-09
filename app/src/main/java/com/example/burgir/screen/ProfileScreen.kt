@@ -32,7 +32,10 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
   burgirViewModel.getProductsByPopularity()
   val products by burgirViewModel.products.observeAsState(emptyList())
 
-  PrimaryScaffold(navController) { innerPadding ->
+  PrimaryScaffold(
+    navController = navController,
+    burgirViewModel = burgirViewModel
+  ) { innerPadding ->
     LazyColumn(
       horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
