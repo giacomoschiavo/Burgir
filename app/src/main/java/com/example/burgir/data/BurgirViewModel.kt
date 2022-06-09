@@ -93,14 +93,7 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
         products=repository.products.asLiveData()
         return repository.products
     }
-
-    fun getPopularProductsByCategory(id: Int): Flow<List<Product>>{
-        repository.getPopularProductsByCategory(id)
-        products=repository.products.asLiveData()
-        return repository.products
-    }
-
-
+    
     fun checkout()= viewModelScope.launch{
         repository.checkout()
     }

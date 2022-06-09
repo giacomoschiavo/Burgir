@@ -98,10 +98,6 @@ class  BurgirRepository(private val productDao: ProductDao, private val cartDao:
         products=productDao.getProductsInCart()
     }
 
-    fun getPopularProductsByCategory(id: Int){
-        products=productDao.getPopularProductsByCategory(id)
-    }
-
     @Suppress("RedundantSuspendModifier")
     @WorkerThread
     suspend fun checkout(){

@@ -32,9 +32,9 @@ interface ProductDao {
     fun getAllProducts(): Flow<List<Product>>
 
     /**
-     * Return a list of most popular products (max 6 products as default)
+     * Return a list of most popular products (20 products as default)
      */
-    @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 6")
+    @Query("SELECT * FROM Product ORDER BY times_purchased DESC LIMIT 20")
     fun getProductsByPopularity() : Flow<List<Product>>
 
     /**
@@ -80,12 +80,6 @@ interface ProductDao {
      */
     @Query("UPDATE Product SET Is_Favorite=CASE WHEN Is_Favorite=1 THEN 0 WHEN Is_Favorite=0 THEN 1 END WHERE id= :id")
     suspend fun updateFavorite(id: Int)
-
-    /**
-     * Return a list of the most popular products that belong to the specified category
-     */
-    @Query("SELECT * FROM Product WHERE category= :id ORDER BY times_purchased DESC LIMIT 4 ")
-    fun getPopularProductsByCategory(id: Int): Flow<List<Product>>
 
     /**
      * remove all the quantity of the product from the cart, used when the quantity is >1 and the user wants to cancel it from the order
