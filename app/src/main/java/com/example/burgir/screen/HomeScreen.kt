@@ -34,11 +34,9 @@ fun HomeScreen(
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(1) }
 
-  burgirViewModel.getProductsByPopularity()
+  burgirViewModel.getPopularProductsByCategory(chosenCategoryId)
   val popularProducts by burgirViewModel.products.observeAsState(emptyList())
   val categories by burgirViewModel.categories.observeAsState(emptyList())
-
-
 
   PrimaryScaffold(navController, modifier) { innerPadding ->
     LazyVerticalGrid(
@@ -85,9 +83,7 @@ fun HomeScreen(
         )
       }
       items(
-        popularProducts.filter { it.category == chosenCategoryId }
-          .sortedByDescending { it.timesPurchased }
-          .take(5),
+        popularProducts,
         key = { product -> product.id }) { product ->
         ProductItem(product, navController)
       }
