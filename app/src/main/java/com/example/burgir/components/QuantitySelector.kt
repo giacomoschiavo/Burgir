@@ -33,7 +33,7 @@ fun QuantitySelector(
     modifier = modifier
   ) {
     IconButton(onClick = {
-      counter--
+      if (counter > 1) counter--
       onRemove(counter)
     }) {
       Icon(

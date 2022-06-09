@@ -112,7 +112,7 @@ fun RowCartItem(product: Product, burgirViewModel: BurgirViewModel, modifier: Mo
       verticalArrangement = Arrangement.Top,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      IconButton(onClick = { }) {
+      IconButton(onClick = { burgirViewModel.removeAllFromCartByProductId(product.id) }) {
         Icon(imageVector = Icons.Outlined.Delete, contentDescription = "delete icon")
       }
       PriceLabel(price = product.productPrice)

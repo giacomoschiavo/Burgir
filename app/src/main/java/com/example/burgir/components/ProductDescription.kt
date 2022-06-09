@@ -1,7 +1,10 @@
+import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
@@ -30,11 +33,12 @@ fun ProductDescription(
   ) {
 
     var quantity by rememberSaveable { mutableStateOf(1) }
+    var clicked by rememberSaveable() { mutableStateOf(false) }
 
     if (product == null) {
       Text("No products found :(")
     } else {
-      Column(modifier = Modifier.padding(15.dp)) {
+      Column(modifier = Modifier.padding(horizontal = 25.dp)) {
         if (product.discount != 0) {
           ElevatedSuggestionChip(
             onClick = {},
@@ -63,20 +67,31 @@ fun ProductDescription(
           modifier = Modifier.padding(vertical = 10.dp)
         ) {
           QuantitySelector(
-            onAdd = { quantity = it },
-            onRemove = { quantity = it },
-            modifier = Modifier.padding(horizontal = 10.dp)
+            onAdd = { quantity = it; clicked = false },
+            onRemove = { if (it < 1) quantity = it else quantity = 1; clicked = false },
+            modifier = Modifier
+              .padding(horizontal = 10.dp)
+              .weight(0.8f)
           )
           Button(
-            onClick = { onAddToCart(product.id, quantity) },
-            modifier = Modifier.weight(1f)
+            onClick = { onAddToCart(product.id, quantity); clicked = true },
+            modifier = Modifier
+              .weight(1f)
+              .heightIn(60.dp)
           ) {
-            Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = "Cart")
-            Text(
-              text = "Add to cart",
-              style = AppTypography.labelLarge,
-              modifier = Modifier.padding(10.dp)
-            )
+            AnimatedVisibility(visible = !clicked) {
+              Row(verticalAlignment = Alignment.CenterVertically) {
+                Icon(imageVector = Icons.Filled.ShoppingCart, contentDescription = "Cart")
+                Text(
+                  text = "Add to cart",
+                  style = AppTypography.labelLarge,
+                  modifier = Modifier.padding(10.dp)
+                )
+              }
+            }
+            AnimatedVisibility(visible = clicked) {
+              Icon(imageVector = Icons.Filled.Check, contentDescription = "Cart")
+            }
           }
         }
       }
