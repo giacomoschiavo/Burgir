@@ -82,9 +82,8 @@ class  BurgirRepository(private val productDao: ProductDao, private val cartDao:
         products=productDao.getAllProducts()
     }
 
-    fun getProductsByPopularity(): Flow<List<Product>> {
+    fun getProductsByPopularity() {
         products = productDao.getProductsByPopularity()
-        return products
     }
 
     fun getProductsByFavorite(){
@@ -125,5 +124,15 @@ class  BurgirRepository(private val productDao: ProductDao, private val cartDao:
     @WorkerThread
     suspend fun updateFavorite(id: Int) {
         productDao.updateFavorite(id)
+    }
+
+    @Suppress("RedundantSuspendModifier")
+    @WorkerThread
+    suspend fun removeAllFromCartByProductId(id: Int){
+        productDao.removeAllFromCartByProductId(id)
+    }
+
+    fun getProductById(id :Int) : Flow<Product>{
+        return productDao.getProductById(id)
     }
 }

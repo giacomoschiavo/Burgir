@@ -117,6 +117,14 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
     fun updateFavorite(id: Int) = viewModelScope.launch{
         repository.updateFavorite(id)
     }
+
+    fun removeAllFromCartByProductId(id : Int) = viewModelScope.launch {
+        repository.removeAllFromCartByProductId(id)
+    }
+
+    fun getProductById(id :Int) : Flow<Product>{
+        return repository.getProductById(id)
+    }
 }
 class BurgirViewModelFactory(private val repository: BurgirRepository) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {

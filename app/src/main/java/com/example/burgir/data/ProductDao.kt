@@ -70,7 +70,7 @@ interface ProductDao {
     suspend fun addToCart(id : Int,quantity : Int = 1)
 
     /**
-     * Remove the quantity of the specified product (identified by ID)
+     * Remove 1 quantity of the specified product (identified by ID)
      */
     @Query("UPDATE Product SET cart_quantity = cart_quantity-1 WHERE id= :id")
     suspend fun removeFromCart(id: Int)
@@ -82,9 +82,20 @@ interface ProductDao {
     suspend fun updateFavorite(id: Int)
 
     /**
-     *
+     * Return a list of the most popular products that belong to the specified category
      */
     @Query("SELECT * FROM Product WHERE category= :id ORDER BY times_purchased DESC LIMIT 4 ")
     fun getPopularProductsByCategory(id: Int): Flow<List<Product>>
 
+    /**
+     * remove all the quantity of the product from the cart, used when the quantity is >1 and the user wants to cancel it from the order
+     */
+    @Query("UPDATE Product SET cart_quantity=0 WHERE id= :id")
+    suspend fun removeAllFromCartByProductId(id: Int)
+
+    /**
+     * return the single product
+     */
+    @Query("SELECT * FROM Product WHERE id= :id")
+    fun getProductById(id :Int) : Flow<Product>
 }
