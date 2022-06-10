@@ -1,5 +1,6 @@
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -36,8 +37,9 @@ fun FavoriteScreen(
         Text(
           text = "Your Favorites♥",
           textAlign = TextAlign.Center,
-          style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Bold),
-          modifier = Modifier.paddingFromBaseline(bottom = 15.dp)
+          style = AppTypography.headlineSmall.copy(fontWeight = FontWeight.ExtraBold),
+          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
+          modifier = Modifier.paddingFromBaseline(15.dp, 15.dp)
         )
       },
       modifier = Modifier.padding(innerPadding)

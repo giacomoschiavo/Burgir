@@ -1,3 +1,4 @@
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -12,7 +13,9 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -86,7 +89,7 @@ fun SearchScreen(
           Row(
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.height(100.dp)
+            modifier = Modifier.heightIn(150.dp)
           ) {
             Text(
               text = category.categoryName,
@@ -95,13 +98,14 @@ fun SearchScreen(
                 .padding(25.dp),
               style = AppTypography.headlineSmall.copy(fontWeight = FontWeight.Bold)
             )
-//          Image(
-//            painter = painterResource(id = category.imageRes),
-//            contentDescription = null,
-//            modifier = Modifier
-//              .padding(15.dp)
-//              .scale(1.5f)
-//          )
+            Image(
+              painter = painterResource(id = category.imageUri),
+              contentDescription = null,
+              modifier = Modifier
+                .padding(30.dp)
+                .weight(0.5f)
+                .scale(2f)
+            )
           }
         }
       }
