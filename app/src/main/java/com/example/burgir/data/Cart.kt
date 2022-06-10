@@ -15,5 +15,5 @@ data class Cart (
     /**
      * price of the order placed
      */
-    @ColumnInfo(name="price") val price : Int
+    @ColumnInfo(name="price") val price : Double
 )

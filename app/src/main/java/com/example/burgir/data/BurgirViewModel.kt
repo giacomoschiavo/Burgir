@@ -94,7 +94,7 @@ class BurgirViewModel(private val repository: BurgirRepository) : ViewModel(){
         return repository.products
     }
     
-    fun checkout(price: Int)= viewModelScope.launch{
+    fun checkout(price: Double)= viewModelScope.launch{
         repository.checkout()
         repository.insertCart(Cart(0,price))
     }
