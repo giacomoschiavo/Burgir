@@ -15,11 +15,5 @@ data class Cart (
     /**
      * price of the order placed
      */
-    @ColumnInfo(name="price") val price : Int,
-    /**
-     * Day when the order is been placed
-     */
-    //TODO SALVARE LA DATA DELL'ORDINE OPPURE NO
-    @ColumnInfo(name="date") val date : String
-
+    @ColumnInfo(name="price") val price : Int
 )
