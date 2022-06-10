@@ -1,10 +1,13 @@
 package com.example.burgir.screen
 
+import PriceLabel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
+import androidx.compose.material3.Card
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -24,6 +28,7 @@ import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.Shapes
 import com.example.compose.BurgirTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel) {
 
@@ -34,9 +39,8 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
     burgirViewModel = burgirViewModel,
   ) { innerPadding ->
     LazyColumn(
-      horizontalAlignment = Alignment.CenterHorizontally,
       modifier = Modifier
-        .fillMaxSize()
+        .fillMaxWidth()
         .padding(innerPadding)
     ) {
       item {
@@ -51,7 +55,8 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
           Text(
             text = "Hasbulla",
             style = AppTypography.displaySmall,
-            modifier = Modifier.paddingFromBaseline(top = 30.dp)
+            modifier = Modifier.paddingFromBaseline(top = 30.dp),
+            textAlign = TextAlign.Center
           )
         }
       }
@@ -64,9 +69,18 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
         )
       }
       items(carts) { cart ->
-        Row(verticalAlignment = Alignment.CenterVertically) {
-          Text(text = cart.date)
-          Text(text = cart.price.toString())
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          modifier = Modifier.padding(vertical = 10.dp)
+        ) {
+          Card() {
+            Text(
+              text = cart.id.toString(),
+              style = AppTypography.titleLarge.copy(fontWeight = FontWeight.Bold),
+              modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
+            )
+          }
+          PriceLabel(cart.price, style = AppTypography.titleLarge)
         }
       }
     }

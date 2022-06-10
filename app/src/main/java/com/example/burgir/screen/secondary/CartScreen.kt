@@ -141,7 +141,7 @@ fun PaymentSummary(
       PaymentSummaryItem("Discount", discount)
       PaymentSummaryItem("Cost", originalPrice - discount)
     }
-    Button(onClick = { burgirViewModel.checkout() }, modifier = Modifier.fillMaxWidth()) {
+    Button(onClick = { burgirViewModel.checkout(originalPrice - discount) }, modifier = Modifier.fillMaxWidth()) {
       Text(text = "Payment & delivery")
       Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "arrow")
     }
