@@ -1,5 +1,4 @@
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.GridItemSpan
@@ -29,7 +28,6 @@ import com.example.burgir.ui.theme.AppTypography
 @Composable
 fun HomeScreen(
   navController: NavController,
-  modifier: Modifier = Modifier,
   burgirViewModel: BurgirViewModel
 ) {
   var chosenCategoryId by rememberSaveable { mutableStateOf(1) }
@@ -41,14 +39,10 @@ fun HomeScreen(
   PrimaryScaffold(
     navController = navController,
     burgirViewModel = burgirViewModel,
-    modifier = modifier
   ) { innerPadding ->
     LazyVerticalGrid(
       columns = GridCells.Fixed(2),
-      contentPadding = PaddingValues(
-        top = innerPadding.calculateTopPadding(),
-        bottom = innerPadding.calculateBottomPadding(),
-      ),
+      contentPadding = innerPadding,
       horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
       item(span = { GridItemSpan(2) }, key = 200) {

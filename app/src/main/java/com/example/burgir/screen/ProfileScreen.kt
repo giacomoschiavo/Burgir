@@ -1,11 +1,7 @@
 package com.example.burgir.screen
 
-import ProductItem
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.paddingFromBaseline
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
@@ -30,11 +26,11 @@ import com.example.compose.BurgirTheme
 fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel) {
 
   burgirViewModel.getProductsByPopularity()
-  val products by burgirViewModel.products.observeAsState(emptyList())
+  val carts by burgirViewModel.carts.observeAsState(emptyList())
 
   PrimaryScaffold(
     navController = navController,
-    burgirViewModel = burgirViewModel
+    burgirViewModel = burgirViewModel,
   ) { innerPadding ->
     LazyColumn(
       horizontalAlignment = Alignment.CenterHorizontally,
@@ -58,9 +54,12 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
           modifier = Modifier.paddingFromBaseline(top = 30.dp)
         )
       }
-      item { Text(text = "Your Latest") }
-      items(products) { product ->
-        ProductItem(product = product, navController)
+      item { Text(text = "Your Latest Orders") }
+      items(carts) { cart ->
+        Row(verticalAlignment = Alignment.CenterVertically) {
+          Text(text = cart.date)
+          Text(text = cart.price.toString())
+        }
       }
     }
   }

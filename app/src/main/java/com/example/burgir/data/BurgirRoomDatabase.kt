@@ -39,7 +39,7 @@ abstract class BurgirRoomDatabase : RoomDatabase() {
           categoryDao.insert(Category(2, "Chickens", R.drawable.c_mcchicken, 120f, 0.7f, 1f))
           categoryDao.insert(Category(3, "Snacks", R.drawable.s_mcnuggets, 45f, 0.96f, 1f))
           categoryDao.insert(Category(4, "Ice creams", R.drawable.i_mcflurrybacio, 200f, 0.96f, 1f))
-          categoryDao.insert(Category(5, "Drinks", R.drawable.d_cocacola_m, 285f, 0.96f, 1f))
+          categoryDao.insert(Category(5, "Drinks", R.drawable.d_cocacola, 285f, 0.96f, 1f))
 
           val burgerImageTypedArray: TypedArray =
             resources.obtainTypedArray(R.array.burgers)

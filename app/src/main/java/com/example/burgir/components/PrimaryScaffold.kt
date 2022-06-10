@@ -12,6 +12,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.burgir.data.BurgirViewModel
@@ -34,7 +35,8 @@ fun PrimaryScaffold(
   burgirViewModel.getProductsinCart()
   val productsInCart by burgirViewModel.products.observeAsState()
   Scaffold(
-    modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+    modifier = modifier
+      .nestedScroll(scrollBehavior.nestedScrollConnection),
     topBar = {
       LogoWithCartTopAppBar(
         navController,
@@ -47,7 +49,16 @@ fun PrimaryScaffold(
         else -> MainNavigationBar(navController)
       }
     },
-    content = { content(it) }
+    content = { innerPadding ->
+      content(
+        PaddingValues(
+          top = innerPadding.calculateTopPadding(),
+          bottom = innerPadding.calculateBottomPadding(),
+          start = 15.dp,
+          end = 15.dp
+        )
+      )
+    }
   )
 
 }

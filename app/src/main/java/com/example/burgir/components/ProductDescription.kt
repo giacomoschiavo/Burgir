@@ -38,7 +38,7 @@ fun ProductDescription(
     if (product == null) {
       Text("No products found :(")
     } else {
-      Column(modifier = Modifier.padding(horizontal = 25.dp)) {
+      Column {
         if (product.discount != 0) {
           ElevatedSuggestionChip(
             onClick = {},

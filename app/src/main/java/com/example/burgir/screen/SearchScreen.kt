@@ -29,7 +29,6 @@ import com.example.burgir.ui.theme.AppTypography
 fun SearchScreen(
   navController: NavController,
   burgirViewModel: BurgirViewModel,
-  modifier: Modifier = Modifier
 ) {
   var searchText by rememberSaveable { mutableStateOf("") }
 
@@ -42,12 +41,10 @@ fun SearchScreen(
   PrimaryScaffold(
     navController = navController,
     burgirViewModel = burgirViewModel,
-    modifier = modifier
   ) { innerPadding ->
     LazyColumn(
       modifier = Modifier
         .padding(innerPadding)
-        .padding(horizontal = 20.dp)
     ) {
       item {
         Text(

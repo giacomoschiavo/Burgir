@@ -1,4 +1,4 @@
-package com.example.burgir.screen
+package com.example.burgir.screen.secondary
 
 import android.view.animation.OvershootInterpolator
 import androidx.compose.animation.core.Animatable

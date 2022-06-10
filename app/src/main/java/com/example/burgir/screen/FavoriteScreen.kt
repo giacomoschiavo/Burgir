@@ -20,7 +20,6 @@ import com.example.burgir.ui.theme.AppTypography
 fun FavoriteScreen(
   navController: NavController,
   burgirViewModel: BurgirViewModel,
-  modifier: Modifier = Modifier
 ) {
 
   burgirViewModel.getProductsByFavorite()
@@ -29,7 +28,6 @@ fun FavoriteScreen(
   PrimaryScaffold(
     navController = navController,
     burgirViewModel = burgirViewModel,
-    modifier = modifier
   ) { innerPadding ->
     ProductsGrid(
       navController = navController,
@@ -39,7 +37,7 @@ fun FavoriteScreen(
           text = "Your Favorites♥",
           textAlign = TextAlign.Center,
           style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Bold),
-          modifier = modifier.paddingFromBaseline(bottom = 15.dp)
+          modifier = Modifier.paddingFromBaseline(bottom = 15.dp)
         )
       },
       modifier = Modifier.padding(innerPadding)

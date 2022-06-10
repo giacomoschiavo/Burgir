@@ -1,4 +1,4 @@
-package com.example.burgir.screen
+package com.example.burgir.screen.secondary
 
 import PriceLabel
 import QuantitySelector
@@ -65,6 +65,7 @@ fun CartScreen(
         val discount =
           productsOnCart.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }
         PaymentSummary(
+          burgirViewModel = burgirViewModel,
           originalPrice = originalPrice,
           discount = discount,
           modifier = Modifier
@@ -123,6 +124,7 @@ fun RowCartItem(product: Product, burgirViewModel: BurgirViewModel, modifier: Mo
 
 @Composable
 fun PaymentSummary(
+  burgirViewModel: BurgirViewModel,
   originalPrice: Double,
   discount: Double,
   modifier: Modifier = Modifier
@@ -139,7 +141,7 @@ fun PaymentSummary(
       PaymentSummaryItem("Discount", discount)
       PaymentSummaryItem("Cost", originalPrice - discount)
     }
-    Button(onClick = { /*TODO*/ }, modifier = Modifier.fillMaxWidth()) {
+    Button(onClick = { burgirViewModel.checkout() }, modifier = Modifier.fillMaxWidth()) {
       Text(text = "Payment & delivery")
       Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "arrow")
     }
@@ -211,7 +213,7 @@ fun RowCartItemPreview() {
 @Preview(showBackground = true, heightDp = 150)
 @Composable
 fun PaymentSummaryPreview() {
-  PaymentSummary(discount = 12.0, originalPrice = 12.34)
+  PaymentSummary(discount = 12.0, originalPrice = 12.34, burgirViewModel = viewModel())
 }
 
 

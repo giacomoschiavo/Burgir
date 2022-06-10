@@ -18,14 +18,13 @@
         <item>@drawable/c_myselctionchicken</item>
     </array>
     <array name="drinks">
-        <item>@drawable/d_birra_m</item>
-        <item>@drawable/d_caffe</item>
-        <item>@drawable/d_cocacola_m</item>
-        <item>@drawable/d_cocacola_zero_m</item>
-        <item>@drawable/d_fanta_m</item>
-        <item>@drawable/d_fuzetea_m</item>
-        <item>@drawable/d_sprite_m</item>
-        <item>@drawable/d_monster</item>
+        <item>@drawable/d_acqua</item>
+        <item>@drawable/d_cocacola</item>
+        <item>@drawable/d_cocacola_zero</item>
+        <item>@drawable/d_fanta</item>
+        <item>@drawable/d_lipton_lemon</item>
+        <item>@drawable/d_lipton_peach</item>
+        <item>@drawable/d_sprite</item>
     </array>
     <array name="snacks">
         <item>@drawable/s_chicken_wings</item>
@@ -60,14 +59,13 @@
         <item>My Selection Chicken</item>
     </array>
     <array name="drinks_names">
-        <item>Birra</item>
-        <item>Caffe</item>
+        <item>Acqua</item>
         <item>Coca Cola</item>
         <item>Coca Cola Zero</item>
         <item>Fanta</item>
-        <item>Fuzetea</item>
+        <item>Lipton Lemon</item>
+        <item>Lipton Peach</item>
         <item>Sprite</item>
-        <item>Monster</item>
     </array>
     <array name="snacks_names">
         <item>Chicken Wings</item>

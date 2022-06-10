@@ -1,17 +1,16 @@
 import androidx.compose.runtime.Composable
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.navigation.RouteConfig
-import com.example.burgir.screen.CartScreen
-import com.example.burgir.screen.ProductDetailsScreen
 import com.example.burgir.screen.ProfileScreen
-import com.example.burgir.screen.SplashScreen
+import com.example.burgir.screen.secondary.CartScreen
+import com.example.burgir.screen.secondary.ProductDetailsScreen
+import com.example.burgir.screen.secondary.SplashScreen
 
 @Composable
-fun NavigationController(burgirViewModel: BurgirViewModel = viewModel()) {
+fun NavigationController(burgirViewModel: BurgirViewModel) {
 
   val navController = rememberNavController()
   NavHost(

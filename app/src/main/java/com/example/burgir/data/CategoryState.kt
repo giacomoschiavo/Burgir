@@ -39,7 +39,7 @@ val categories = listOf(
   CategoryUiState(
     id = 4,
     name = "Drinks",
-    imageRes = R.drawable.d_cocacola_m,
+    imageRes = R.drawable.d_cocacola,
     color = Color.hsv(285f, 0.96f, 1f)
   ),
 

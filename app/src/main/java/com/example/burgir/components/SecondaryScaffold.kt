@@ -12,6 +12,7 @@ import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.Product
@@ -36,7 +37,8 @@ fun SecondaryScaffold(
   val productsInCart by burgirViewModel.products.observeAsState()
 
   Scaffold(
-    modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+    modifier = Modifier
+      .nestedScroll(scrollBehavior.nestedScrollConnection),
     topBar = {
       CustomTopBar(
         navController = navController,
@@ -49,6 +51,15 @@ fun SecondaryScaffold(
         showBadge = { productsInCart?.isNotEmpty() ?: false }
       )
     },
-    content = { content(it) }
+    content = { innerPadding ->
+      content(
+        PaddingValues(
+          top = innerPadding.calculateTopPadding(),
+          bottom = innerPadding.calculateBottomPadding(),
+          start = 15.dp,
+          end = 15.dp
+        )
+      )
+    }
   )
 }
