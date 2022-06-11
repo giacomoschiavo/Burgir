@@ -68,7 +68,7 @@ fun ProductDescription(
         ) {
           QuantitySelector(
             onAdd = { quantity = it; clicked = false },
-            onRemove = { if (it < 1) quantity = it else quantity = 1; clicked = false },
+            onRemove = { quantity = it; clicked = false },
             modifier = Modifier
               .padding(horizontal = 10.dp)
               .weight(0.8f)

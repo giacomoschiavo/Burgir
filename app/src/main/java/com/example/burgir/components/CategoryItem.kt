@@ -12,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.burgir.R
 import com.example.burgir.data.Category
 import com.example.burgir.ui.theme.AppTypography
 
@@ -40,7 +42,7 @@ fun Category(
   ElevatedCard(
     onClick = { onCategoryClicked(category.id) },
     modifier = modifier
-      .size(90.dp)
+      .size(100.dp)
       .scale(scale),
     colors = CardDefaults.elevatedCardColors(containerColor = backgroundColor),
   ) {
@@ -62,4 +64,33 @@ fun Category(
       )
     }
   }
+}
+
+@Preview
+@Composable
+fun CategoryClickedPreview() {
+  Category(
+    Category(
+      id = 0,
+      categoryName = "Burgers",
+      imageUri = R.drawable.b_bigmac,
+      categoryColor1 = 0f,
+      categoryColor2 = 0f,
+      categoryColor3 = 0f
+    ), true, {})
+}
+
+
+@Preview
+@Composable
+fun CategoryPreview() {
+  Category(
+    Category(
+      id = 0,
+      categoryName = "Burgers",
+      imageUri = R.drawable.b_bigmac,
+      categoryColor1 = 0f,
+      categoryColor2 = 0f,
+      categoryColor3 = 0f
+    ), false, {})
 }

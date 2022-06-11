@@ -79,12 +79,12 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
           .fillMaxWidth()) {
           Text(
             text = "Cart Id",
-            style = AppTypography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            style = AppTypography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
           )
           Text(
             text = "Price",
-            style = AppTypography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            style = AppTypography.titleMedium,
             modifier = Modifier.padding(horizontal = 20.dp),
             color = MaterialTheme.colorScheme.onBackground
           )

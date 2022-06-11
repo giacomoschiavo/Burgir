@@ -1,4 +1,5 @@
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.offset
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -7,7 +8,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 
 @Composable
 fun PriceLabel(
@@ -17,8 +20,19 @@ fun PriceLabel(
   color: Color = MaterialTheme.colorScheme.onBackground
 ) {
   Row(modifier = modifier, verticalAlignment = Alignment.Top) {
-    Text(text = "€", modifier = Modifier.scale(0.7f), style = style, color = color)
-    Text(text = "%.2f".format(price), style = style, color = color)
+    Text(
+      text = "€",
+      modifier = Modifier
+        .scale(0.7f)
+        .offset(y = -(2.dp)),
+      style = style,
+      color = color
+    )
+    Text(
+      text = "%.2f".format(price),
+      style = style.copy(fontWeight = FontWeight.SemiBold),
+      color = color
+    )
   }
 }
 

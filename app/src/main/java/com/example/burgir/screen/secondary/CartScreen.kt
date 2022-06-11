@@ -9,10 +9,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.outlined.Delete
-import androidx.compose.material3.Button
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.Text
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -22,9 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.burgir.R
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
@@ -54,10 +49,13 @@ fun CartScreen(
         ) {
           items(productsOnCart, key = { product -> product.id }) { product ->
             RowCartItem(
-              product,
+              product = product,
               modifier = Modifier.padding(10.dp),
-              burgirViewModel = burgirViewModel
+              onAdd = { burgirViewModel.addToCart(product.id) },
+              onRemove = { burgirViewModel.removeFromCart(product.id) },
+              removeAll = { burgirViewModel.removeAllFromCartByProductId(product.id) }
             )
+            Divider(color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.1f))
           }
         }
 
@@ -65,7 +63,7 @@ fun CartScreen(
         val discount =
           productsOnCart.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }
         PaymentSummary(
-          burgirViewModel = burgirViewModel,
+          checkout = { burgirViewModel.checkout(originalPrice - discount) },
           originalPrice = originalPrice,
           discount = discount,
           modifier = Modifier
@@ -79,7 +77,13 @@ fun CartScreen(
 
 
 @Composable
-fun RowCartItem(product: Product, burgirViewModel: BurgirViewModel, modifier: Modifier = Modifier) {
+fun RowCartItem(
+  product: Product,
+  onAdd: (Int) -> Unit,
+  onRemove: (Int) -> Unit,
+  removeAll: () -> Unit,
+  modifier: Modifier = Modifier
+) {
   Row(
     horizontalArrangement = Arrangement.SpaceEvenly,
     verticalAlignment = Alignment.CenterVertically,
@@ -88,20 +92,20 @@ fun RowCartItem(product: Product, burgirViewModel: BurgirViewModel, modifier: Mo
     Row(modifier = Modifier.weight(1f), verticalAlignment = Alignment.CenterVertically) {
       Image(
         painter = painterResource(id = product.imageUrl),
-        contentDescription = "image",
+        contentDescription = "product image",
         modifier = Modifier
           .size(100.dp)
           .padding(10.dp)
       )
-      Spacer(modifier = Modifier.size(10.dp))
+//      Spacer(modifier = Modifier.size(10.dp))
       Column(verticalArrangement = Arrangement.SpaceBetween) {
         Text(
           text = product.productName,
           style = AppTypography.titleSmall.copy(fontWeight = FontWeight.Bold)
         )
         QuantitySelector(
-          onAdd = { burgirViewModel.addToCart(product.id) },
-          onRemove = { burgirViewModel.removeFromCart(product.id) },
+          onAdd = onAdd,
+          onRemove = onRemove,
           modifier = Modifier.padding(top = 10.dp),
           initialQuantity = product.cartQuantity
         )
@@ -113,8 +117,12 @@ fun RowCartItem(product: Product, burgirViewModel: BurgirViewModel, modifier: Mo
       verticalArrangement = Arrangement.Top,
       horizontalAlignment = Alignment.CenterHorizontally
     ) {
-      IconButton(onClick = { burgirViewModel.removeAllFromCartByProductId(product.id) }) {
-        Icon(imageVector = Icons.Outlined.Delete, contentDescription = "delete icon")
+      IconButton(onClick = removeAll) {
+        Icon(
+          imageVector = Icons.Outlined.Delete,
+          contentDescription = "delete icon",
+          modifier = Modifier.padding(10.dp)
+        )
       }
       PriceLabel(price = product.productPrice)
     }
@@ -124,7 +132,7 @@ fun RowCartItem(product: Product, burgirViewModel: BurgirViewModel, modifier: Mo
 
 @Composable
 fun PaymentSummary(
-  burgirViewModel: BurgirViewModel,
+  checkout: () -> Unit,
   originalPrice: Double,
   discount: Double,
   modifier: Modifier = Modifier
@@ -132,7 +140,7 @@ fun PaymentSummary(
 
   Column(modifier = modifier) {
     Column(
-      verticalArrangement = Arrangement.SpaceEvenly,
+      verticalArrangement = Arrangement.SpaceAround,
       modifier = Modifier
         .weight(1f)
         .padding(vertical = 5.dp)
@@ -141,64 +149,21 @@ fun PaymentSummary(
       PaymentSummaryItem("Discount", discount)
       PaymentSummaryItem("Cost", originalPrice - discount)
     }
-    Button(onClick = { burgirViewModel.checkout(originalPrice - discount) }, modifier = Modifier.fillMaxWidth()) {
+    Button(onClick = checkout, modifier = Modifier
+      .fillMaxWidth()
+      .weight(0.3f)) {
       Text(text = "Payment & delivery")
       Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "arrow")
     }
   }
 }
 
-val cartList = listOf(
-  Product(
-    id = 0,
-    productName = "Insalata strana",
-    imageUrl = R.drawable.burger,
-    category = 1,
-    discount = 10,
-    isFavorite = true,
-  ),
-  Product(
-    id = 2,
-    productName = "Dolce buonissimo",
-    imageUrl = R.drawable.burger,
-    category = 2,
-    cartQuantity = 1,
-  ),
-  Product(
-    id = 6,
-    cartQuantity = 1,
-    productName = "Burger",
-    imageUrl = R.drawable.burger,
-    category = 0,
-  ),
-  Product(
-    id = 7,
-    productName = "Burger",
-    cartQuantity = 1,
-    imageUrl = R.drawable.burger,
-    category = 0,
-  ),
-  Product(
-    id = 8,
-    productName = "Burger",
-    cartQuantity = 1,
-    imageUrl = R.drawable.burger,
-    category = 0,
-  ),
-  Product(
-    id = 9,
-    productName = "Burger",
-    cartQuantity = 1,
-    imageUrl = R.drawable.burger,
-    category = 0,
-  ),
-)
 
 @Composable
 fun PaymentSummaryItem(key: String, value: Double) {
   Row() {
-    Text(text = key, modifier = Modifier.weight(1f))
-    PriceLabel(price = value)
+    Text(text = key, modifier = Modifier.weight(1f), style = AppTypography.titleMedium)
+    PriceLabel(price = value, style = AppTypography.titleMedium)
   }
 }
 
@@ -206,21 +171,19 @@ fun PaymentSummaryItem(key: String, value: Double) {
 @Preview(showBackground = true, heightDp = 120)
 @Composable
 fun RowCartItemPreview() {
-  RowCartItem(cartList[0], viewModel())
+  RowCartItem(Product(
+    id = 0,
+    productName = "Big Mac",
+    imageUrl = R.drawable.b_bigmac,
+    category = 1,
+    discount = 10,
+    isFavorite = true,
+  ), onAdd = {}, onRemove = {}, removeAll = {})
 }
 
 
-@Preview(showBackground = true, heightDp = 150)
+@Preview(showBackground = true, heightDp = 250)
 @Composable
 fun PaymentSummaryPreview() {
-  PaymentSummary(discount = 12.0, originalPrice = 12.34, burgirViewModel = viewModel())
+  PaymentSummary(discount = 12.0, originalPrice = 12.34, checkout = {})
 }
-
-
-@Preview(showBackground = true, heightDp = 700, widthDp = 400)
-@Composable
-fun CartScreenPreview() {
-  CartScreen(rememberNavController(), viewModel())
-}
-
-
