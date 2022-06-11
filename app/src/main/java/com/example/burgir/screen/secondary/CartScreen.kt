@@ -97,7 +97,6 @@ fun RowCartItem(
           .size(100.dp)
           .padding(10.dp)
       )
-//      Spacer(modifier = Modifier.size(10.dp))
       Column(verticalArrangement = Arrangement.SpaceBetween) {
         Text(
           text = product.productName,
@@ -113,9 +112,8 @@ fun RowCartItem(
     }
     Column(
       modifier = Modifier
-        .weight(0.3f),
-      verticalArrangement = Arrangement.Top,
-      horizontalAlignment = Alignment.CenterHorizontally
+        .weight(0.4f),
+      horizontalAlignment = Alignment.End
     ) {
       IconButton(onClick = removeAll) {
         Icon(
@@ -124,7 +122,17 @@ fun RowCartItem(
           modifier = Modifier.padding(10.dp)
         )
       }
-      PriceLabel(price = product.productPrice)
+      PriceLabel(
+        price = product.productPrice - (product.productPrice / 100 * product.discount),
+        style = AppTypography.titleLarge
+      )
+      if (product.discount > 0) {
+        PriceLabel(
+          price = product.productPrice,
+          style = AppTypography.bodySmall,
+          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
+        )
+      }
     }
   }
 

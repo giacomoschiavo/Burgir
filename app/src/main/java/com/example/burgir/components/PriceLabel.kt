@@ -17,7 +17,7 @@ fun PriceLabel(
   price: Double,
   modifier: Modifier = Modifier,
   style: TextStyle = TextStyle.Default,
-  color: Color = MaterialTheme.colorScheme.onBackground
+  color: Color = MaterialTheme.colorScheme.onBackground,
 ) {
   Row(modifier = modifier, verticalAlignment = Alignment.Top) {
     Text(
@@ -30,7 +30,7 @@ fun PriceLabel(
     )
     Text(
       text = "%.2f".format(price),
-      style = style.copy(fontWeight = FontWeight.SemiBold),
+      style = style.copy(fontWeight = FontWeight.W300),
       color = color
     )
   }
@@ -39,5 +39,5 @@ fun PriceLabel(
 @Preview(showBackground = true)
 @Composable
 fun PriceLabelPreview() {
-//  PriceLabel(1.20f)
+  PriceLabel(price = 1.20)
 }

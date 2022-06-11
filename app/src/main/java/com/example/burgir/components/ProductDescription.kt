@@ -16,9 +16,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.burgir.R
 import com.example.burgir.data.Product
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.Shapes
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -27,23 +27,23 @@ fun ProductDescription(
   onAddToCart: (productId: Int, quantity: Int) -> Unit,
   modifier: Modifier = Modifier
 ) {
+  var quantity by rememberSaveable { mutableStateOf(1) }
+  var clicked by rememberSaveable() { mutableStateOf(false) }
   Surface(
-    shape = Shapes.large,
     modifier = modifier
   ) {
-
-    var quantity by rememberSaveable { mutableStateOf(1) }
-    var clicked by rememberSaveable() { mutableStateOf(false) }
-
     if (product == null) {
       Text("No products found :(")
     } else {
+
+      val isDiscounted = product.discount > 0
+
       Column {
-        if (product.discount != 0) {
-          ElevatedSuggestionChip(
-            onClick = {},
-            enabled = false,
-            label = { Text("${product.discount}% OFF", style = AppTypography.labelMedium) },
+        if (isDiscounted) {
+          Text(
+            "${product.discount}% OFF",
+            style = AppTypography.labelLarge,
+            color = MaterialTheme.colorScheme.primary
           )
         }
         Text(
@@ -51,10 +51,17 @@ fun ProductDescription(
           modifier = Modifier.padding(vertical = 10.dp),
           style = AppTypography.displaySmall
         )
+        if (isDiscounted) {
+          PriceLabel(
+            price = product.productPrice - (product.productPrice / 100 * product.discount),
+            style = AppTypography.headlineMedium,
+            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+          )
+        }
         PriceLabel(
           price = product.productPrice,
-          style = AppTypography.titleLarge,
-          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
+          style = if (isDiscounted) AppTypography.titleMedium else AppTypography.headlineMedium,
+          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f),
         )
         Text(
           text = product.description,
@@ -103,6 +110,32 @@ fun ProductDescription(
 
 @Preview(showBackground = true)
 @Composable
+fun ProductDescriptionDiscountedPreview() {
+  ProductDescription(
+    product = Product(
+      0,
+      "Hamburger",
+      2.50,
+      20,
+      category = 0,
+      imageUrl = R.drawable.b_bigmac
+    ),
+    onAddToCart = { _, _ -> }
+  )
+}
+
+@Preview(showBackground = true)
+@Composable
 fun ProductDescriptionPreview() {
-//  ProductDescription(products[0])
+  ProductDescription(
+    product = Product(
+      0,
+      "Hamburger",
+      2.50,
+      0,
+      category = 0,
+      imageUrl = R.drawable.b_bigmac
+    ),
+    onAddToCart = { _, _ -> }
+  )
 }
