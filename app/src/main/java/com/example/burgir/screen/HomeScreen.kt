@@ -13,14 +13,15 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.burgir.R
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.ui.theme.AppTypography
@@ -30,6 +31,7 @@ fun HomeScreen(
   navController: NavController,
   burgirViewModel: BurgirViewModel
 ) {
+
   var chosenCategoryId by rememberSaveable { mutableStateOf(1) }
 
   burgirViewModel.getProductsByPopularity()
@@ -45,12 +47,12 @@ fun HomeScreen(
       contentPadding = innerPadding,
       horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
-      item(span = { GridItemSpan(2) }, key = 200) {
+      item(span = { GridItemSpan(2) }) {
         Text(
           text = buildAnnotatedString {
             append("Hey, ")
             withStyle(style = SpanStyle(fontWeight = FontWeight.Bold)) {
-              append("Shagon")
+              append(stringResource(id = R.string.profile_name))
             }
           },
           style = AppTypography.titleMedium,
@@ -58,27 +60,26 @@ fun HomeScreen(
           modifier = Modifier.padding(vertical = 10.dp)
         )
       }
-      item(span = { GridItemSpan(2) }, key = 202) {
+      item(span = { GridItemSpan(2) }) {
         Text(
           text = "Choose Your\nBest Meal",
           style = AppTypography.displayMedium.copy(fontWeight = FontWeight.Bold),
           textAlign = TextAlign.Center
-
         )
       }
-      item(span = { GridItemSpan(2) }, key = 203) {
+      item(span = { GridItemSpan(2) }) {
         CategorySlider(
           chosenCategoryId = chosenCategoryId,
           setChosenCategoryId = { newCategoryId -> chosenCategoryId = newCategoryId },
           categories = categories
         )
       }
-      item(span = { GridItemSpan(2) }, key = 205) {
+      item(span = { GridItemSpan(2) }) {
         Text(
           text = "Popular in ${if (categories.isNotEmpty()) categories[chosenCategoryId - 1].categoryName else ""}",
           style = AppTypography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
-          modifier = Modifier.padding(vertical = 5.dp),
+          modifier = Modifier.padding(top = 25.dp, bottom = 5.dp),
           textAlign = TextAlign.Center
         )
       }
@@ -89,12 +90,4 @@ fun HomeScreen(
       }
     }
   }
-
-}
-
-
-@Preview(showBackground = true, widthDp = 400, heightDp = 800)
-@Composable
-fun ScreenPreview() {
-//  HomeScreen(AppState(rememberNavController(), products))
 }

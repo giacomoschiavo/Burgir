@@ -16,9 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.burgir.R
@@ -26,7 +25,6 @@ import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.ui.theme.AppTypography
 import com.example.burgir.ui.theme.Shapes
-import com.example.compose.BurgirTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,11 +38,15 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
   ) { innerPadding ->
     LazyColumn(
       modifier = Modifier
-        .fillMaxWidth()
-        .padding(innerPadding)
+        .padding(innerPadding),
+      horizontalAlignment = Alignment.CenterHorizontally,
+      contentPadding = PaddingValues(horizontal = 15.dp),
     ) {
       item {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(
+          verticalAlignment = Alignment.CenterVertically,
+          modifier = Modifier.padding(horizontal = 20.dp)
+        ) {
           Image(
             painter = painterResource(id = R.drawable.burgir_icon),
             contentDescription = "Profile picture",
@@ -53,45 +55,62 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
               .clip(shape = Shapes.large)
           )
           Text(
-            text = "Hasbulla",
+            text = stringResource(id = R.string.profile_name),
             style = AppTypography.displaySmall,
-            modifier = Modifier.paddingFromBaseline(top = 30.dp),
-            textAlign = TextAlign.Center
+            modifier = Modifier
+              .paddingFromBaseline(top = 30.dp)
+              .weight(1f)
+              .padding(horizontal = 15.dp),
+            color = MaterialTheme.colorScheme.onBackground
           )
         }
       }
       item {
         Text(
           text = "Your Latest Orders",
-          modifier = Modifier.padding(10.dp),
+          modifier = Modifier.padding(vertical = 15.dp),
           style = AppTypography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
         )
       }
-      items(carts) { cart ->
+      item {
+        Row(modifier = Modifier
+          .padding(vertical = 10.dp)
+          .fillMaxWidth()) {
+          Text(
+            text = "Cart Id",
+            style = AppTypography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            color = MaterialTheme.colorScheme.onBackground
+          )
+          Text(
+            text = "Price",
+            style = AppTypography.titleMedium.copy(fontWeight = FontWeight.Bold),
+            modifier = Modifier.padding(horizontal = 20.dp),
+            color = MaterialTheme.colorScheme.onBackground
+          )
+        }
+      }
+      items(carts, key = { it.id }) { cart ->
         Row(
           verticalAlignment = Alignment.CenterVertically,
-          modifier = Modifier.padding(vertical = 10.dp)
+          modifier = Modifier
+            .padding(vertical = 10.dp)
+            .fillMaxWidth()
         ) {
-          Card() {
+          Card {
             Text(
               text = cart.id.toString(),
               style = AppTypography.titleLarge.copy(fontWeight = FontWeight.Bold),
               modifier = Modifier.padding(horizontal = 20.dp, vertical = 15.dp)
             )
           }
-          PriceLabel(cart.price, style = AppTypography.titleLarge)
+          PriceLabel(
+            cart.price,
+            style = AppTypography.titleLarge,
+            modifier = Modifier.padding(horizontal = 15.dp)
+          )
         }
       }
     }
-  }
-
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ProfileScreenPreview() {
-  BurgirTheme() {
-//    ProfileScreen(AppState(rememberNavController(), products, myViewModel))
   }
 }

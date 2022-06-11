@@ -34,6 +34,7 @@ fun ProductItem(product: Product, navController: NavController, modifier: Modifi
   ) {
     ElevatedCard(
       onClick = { navigateToProduct(product.id) },
+      modifier = Modifier.height(220.dp)
     ) {
       Column(
         modifier = Modifier
@@ -42,8 +43,8 @@ fun ProductItem(product: Product, navController: NavController, modifier: Modifi
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
       ) {
-        if (product.discount > 0) Text(
-          text = "${product.discount}% OFF",
+        Text(
+          text = if (product.discount > 0) "${product.discount}% OFF" else "",
           style = AppTypography.bodySmall.copy(fontWeight = FontWeight.Bold),
           color = MaterialTheme.colorScheme.secondary,
         )
@@ -77,7 +78,7 @@ fun ProductItem(product: Product, navController: NavController, modifier: Modifi
   }
 }
 
-@Preview(showBackground = true, widthDp = 200, heightDp = 250)
+@Preview(showBackground = true, widthDp = 200, heightDp = 350)
 @Composable
 fun ProductItemPreview() {
   ProductItem(

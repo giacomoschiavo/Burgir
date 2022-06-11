@@ -9,7 +9,7 @@ import androidx.compose.material3.Surface
 import com.example.burgir.data.BurgirApplication
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.data.BurgirViewModelFactory
-import com.example.compose.BurgirTheme
+import com.example.burgir.ui.theme.BurgirTheme
 import com.google.android.material.color.DynamicColors
 
 
