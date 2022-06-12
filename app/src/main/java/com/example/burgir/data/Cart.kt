@@ -8,6 +8,7 @@ import java.sql.Date
 
 @Entity
 data class Cart (
+
     /**
      * Cart ID. It stands for the order number
      */
@@ -15,5 +16,6 @@ data class Cart (
     /**
      * price of the order placed
      */
+
     @ColumnInfo(name="price") val price : Double
 )

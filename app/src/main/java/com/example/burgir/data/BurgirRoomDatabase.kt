@@ -13,8 +13,12 @@ import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 /**
- * This is the backend. The database. This used to be done by the OpenHelper.
+ * This is the backend. The database.
  * The fact that this has very few comments emphasizes its coolness.
+ */
+
+/**
+ * The database is developed using Room, which provides implementation once entities and data access objects are created
  */
 @Database(entities = [Product::class, Category::class, Cart::class], version = 1)
 abstract class BurgirRoomDatabase : RoomDatabase() {
@@ -23,6 +27,11 @@ abstract class BurgirRoomDatabase : RoomDatabase() {
   abstract fun categoryDao(): CategoryDao
   abstract fun cartDao(): CartDao
 
+  /**
+   * class used to initialize the database with data
+   * Categories and products are inserted in the database once the database is created.
+   * When there is already an instance of the database saved, it is not re-created
+   */
   private class BurgirDatabaseCallback(
     private val scope: CoroutineScope,
     private val resources: Resources
@@ -109,6 +118,9 @@ abstract class BurgirRoomDatabase : RoomDatabase() {
     }
   }
 
+  /**
+   * the database is created just one time, to follow the singleton pattern
+   */
   companion object {
     @Volatile
     private var INSTANCE: BurgirRoomDatabase? = null
