@@ -10,12 +10,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForward
 import androidx.compose.material.icons.outlined.Delete
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -37,10 +37,12 @@ fun CartScreen(
   burgirViewModel.getProductsinCart()
   val productsOnCart by burgirViewModel.products.observeAsState(emptyList())
 
+  var openDialog by remember { mutableStateOf(false) }
+
   SecondaryScaffold(
     navController = navController,
     burgirViewModel = burgirViewModel,
-    title = "Your Cart",
+    title = stringResource(R.string.cart_screen_headline),
     content = { innerPadding ->
       Column(modifier = Modifier.padding(innerPadding)) {
         LazyColumn(
@@ -64,15 +66,22 @@ fun CartScreen(
         val discount =
           productsOnCart.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }
         PaymentSummary(
-          checkout = { if (originalPrice - discount > 0) burgirViewModel.checkout(originalPrice - discount) },
           originalPrice = originalPrice,
           discount = discount,
           modifier = Modifier
             .weight(0.3f)
-            .padding(15.dp)
+            .padding(15.dp),
+          openDialog = { if (originalPrice > 0) openDialog = true }
         )
-    }
-  })
+        ConfirmDialog(
+          isOpen = openDialog,
+          closeDialog = { openDialog = false },
+          onConfirm = {
+            if (originalPrice - discount > 0) burgirViewModel.checkout(originalPrice - discount)
+            openDialog = false
+          })
+      }
+    })
 
 }
 
@@ -141,8 +150,8 @@ fun RowCartItem(
 
 @Composable
 fun PaymentSummary(
-  checkout: () -> Unit,
   originalPrice: Double,
+  openDialog: () -> Unit,
   discount: Double,
   modifier: Modifier = Modifier
 ) {
@@ -154,15 +163,17 @@ fun PaymentSummary(
         .weight(1f)
         .padding(vertical = 5.dp)
     ) {
-      PaymentSummaryItem("Items", originalPrice)
-      PaymentSummaryItem("Discount", discount)
-      PaymentSummaryItem("Cost", originalPrice - discount)
+      PaymentSummaryItem(stringResource(R.string.cart_screen_items), originalPrice)
+      PaymentSummaryItem(stringResource(R.string.cart_screen_discount), discount)
+      PaymentSummaryItem(stringResource(R.string.cart_screen_cost), originalPrice - discount)
     }
-    Button(onClick = checkout, modifier = Modifier
-      .fillMaxWidth()
-      .weight(0.3f)) {
-      Text(text = "Payment & delivery")
-      Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "arrow")
+    Button(
+      onClick = openDialog, modifier = Modifier
+        .fillMaxWidth()
+        .weight(0.3f)
+    ) {
+      Text(text = stringResource(R.string.cart_screen_checkout_button_text))
+      Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "arrow icon")
     }
   }
 }
@@ -176,15 +187,45 @@ fun PaymentSummaryItem(key: String, value: Double) {
   }
 }
 
+@Composable
+fun ConfirmDialog(isOpen: Boolean, closeDialog: () -> Unit, onConfirm: () -> Unit) {
+  if (isOpen) {
+    AlertDialog(
+      onDismissRequest = closeDialog,
+      title = {
+        Text(text = stringResource(R.string.payment_dialog_title))
+      },
+      text = {
+        Text(text = stringResource(R.string.payment_dialog_description))
+      },
+      confirmButton = {
+        TextButton(
+          onClick = onConfirm
+        ) {
+          Text(stringResource(R.string.payment_dialog_confirm))
+        }
+      },
+      dismissButton = {
+        TextButton(
+          onClick = closeDialog
+        ) {
+          Text(stringResource(R.string.payment_dialog_cancel))
+        }
+      }
+    )
+  }
+}
+
 
 @Preview(showBackground = true, heightDp = 120)
 @Composable
 fun RowCartItemPreview() {
-  RowCartItem(Product(
-    id = 0,
-    productName = "Big Mac",
-    imageUrl = R.drawable.b_bigmac,
-    category = 1,
+  RowCartItem(
+    Product(
+      id = 0,
+      productName = "Big Mac",
+      imageUrl = R.drawable.b_bigmac,
+      category = 1,
     discount = 10,
     isFavorite = true,
   ), onAdd = {}, onRemove = {}, removeAll = {})
@@ -194,5 +235,5 @@ fun RowCartItemPreview() {
 @Preview(showBackground = true, heightDp = 250)
 @Composable
 fun PaymentSummaryPreview() {
-  PaymentSummary(discount = 12.0, originalPrice = 12.34, checkout = {})
+  PaymentSummary(discount = 12.0, originalPrice = 12.34, openDialog = {})
 }

@@ -1,5 +1,14 @@
 <resources>
     <string name="app_name">Burgir.</string>
     <string name="profile_name">Michele</string>
+    <string name="payment_dialog_title">Checkout</string>
+    <string name="payment_dialog_description">Do you wish to confirm the payment?</string>
+    <string name="payment_dialog_confirm">Confirm</string>
+    <string name="payment_dialog_cancel">Dismiss</string>
+    <string name="cart_screen_checkout_button_text"><![CDATA[Payment & delivery]]></string>
+    <string name="cart_screen_items">Items</string>
+    <string name="cart_screen_discount">Discount</string>
+    <string name="cart_screen_cost">Cost</string>
+    <string name="cart_screen_headline">Your Cart</string>
 
 </resources>
