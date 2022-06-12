@@ -64,7 +64,6 @@ fun HomeScreen(
         Text(
           text = "Choose Your\nBest Meal",
           style = AppTypography.displayMedium.copy(fontWeight = FontWeight.Bold),
-          textAlign = TextAlign.Center
         )
       }
       item(span = { GridItemSpan(2) }) {
@@ -78,7 +77,7 @@ fun HomeScreen(
         Text(
           text = "Popular in ${if (categories.isNotEmpty()) categories[chosenCategoryId - 1].categoryName else ""}",
           style = AppTypography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
-          color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
+          color = MaterialTheme.colorScheme.onBackground,
           modifier = Modifier.padding(top = 25.dp, bottom = 5.dp),
           textAlign = TextAlign.Center
         )

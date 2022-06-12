@@ -18,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.burgir.R
@@ -42,29 +43,7 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
       horizontalAlignment = Alignment.CenterHorizontally,
       contentPadding = PaddingValues(horizontal = 15.dp),
     ) {
-      item {
-        Row(
-          verticalAlignment = Alignment.CenterVertically,
-          modifier = Modifier.padding(horizontal = 20.dp)
-        ) {
-          Image(
-            painter = painterResource(id = R.drawable.burgir_icon),
-            contentDescription = "Profile picture",
-            modifier = Modifier
-              .size(100.dp)
-              .clip(shape = Shapes.large)
-          )
-          Text(
-            text = stringResource(id = R.string.profile_name),
-            style = AppTypography.displaySmall,
-            modifier = Modifier
-              .paddingFromBaseline(top = 30.dp)
-              .weight(1f)
-              .padding(horizontal = 15.dp),
-            color = MaterialTheme.colorScheme.onBackground
-          )
-        }
-      }
+      item { ProfileInfo() }
       item {
         Text(
           text = "Your Latest Orders",
@@ -113,4 +92,34 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
       }
     }
   }
+}
+
+@Composable
+fun ProfileInfo() {
+  Column(
+    horizontalAlignment = Alignment.CenterHorizontally,
+    modifier = Modifier.padding(horizontal = 20.dp)
+  ) {
+    Image(
+      painter = painterResource(id = R.drawable.profile_pic),
+      contentDescription = "Profile picture",
+      modifier = Modifier
+        .size(100.dp)
+        .clip(shape = Shapes.large)
+    )
+    Text(
+      text = stringResource(id = R.string.profile_name),
+      style = AppTypography.headlineSmall,
+      modifier = Modifier
+        .paddingFromBaseline(top = 30.dp)
+        .padding(horizontal = 15.dp),
+      color = MaterialTheme.colorScheme.onBackground
+    )
+  }
+}
+
+@Preview(showBackground = true, widthDp = 250)
+@Composable
+fun ProfileInfoPreview() {
+  ProfileInfo()
 }

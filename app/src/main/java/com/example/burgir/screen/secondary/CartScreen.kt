@@ -17,6 +17,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -63,7 +64,7 @@ fun CartScreen(
         val discount =
           productsOnCart.sumOf { (it.productPrice / 100 * it.discount) * it.cartQuantity }
         PaymentSummary(
-          checkout = { burgirViewModel.checkout(originalPrice - discount) },
+          checkout = { if (originalPrice - discount > 0) burgirViewModel.checkout(originalPrice - discount) },
           originalPrice = originalPrice,
           discount = discount,
           modifier = Modifier
@@ -129,7 +130,7 @@ fun RowCartItem(
       if (product.discount > 0) {
         PriceLabel(
           price = product.productPrice,
-          style = AppTypography.bodySmall,
+          style = AppTypography.bodySmall.copy(textDecoration = TextDecoration.LineThrough),
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f)
         )
       }

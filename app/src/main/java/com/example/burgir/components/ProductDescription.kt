@@ -14,6 +14,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.R
@@ -51,16 +52,18 @@ fun ProductDescription(
           modifier = Modifier.padding(vertical = 10.dp),
           style = AppTypography.displaySmall
         )
+        // discounted price
         if (isDiscounted) {
           PriceLabel(
             price = product.productPrice - (product.productPrice / 100 * product.discount),
             style = AppTypography.headlineMedium,
-            color = MaterialTheme.colorScheme.primary.copy(alpha = 0.5f)
+            color = MaterialTheme.colorScheme.primary
           )
         }
+        // original price
         PriceLabel(
           price = product.productPrice,
-          style = if (isDiscounted) AppTypography.titleMedium else AppTypography.headlineMedium,
+          style = if (isDiscounted) AppTypography.titleMedium.copy(textDecoration = TextDecoration.LineThrough) else AppTypography.headlineMedium,
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f),
         )
         Text(
