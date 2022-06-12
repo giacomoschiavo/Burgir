@@ -1,4 +1,5 @@
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -15,6 +16,12 @@ fun CategoryScreen(
   modifier: Modifier = Modifier,
   burgirViewModel: BurgirViewModel
 ) {
+
+  if (categoryId == -1) {
+    Text(text = "Category not found!")
+    return
+  }
+
 
   burgirViewModel.getProductsByCategory(categoryId)
   val productsByCategory by burgirViewModel.products.observeAsState(emptyList())

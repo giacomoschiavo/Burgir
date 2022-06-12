@@ -9,6 +9,15 @@ import com.example.burgir.screen.secondary.CartScreen
 import com.example.burgir.screen.secondary.ProductDetailsScreen
 import com.example.burgir.screen.secondary.SplashScreen
 
+/*
+Questo componente viene usato per gestire la navigazione tra le diverse schermate.
+Per ogni schermata viene passato come parametro navController e burgirViewModel che servono a gestire
+rispettivamente la navigazione e la gestione dei dati attraverso il ViewModel.
+La schermata principale e' SplashScreen.
+Per ProductDetailsScreen e CategoryScreen vengono passati degli ID identificativi (verranno poi usati
+nelle singole schermate)
+ */
+
 @Composable
 fun NavigationController(burgirViewModel: BurgirViewModel) {
 
@@ -52,7 +61,7 @@ fun NavigationController(burgirViewModel: BurgirViewModel) {
     }
     composable("${RouteConfig.CATEGORY_SCREEN_ROUTE}/{categoryId}") { backStackEntry ->
       CategoryScreen(
-        categoryId = backStackEntry.arguments?.getString("categoryId")!!.toInt(),
+        categoryId = backStackEntry.arguments?.getString("categoryId")?.toInt() ?: -1,
         navController = navController,
         burgirViewModel = burgirViewModel
       )

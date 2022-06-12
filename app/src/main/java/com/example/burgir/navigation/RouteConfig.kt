@@ -11,6 +11,10 @@ import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.Search
 import androidx.compose.ui.graphics.vector.ImageVector
 
+/*
+Questa classe contiene tutte le informazioni riguardanti le destinazioni.
+Sono salvati: nome route, indirizzo route, icona filled(focus) e outline(unfocus)
+ */
 class RouteConfig {
   companion object routes {
     const val SPLASH_SCREEN_ROUTE = "splashScreen"

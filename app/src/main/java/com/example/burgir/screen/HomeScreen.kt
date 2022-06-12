@@ -26,27 +26,42 @@ import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.ui.theme.AppTypography
 
+/*
+schermata Home
+Come tutte le altre schermate, possiede un'istanza di navController e burgirViewModel
+chosenCategoryId salva l'id della categoria scelta (cliccata dall'utente, default 1 -> burgers)
+popularProducts e categories sono estratti dal viewModel
+ */
+
 @Composable
 fun HomeScreen(
   navController: NavController,
   burgirViewModel: BurgirViewModel
 ) {
 
+  // contiene l'id della categoria selezionata
   var chosenCategoryId by rememberSaveable { mutableStateOf(1) }
 
+  // popularProduct sono i prodotto piu acquistati dall'utente (timesPurchased)
   burgirViewModel.getProductsByPopularity()
+
+  // osserva i prodotti piu popolari e le categorie
   val popularProducts by burgirViewModel.products.observeAsState(emptyList())
   val categories by burgirViewModel.categories.observeAsState(emptyList())
 
+  // identifica la struttura principale della pagina
   PrimaryScaffold(
     navController = navController,
     burgirViewModel = burgirViewModel,
   ) { innerPadding ->
+    // crea una griglia verticale (nx2), funziona come una RecyclerView
     LazyVerticalGrid(
       columns = GridCells.Fixed(2),
       contentPadding = innerPadding,
       horizontalArrangement = Arrangement.spacedBy(10.dp),
     ) {
+
+      // Label con "Hey, <nome>", occupa 2 posti
       item(span = { GridItemSpan(2) }) {
         Text(
           text = buildAnnotatedString {
@@ -60,12 +75,17 @@ fun HomeScreen(
           modifier = Modifier.padding(vertical = 10.dp)
         )
       }
+
+      // Label con "Choose your best meal", occupa 2 posti
       item(span = { GridItemSpan(2) }) {
         Text(
           text = "Choose Your\nBest Meal",
           style = AppTypography.displayMedium.copy(fontWeight = FontWeight.Bold),
         )
       }
+
+      // slider delle categorie, al click di ogni categoria viene modificato il valore in chosenCategoryId
+      // con quella selezionata
       item(span = { GridItemSpan(2) }) {
         CategorySlider(
           chosenCategoryId = chosenCategoryId,
@@ -73,6 +93,10 @@ fun HomeScreen(
           categories = categories
         )
       }
+
+      // Label "Popular in <categoria>", <categoria> e' preso da chosenCategoryId
+      // (id delle categorie vanno da 1 a 5, mentre categories e' un array con valori negli indici
+      // da 0 a 4, quindi e' necessario traslare i valori
       item(span = { GridItemSpan(2) }) {
         Text(
           text = "Popular in ${if (categories.isNotEmpty()) categories[chosenCategoryId - 1].categoryName else ""}",
@@ -82,6 +106,9 @@ fun HomeScreen(
           textAlign = TextAlign.Center
         )
       }
+
+      // ottieni tutti i prodotti piu popolari di una determinata categoria (chosenCategoryId)
+      // ProductItem disegna la card per ogni prodotto
       items(
         popularProducts.filter { it.category == chosenCategoryId },
         key = { product -> product.id }) { product ->
