@@ -4,10 +4,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
+
+/*
+Schermata Category
+Visualizza tutti i prodotti che appartengono alla stessa categoria selezionata
+Vengono mostrati in ProductsGrid
+ */
 
 @Composable
 fun CategoryScreen(
@@ -22,10 +27,12 @@ fun CategoryScreen(
     return
   }
 
-
+  // ottieni tutti i prodotti di tale categoria
   burgirViewModel.getProductsByCategory(categoryId)
+  // osserva i prodotti di categoria e le categorie
   val productsByCategory by burgirViewModel.products.observeAsState(emptyList())
   val categories by burgirViewModel.categories.observeAsState(emptyList())
+  // ottieni la categoria con id corrispondente
   val category = categories.find { category -> categoryId == category.id }
 
   SecondaryScaffold(
@@ -40,15 +47,4 @@ fun CategoryScreen(
         modifier = modifier.padding(innerPadding),
       )
     })
-}
-
-@Preview(showBackground = true)
-@Composable
-fun CategoryScreenPreview() {
-//  CategoryScreen(
-//    categoryId = 0,
-//    navigateToProduct = {},
-//    products = products.filter { product -> product.category == 0 },
-//    appState = appState
-//  )
 }

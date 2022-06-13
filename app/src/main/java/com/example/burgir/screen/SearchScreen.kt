@@ -5,23 +5,16 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
+import androidx.compose.runtime.*
 import androidx.compose.runtime.livedata.observeAsState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.navigation.RouteConfig
@@ -29,7 +22,9 @@ import com.example.burgir.ui.theme.AppTypography
 
 /*
 Schermata SearchScreen
-
+Lista tutte le categorie di prodotti presenti nell'app.
+Al click di ogni categoria, si viene portati nella pagina della categoria (CategoryScreen) corrispondente
+La funzione di ricerca nella search bar non e' stata implementata
  */
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -38,28 +33,36 @@ fun SearchScreen(
   navController: NavController,
   burgirViewModel: BurgirViewModel,
 ) {
-  var searchText by rememberSaveable { mutableStateOf("") }
 
+  // salva il testo scritto nella search bar
+  var searchText by remember { mutableStateOf("") }
+
+  // osserva i cambiamenti nelle categorie in burgirViewModel
   val categories by burgirViewModel.categories.observeAsState(emptyList())
 
-  val navigateToCategory: (Int) -> Unit = {
-    navController.navigate("${RouteConfig.CATEGORY_SCREEN_ROUTE}/$it") { launchSingleTop }
+  // naviga nella pagina della categoria (CategoryScreen) con id corrispondente
+  val navigateToCategory: (categoryId: Int) -> Unit = { categoryId ->
+    navController.navigate("${RouteConfig.CATEGORY_SCREEN_ROUTE}/$categoryId") { launchSingleTop }
   }
 
   PrimaryScaffold(
     navController = navController,
     burgirViewModel = burgirViewModel,
   ) { innerPadding ->
+    // corrisponde ad una lista con recyclerView, ogni Composable deve essere creato in una funzione
+    // item (per singolo oggetto) o items (per lista di oggetti)
     LazyColumn(
       modifier = Modifier
         .padding(innerPadding)
     ) {
       item {
+        // titolo "Discover New Flavors"
         Text(
           text = "Discover\nNew Flavors",
           style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Bold),
           modifier = Modifier.padding(vertical = 10.dp)
         )
+        // Search bar (funzione di ricerca non implementata)
         OutlinedTextField(
           value = searchText,
           onValueChange = { newValue -> searchText = newValue },
@@ -69,6 +72,7 @@ fun SearchScreen(
             .fillMaxWidth()
             .padding(vertical = 20.dp)
         )
+        // testo "CATEGORIES"
         Text(
           text = "CATEGORIES",
           style = AppTypography.bodySmall.copy(fontWeight = FontWeight.W800),
@@ -76,12 +80,18 @@ fun SearchScreen(
           modifier = Modifier.padding(10.dp)
         )
       }
-      items(categories) { category ->
+
+      // lista delle categorie, ogni categoria e' una card clickabile
+      // items permette di renderizzare una lista di oggetti (e' raccomandato l'uso di id
+      // identificativi per ogni elemento)
+      items(categories, key = { category -> category.id }) { category ->
         Card(
           onClick = { navigateToCategory(category.id) },
           modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 10.dp),
+          // classe Category contiene tre valori per il colore di ogni categoria:
+          // hue, saturation e value
           colors = CardDefaults.cardColors(
             containerColor = Color.hsv(
               hue = category.categoryColor1,
@@ -96,6 +106,7 @@ fun SearchScreen(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.heightIn(150.dp)
           ) {
+            // testo con nome della categoria
             Text(
               text = category.categoryName,
               modifier = Modifier
@@ -103,6 +114,7 @@ fun SearchScreen(
                 .padding(25.dp),
               style = AppTypography.headlineSmall.copy(fontWeight = FontWeight.Bold)
             )
+            // immagine "simbolo" della categoria
             Image(
               painter = painterResource(id = category.imageUri),
               contentDescription = null,
@@ -117,10 +129,4 @@ fun SearchScreen(
     }
 
   }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun SearchScreenPreview() {
-  SearchScreen(rememberNavController(), burgirViewModel = viewModel())
 }

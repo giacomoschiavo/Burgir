@@ -13,6 +13,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -99,10 +100,28 @@ fun HomeScreen(
       // da 0 a 4, quindi e' necessario traslare i valori
       item(span = { GridItemSpan(2) }) {
         Text(
-          text = "Popular in ${if (categories.isNotEmpty()) categories[chosenCategoryId - 1].categoryName else ""}",
-          style = AppTypography.titleLarge.copy(fontWeight = FontWeight.ExtraBold),
+          text = buildAnnotatedString {
+            val chosenCategory =
+              if (categories.isEmpty()) null else categories[chosenCategoryId - 1]
+            if (chosenCategory != null) {
+              append("Popular in ")
+              // aggiunge il colore corrisponde alla categoria
+              withStyle(
+                style = SpanStyle(
+                  color = Color.hsv(
+                    hue = chosenCategory.categoryColor1 - 0.5f,
+                    saturation = chosenCategory.categoryColor2,
+                    value = chosenCategory.categoryColor3
+                  )
+                )
+              ) {
+                append(if (categories.isNotEmpty()) categories[chosenCategoryId - 1].categoryName else "")
+              }
+            }
+          },
+          style = AppTypography.titleLarge.copy(fontWeight = FontWeight.Bold),
           color = MaterialTheme.colorScheme.onBackground,
-          modifier = Modifier.padding(top = 25.dp, bottom = 5.dp),
+          modifier = Modifier.padding(top = 10.dp, bottom = 5.dp),
           textAlign = TextAlign.Center
         )
       }

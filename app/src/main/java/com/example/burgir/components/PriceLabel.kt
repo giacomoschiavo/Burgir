@@ -12,6 +12,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
+/*
+Componente per mostrare il prezzo
+Il simbolo dell'euro e' leggermente traslato verso l'alto e rimpicciolito.
+Sono stati specificati alcuni valori di default per style e color
+ */
+
 @Composable
 fun PriceLabel(
   price: Double,

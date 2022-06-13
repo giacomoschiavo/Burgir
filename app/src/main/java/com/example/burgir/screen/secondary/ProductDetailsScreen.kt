@@ -9,16 +9,22 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
+
+/*
+Mostra tutte le informazioni riguardanti un determinato prodotto.
+Il prodotto in questione e' specificato dall'id passato come parametro di navigazione.
+Il prodotto viene estratto dalla lista dei prodotti
+Questa e' l'unica schermata in cui e' possibile aggiungere un prodotto al carrello
+ */
 
 @Composable
 fun ProductDetailsScreen(
@@ -28,39 +34,44 @@ fun ProductDetailsScreen(
   burgirViewModel: BurgirViewModel
 ) {
 
+  // id non riconosciuto
   if (productId == -1) {
     Text(text = "Product not found!")
     return
   }
 
-  burgirViewModel.getAllProducts()
-  val products by burgirViewModel.products.observeAsState()
-  val product = products?.find { product -> product.id == productId }
+  // ottieni il prodotto
+  val product by burgirViewModel.getProductById(productId).collectAsState(null)
+  if (product == null) {
+    Text(text = "Product not found!")
+    return
+  }
 
   SecondaryScaffold(
     navController = navController,
     burgirViewModel = burgirViewModel,
+    product = product,
     showFavoriteIcon = true,
     showCartIcon = true,
     title = product?.productName ?: "",
-    onFavoriteClick = { product ->
-      burgirViewModel.updateFavorite(product.id)
-    },
-    product = product,
+    onFavoriteClick = { product -> burgirViewModel.updateFavorite(product.id) },
     content = { innerPadding ->
+      // crea colonna scrollabile
       LazyColumn(modifier = modifier.padding(innerPadding)) {
+        // immagine del prodotto
         item {
           Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxWidth()) {
             if (product != null) {
               Image(
                 modifier = Modifier
-                  .size(220.dp),
-                painter = painterResource(id = product.imageUrl),
-                contentDescription = "image of the product"
+                  .size(250.dp),
+                painter = painterResource(id = product!!.imageUrl),
+                contentDescription = "product image"
               )
             }
           }
         }
+        // descrizione (nome, prezzo, carrello)
         item {
           ProductDescription(product, onAddToCart = { productId, quantity ->
             repeat(quantity) {
@@ -71,10 +82,4 @@ fun ProductDetailsScreen(
       }
     }
   )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ProductScreenPreview() {
-//    ProductDetailsScreen(0, products = products)
 }

@@ -15,14 +15,20 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.burgir.R
 import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 import kotlinx.coroutines.delay
 
+/*
+Questa schermata rappresenta lo splash screen iniziale
+Alla conclusione dell'animazione, l'utente verra' reindirizzato alla schermata Home
+ */
 @Composable
 fun SplashScreen(navController: NavController) {
   val scale = remember { Animatable(0f) }
@@ -50,17 +56,12 @@ fun SplashScreen(navController: NavController) {
         .background(MaterialTheme.colorScheme.primary)
     ) {
       Text(
-        "Burgir.",
-        style = AppTypography.displayMedium,
+        stringResource(R.string.splash_screen_name),
+        style = AppTypography.displayLarge,
         fontWeight = FontWeight.ExtraBold,
         color = MaterialTheme.colorScheme.onPrimary,
         modifier = Modifier.scale(scale.value)
       )
-//      Image(
-//        painter = painterResource(id = R.drawable.burger),
-//        contentDescription = "Logo",
-//        modifier = Modifier.scale(scale.value)
-//      )
     }
   }
 }

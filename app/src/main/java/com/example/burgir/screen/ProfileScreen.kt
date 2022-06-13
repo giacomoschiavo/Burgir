@@ -1,8 +1,10 @@
 package com.example.burgir.screen
 
 import PriceLabel
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Text
@@ -14,19 +16,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.burgir.R
 import com.example.burgir.components.PrimaryScaffold
+import com.example.burgir.components.profile.ProfileInfo
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.ui.theme.AppTypography
-import com.example.burgir.ui.theme.Shapes
 
+/*
+Schermata profilo
+Questa schermata tiene conto degli ordini fatti.
+Vengono visulizzati gli id del carrello ed il totale speso
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel) {
@@ -43,7 +45,8 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
       horizontalAlignment = Alignment.CenterHorizontally,
       contentPadding = PaddingValues(horizontal = 15.dp),
     ) {
-      item { ProfileInfo() }
+      // contiene foto profile e nome profilo
+      item { ProfileInfo(modifier = Modifier.padding(horizontal = 20.dp)) }
       item {
         Text(
           text = "Your Latest Orders",
@@ -53,9 +56,11 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
         )
       }
       item {
-        Row(modifier = Modifier
-          .padding(vertical = 10.dp)
-          .fillMaxWidth()) {
+        Row(
+          modifier = Modifier
+            .padding(vertical = 10.dp)
+            .fillMaxWidth()
+        ) {
           Text(
             text = "Cart Id",
             style = AppTypography.titleMedium,
@@ -69,6 +74,7 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
           )
         }
       }
+      // contiene la lista di id e totale carrello
       items(carts, key = { it.id }) { cart ->
         Row(
           verticalAlignment = Alignment.CenterVertically,
@@ -94,32 +100,3 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
   }
 }
 
-@Composable
-fun ProfileInfo() {
-  Column(
-    horizontalAlignment = Alignment.CenterHorizontally,
-    modifier = Modifier.padding(horizontal = 20.dp)
-  ) {
-    Image(
-      painter = painterResource(id = R.drawable.profile_pic),
-      contentDescription = "Profile picture",
-      modifier = Modifier
-        .size(100.dp)
-        .clip(shape = Shapes.large)
-    )
-    Text(
-      text = stringResource(id = R.string.profile_name),
-      style = AppTypography.headlineSmall,
-      modifier = Modifier
-        .paddingFromBaseline(top = 30.dp)
-        .padding(horizontal = 15.dp),
-      color = MaterialTheme.colorScheme.onBackground
-    )
-  }
-}
-
-@Preview(showBackground = true, widthDp = 250)
-@Composable
-fun ProfileInfoPreview() {
-  ProfileInfo()
-}

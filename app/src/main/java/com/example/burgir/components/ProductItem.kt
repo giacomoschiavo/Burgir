@@ -20,10 +20,18 @@ import com.example.burgir.data.Product
 import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 
+/*
+Questo componente viene utilizzato per mostrare le info principali del prodotto: sconto, foto, nome
+e prezzo originale
+Al click sulla Card. verra' aperta la pagina con tutte le informazioni sul prodotto e la possibilita
+di aggiungerlo al carrello
+ */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ProductItem(product: Product, navController: NavController, modifier: Modifier = Modifier) {
 
+  // funzione per navigare a ProductDetailScreen
   val navigateToProduct: (Int) -> Unit = {
     navController.navigate("${RouteConfig.PRODUCT_SCREEN_ROUTE}/$it") { launchSingleTop }
   }
@@ -43,11 +51,13 @@ fun ProductItem(product: Product, navController: NavController, modifier: Modifi
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceBetween
       ) {
+        // testo sconto
         Text(
           text = if (product.discount > 0) "${product.discount}% OFF" else "",
           style = AppTypography.bodySmall.copy(fontWeight = FontWeight.Bold),
           color = MaterialTheme.colorScheme.secondary,
         )
+        // immagine prodotto
         Image(
           painter = painterResource(product.imageUrl),
           contentDescription = null,
@@ -61,11 +71,13 @@ fun ProductItem(product: Product, navController: NavController, modifier: Modifi
           verticalArrangement = Arrangement.SpaceBetween,
           horizontalAlignment = Alignment.CenterHorizontally,
         ) {
+          // nome prodotto
           Text(
             text = product.productName,
             style = AppTypography.titleMedium,
             textAlign = TextAlign.Center
           )
+          // prezzo prodotto
           PriceLabel(
             price = product.productPrice,
             color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.3f),

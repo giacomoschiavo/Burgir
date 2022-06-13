@@ -15,8 +15,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.burgir.R
+
+/*
+Questo componente permette di gestire le quantita di un prodotto (sia nel carrello che nella schermata
+di descrizione)
+Ha due metodi che (onAdd e onRemove) che vengono richiamati al click + e -
+Ha un valore iniziale di default = 1
+ */
 
 @Composable
 fun QuantitySelector(
@@ -25,6 +33,7 @@ fun QuantitySelector(
   modifier: Modifier = Modifier,
   initialQuantity: Int = 1
 ) {
+  // tiene conto del contatore (soppravvive alle configuration changes)
   var counter by rememberSaveable { mutableStateOf(initialQuantity) }
 
   Row(
@@ -32,6 +41,7 @@ fun QuantitySelector(
     horizontalArrangement = Arrangement.SpaceAround,
     modifier = modifier
   ) {
+    // counter non puo essere minore di 1
     IconButton(onClick = {
       if (counter > 1) counter--
       onRemove(counter)
@@ -57,4 +67,10 @@ fun QuantitySelector(
       )
     }
   }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun QuantitySelectorPreview() {
+  QuantitySelector({}, {})
 }
