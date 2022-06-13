@@ -4,7 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
-
+/**
+ * Lists returned are Flow<List> since every product can change its state during app usage
+ */
 @Dao
 interface ProductDao {
     /**
@@ -14,19 +16,19 @@ interface ProductDao {
     suspend fun insert(product: Product)
 
     /**
-     * delete a product from the database.
+     * delete the specified product from the database.
      */
     @Delete
     suspend fun delete(product: Product)
 
     /**
-     * update a product of the database
+     * update the specified product of the database
      */
     @Update
     suspend fun update(product: Product)
 
     /**
-     * Return a list of all products
+     * Return a list of all products available in the database
      */
     @Query("SELECT * FROM Product ORDER BY name ASC")
     fun getAllProducts(): Flow<List<Product>>
@@ -38,7 +40,7 @@ interface ProductDao {
     fun getProductsByPopularity() : Flow<List<Product>>
 
     /**
-     * Return a list of all products that belong to the specify category
+     * Return a list of all products that belong to the specified category
     */
     @Query("SELECT * FROM Product WHERE category= :id")
     fun getProductsByCategory(id: Int): Flow<List<Product>>
@@ -57,6 +59,7 @@ interface ProductDao {
     fun getProductsInCart() : Flow<List<Product>>
 
     /**
+     *
      * Increase the number of times the product has been ordered and set cartQuantity = 0.
      * This action is performed for every product after a checkout.
      */
@@ -64,7 +67,7 @@ interface ProductDao {
     suspend fun checkout()
 
     /**
-     * Add a product to the cart by 1 quantity
+     * Add a product to the cart by the specified quantity (1 by default)
      */
     @Query("UPDATE Product SET cart_quantity= cart_quantity + :quantity WHERE id= :id")
     suspend fun addToCart(id : Int,quantity : Int = 1)

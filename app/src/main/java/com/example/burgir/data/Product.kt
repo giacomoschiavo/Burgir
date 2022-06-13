@@ -4,6 +4,9 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
 
+/**
+ * Some values are declared by default. Useful during app development when testing in order to avoid waste of time creating different prices and description for every product
+ */
 @Entity
 data class Product(
   /**
@@ -46,8 +49,8 @@ data class Product(
 
   @ColumnInfo(name = "category") val category: Int,
   /**
-     * ImageUrl
-     */
+   * ImageUrl, identified by an Int
+   */
 
     @ColumnInfo(name="image_url") val imageUrl : Int,
 

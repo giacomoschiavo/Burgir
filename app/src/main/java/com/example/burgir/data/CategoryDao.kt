@@ -4,21 +4,32 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import kotlinx.coroutines.flow.Flow
 
-//TODO COMMENTARE
+
 @Dao
 interface CategoryDao {
 
+
+    /**
+     * Insert the specified category in the database
+     */
     @Insert(onConflict=OnConflictStrategy.IGNORE)
     suspend fun insert(category: Category)
 
+    /**
+     * delete the specified category from the database
+     */
     @Delete
     suspend fun delete(category: Category)
 
+    /**
+     * update the specified category in the database
+     */
     @Update
     suspend fun update(category: Category)
 
-    //@Query("SELECT * FROM Category WHERE ID= :id")
-    //fun getCategoryById(id: Int) : Category
+    /**
+     * return a Flow<List> of all the categories in the database
+     */
 
     @Query("SELECT * FROM Category")
     fun getAllCategories() : Flow<List<Category>>
