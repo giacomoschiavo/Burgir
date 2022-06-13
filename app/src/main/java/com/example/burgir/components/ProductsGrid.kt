@@ -1,11 +1,12 @@
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.lazy.grid.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.GridItemSpan
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import com.example.burgir.data.Product
 
 @Composable
@@ -28,14 +29,14 @@ fun ProductsGrid(
   }
 }
 
-
-@Preview(showBackground = true)
-@Composable
-fun ProductsGridPreview() {
-    ProductsGrid(
-      navController = rememberNavController(),
-      modifier = Modifier,
-      products = products)
-}
-
+//
+//@Preview(showBackground = true)
+//@Composable
+//fun ProductsGridPreview() {
+//    ProductsGrid(
+//      navController = rememberNavController(),
+//      modifier = Modifier,
+//      products = products)
+//}
+//
 

@@ -27,6 +27,11 @@ import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.navigation.RouteConfig
 import com.example.burgir.ui.theme.AppTypography
 
+/*
+Schermata SearchScreen
+
+ */
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
