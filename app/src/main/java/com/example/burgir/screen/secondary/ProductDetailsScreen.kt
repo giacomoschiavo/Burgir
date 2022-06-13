@@ -14,8 +14,10 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.burgir.R
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
 
@@ -36,14 +38,14 @@ fun ProductDetailsScreen(
 
   // id non riconosciuto
   if (productId == -1) {
-    Text(text = "Product not found!")
+    Text(text = stringResource(id = R.string.err_product_not_found))
     return
   }
 
   // ottieni il prodotto
   val product by burgirViewModel.getProductById(productId).collectAsState(null)
   if (product == null) {
-    Text(text = "Product not found!")
+    Text(text = stringResource(id = R.string.err_product_not_found))
     return
   }
 
@@ -66,7 +68,7 @@ fun ProductDetailsScreen(
                 modifier = Modifier
                   .size(250.dp),
                 painter = painterResource(id = product!!.imageUrl),
-                contentDescription = "product image"
+                contentDescription = stringResource(id = R.string.acc_product_image)
               )
             }
           }

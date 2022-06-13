@@ -18,6 +18,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,7 +53,7 @@ fun ProductDescription(
   )
 
   if (product == null) {
-    Text("No products found :(")
+    Text(stringResource(R.string.err_product_not_found))
     return
   }
   Surface(
@@ -122,10 +123,10 @@ fun ProductDescription(
             Row(verticalAlignment = Alignment.CenterVertically) {
               Icon(
                 imageVector = Icons.Filled.ShoppingCart,
-                contentDescription = "add to cart with cart icon"
+                contentDescription = null
               )
               Text(
-                text = "Add to cart",
+                text = stringResource(R.string.add_to_cart_text),
                 style = AppTypography.labelLarge,
                 modifier = Modifier.padding(10.dp)
               )
@@ -133,7 +134,7 @@ fun ProductDescription(
           }
           // se cliccato dai feedback all'utente
           AnimatedVisibility(visible = clicked) {
-            Icon(imageVector = Icons.Filled.Check, contentDescription = "check icon")
+            Icon(imageVector = Icons.Filled.Check, contentDescription = null)
           }
         }
       }

@@ -56,7 +56,7 @@ fun SplashScreen(navController: NavController) {
         .background(MaterialTheme.colorScheme.primary)
     ) {
       Text(
-        stringResource(R.string.splash_screen_name),
+        stringResource(R.string.app_name),
         style = AppTypography.displayLarge,
         fontWeight = FontWeight.ExtraBold,
         color = MaterialTheme.colorScheme.onPrimary,

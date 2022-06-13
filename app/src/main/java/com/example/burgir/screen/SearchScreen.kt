@@ -12,9 +12,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.burgir.R
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.navigation.RouteConfig
@@ -58,7 +60,7 @@ fun SearchScreen(
       item {
         // titolo "Discover New Flavors"
         Text(
-          text = "Discover\nNew Flavors",
+          text = stringResource(R.string.search_screen_discover),
           style = AppTypography.displaySmall.copy(fontWeight = FontWeight.Bold),
           modifier = Modifier.padding(vertical = 10.dp)
         )
@@ -66,7 +68,7 @@ fun SearchScreen(
         OutlinedTextField(
           value = searchText,
           onValueChange = { newValue -> searchText = newValue },
-          placeholder = { Text(text = "Search") },
+          placeholder = { Text(text = stringResource(R.string.search_screen_searchbar_placeholder)) },
           leadingIcon = { Icon(imageVector = Icons.Filled.Search, contentDescription = null) },
           modifier = Modifier
             .fillMaxWidth()
@@ -74,7 +76,7 @@ fun SearchScreen(
         )
         // testo "CATEGORIES"
         Text(
-          text = "CATEGORIES",
+          text = stringResource(R.string.search_screen_categories_title),
           style = AppTypography.bodySmall.copy(fontWeight = FontWeight.W800),
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.5f),
           modifier = Modifier.padding(10.dp)
@@ -112,7 +114,7 @@ fun SearchScreen(
               modifier = Modifier
                 .weight(1f)
                 .padding(25.dp),
-              style = AppTypography.headlineSmall.copy(fontWeight = FontWeight.Bold)
+              style = AppTypography.headlineSmall.copy(fontWeight = FontWeight.ExtraBold)
             )
             // immagine "simbolo" della categoria
             Image(

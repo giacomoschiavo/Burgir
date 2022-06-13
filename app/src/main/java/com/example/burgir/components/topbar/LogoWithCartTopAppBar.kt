@@ -23,7 +23,7 @@ fun LogoWithCartTopAppBar(
   CenterAlignedTopAppBar(
     title = {
       Text(
-        stringResource(R.string.home_screen_logo_title),
+        stringResource(R.string.app_name),
         style = AppTypography.headlineMedium,
         fontWeight = FontWeight.ExtraBold,
         color = MaterialTheme.colorScheme.primary

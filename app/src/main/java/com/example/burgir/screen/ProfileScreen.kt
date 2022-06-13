@@ -16,9 +16,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.burgir.R
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.components.profile.ProfileInfo
 import com.example.burgir.data.BurgirViewModel
@@ -49,7 +51,7 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
       item { ProfileInfo(modifier = Modifier.padding(horizontal = 20.dp)) }
       item {
         Text(
-          text = "Your Latest Orders",
+          text = stringResource(R.string.profile_screen_latest_orders),
           modifier = Modifier.padding(vertical = 15.dp),
           style = AppTypography.headlineMedium.copy(fontWeight = FontWeight.ExtraBold),
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),
@@ -62,12 +64,12 @@ fun ProfileScreen(navController: NavController, burgirViewModel: BurgirViewModel
             .fillMaxWidth()
         ) {
           Text(
-            text = "Cart Id",
+            text = stringResource(R.string.profile_screen_cart_id),
             style = AppTypography.titleMedium,
             color = MaterialTheme.colorScheme.onBackground
           )
           Text(
-            text = "Price",
+            text = stringResource(R.string.profile_screen_price),
             style = AppTypography.titleMedium,
             modifier = Modifier.padding(horizontal = 20.dp),
             color = MaterialTheme.colorScheme.onBackground

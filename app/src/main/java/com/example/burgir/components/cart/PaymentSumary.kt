@@ -47,7 +47,7 @@ fun PaymentSummary(
         .weight(0.3f)
     ) {
       Text(text = stringResource(R.string.cart_screen_checkout_button_text))
-      Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = "arrow icon")
+      Icon(imageVector = Icons.Filled.ArrowForward, contentDescription = null)
     }
   }
 }

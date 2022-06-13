@@ -60,14 +60,16 @@ fun CategorySliderItem(
         .align(Alignment.CenterHorizontally),
       horizontalAlignment = Alignment.CenterHorizontally,
     ) {
+      // immagine della categoria
       Image(
         painter = painterResource(category.imageUri),
         contentDescription = null,
         modifier = Modifier.weight(1f)
       )
+      // testo della categoria
       Text(
         text = category.categoryName,
-        style = if (isChosen) AppTypography.labelMedium.copy(fontWeight = FontWeight.Bold) else AppTypography.labelMedium,
+        style = if (isChosen) AppTypography.labelLarge.copy(fontWeight = FontWeight.Bold) else AppTypography.labelLarge,
         modifier = Modifier.padding(5.dp)
       )
     }

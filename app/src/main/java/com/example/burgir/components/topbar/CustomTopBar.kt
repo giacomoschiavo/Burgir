@@ -14,9 +14,11 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
+import com.example.burgir.R
 import com.example.burgir.data.Product
 
 /*
@@ -44,7 +46,10 @@ fun CustomTopBar(
     navigationIcon = {
       // back button, fa pop dalla pila di navigazione
       IconButton(onClick = { navController.popBackStack() }) {
-        Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back arrow")
+        Icon(
+          imageVector = Icons.Filled.ArrowBack,
+          contentDescription = stringResource(R.string.acc_back_button)
+        )
       }
     },
     actions = {
@@ -64,7 +69,7 @@ fun CustomTopBar(
         }) {
           Icon(
             imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
-            contentDescription = "Favorite"
+            contentDescription = stringResource(R.string.acc_favorite_icon)
           )
         }
       }

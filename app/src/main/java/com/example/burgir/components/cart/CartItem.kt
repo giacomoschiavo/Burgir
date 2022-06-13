@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,7 +47,7 @@ fun CartItem(
       // immagine prodotto
       Image(
         painter = painterResource(id = product.imageUrl),
-        contentDescription = "product image",
+        contentDescription = stringResource(R.string.acc_product_image),
         modifier = Modifier
           .size(100.dp)
           .padding(10.dp)
@@ -75,7 +76,7 @@ fun CartItem(
       IconButton(onClick = removeAll) {
         Icon(
           imageVector = Icons.Outlined.Delete,
-          contentDescription = "delete icon",
+          contentDescription = stringResource(R.string.acc_delete_all_product),
           modifier = Modifier.padding(10.dp)
         )
       }

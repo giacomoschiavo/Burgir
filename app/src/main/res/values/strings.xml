@@ -10,6 +10,24 @@
     <string name="cart_screen_discount">Discount</string>
     <string name="cart_screen_cost">Cost</string>
     <string name="cart_screen_headline">Your Cart</string>
-    <string name="splash_screen_name">Burgir.</string>
-    <string name="home_screen_logo_title">Burgir.</string>
+    <string name="euro_simbol">€</string>
+    <string name="price_format">%.2f</string>
+    <string name="err_product_not_found">No products found!</string>
+    <string name="add_to_cart_text">Add to cart</string>
+    <string name="acc_product_image">product image</string>
+    <string name="acc_delete_all_product">delete icon</string>
+    <string name="acc_profile_picture">Profile picture</string>
+    <string name="acc_cart_icon">Cart Icon</string>
+    <string name="acc_back_button">Back Icon</string>
+    <string name="acc_favorite_icon">Favorite icon</string>
+    <string name="favorite_screen_title">Your Favorites♥</string>
+    <string name="home_screen_secondary">Choose Your\nBest Meal</string>
+    <string name="home_screen_popular_in">Popular in </string>
+    <string name="profile_screen_latest_orders">Your Latest Orders</string>
+    <string name="profile_screen_cart_id">Cart Id</string>
+    <string name="profile_screen_price">Price</string>
+    <string name="search_screen_discover">Discover\nNew Flavors</string>
+    <string name="search_screen_searchbar_placeholder">Search</string>
+    <string name="search_screen_categories_title">CATEGORIES</string>
+    <string name="err_category_not_found">Category not found!</string>
 </resources>

@@ -7,10 +7,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.burgir.R
 
 /*
 Componente per mostrare il prezzo
@@ -27,7 +29,7 @@ fun PriceLabel(
 ) {
   Row(modifier = modifier, verticalAlignment = Alignment.Top) {
     Text(
-      text = "€",
+      text = stringResource(R.string.euro_simbol),
       modifier = Modifier
         .scale(0.7f)
         .offset(y = -(2.dp)),
@@ -35,7 +37,7 @@ fun PriceLabel(
       color = color
     )
     Text(
-      text = "%.2f".format(price),
+      text = stringResource(R.string.price_format).format(price),
       style = style.copy(fontWeight = FontWeight.W300),
       color = color
     )

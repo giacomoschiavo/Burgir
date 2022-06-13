@@ -5,10 +5,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.example.burgir.R
 import com.example.burgir.components.PrimaryScaffold
 import com.example.burgir.data.BurgirViewModel
 import com.example.burgir.ui.theme.AppTypography
@@ -43,7 +45,7 @@ fun FavoriteScreen(
       products = favoriteProducts,
       header = {    // parametro opzionale, specifica un header sopra la griglia
         Text(
-          text = "Your Favorites♥",
+          text = stringResource(R.string.favorite_screen_title),
           textAlign = TextAlign.Center,
           style = AppTypography.headlineMedium.copy(fontWeight = FontWeight.Bold),
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.8f),

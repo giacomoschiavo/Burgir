@@ -4,7 +4,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavController
+import com.example.burgir.R
 import com.example.burgir.components.SecondaryScaffold
 import com.example.burgir.data.BurgirViewModel
 
@@ -23,7 +25,7 @@ fun CategoryScreen(
 ) {
 
   if (categoryId == -1) {
-    Text(text = "Category not found!")
+    Text(text = stringResource(R.string.err_category_not_found))
     return
   }
 

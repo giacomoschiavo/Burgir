@@ -71,7 +71,7 @@ fun HomeScreen(
               append(stringResource(id = R.string.profile_name))
             }
           },
-          style = AppTypography.titleMedium,
+          style = AppTypography.titleLarge,
           color = MaterialTheme.colorScheme.onBackground.copy(alpha = 0.6f),
           modifier = Modifier.padding(vertical = 10.dp)
         )
@@ -80,8 +80,8 @@ fun HomeScreen(
       // Label con "Choose your best meal", occupa 2 posti
       item(span = { GridItemSpan(2) }) {
         Text(
-          text = "Choose Your\nBest Meal",
-          style = AppTypography.displayMedium.copy(fontWeight = FontWeight.Bold),
+          text = stringResource(R.string.home_screen_secondary),
+          style = AppTypography.displayMedium.copy(fontWeight = FontWeight.ExtraBold),
         )
       }
 
@@ -104,7 +104,7 @@ fun HomeScreen(
             val chosenCategory =
               if (categories.isEmpty()) null else categories[chosenCategoryId - 1]
             if (chosenCategory != null) {
-              append("Popular in ")
+              append(stringResource(R.string.home_screen_popular_in))
               // aggiunge il colore corrisponde alla categoria
               withStyle(
                 style = SpanStyle(
@@ -112,10 +112,11 @@ fun HomeScreen(
                     hue = chosenCategory.categoryColor1 - 0.5f,
                     saturation = chosenCategory.categoryColor2,
                     value = chosenCategory.categoryColor3
-                  )
+                  ),
+                  fontWeight = FontWeight.ExtraBold
                 )
               ) {
-                append(if (categories.isNotEmpty()) categories[chosenCategoryId - 1].categoryName else "")
+                append(if (categories.isNotEmpty()) " ${categories[chosenCategoryId - 1].categoryName}" else "")
               }
             }
           },
