@@ -14,7 +14,9 @@ import com.google.android.material.color.DynamicColors
 
 
 class MainActivity : ComponentActivity() {
-
+  /**
+   * burgiViewModel used to get access to data
+   */
   private val burgirViewModel: BurgirViewModel by viewModels {
     BurgirViewModelFactory((application as BurgirApplication).repository)
   }
