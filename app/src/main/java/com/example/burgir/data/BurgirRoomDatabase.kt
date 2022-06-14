@@ -21,7 +21,7 @@ import kotlin.random.Random
 /**
  * The database is developed using Room, which provides implementation once entities and data access objects are created
  */
-@Database(entities = [Product::class, Category::class, Cart::class], version = 1)
+@Database(entities = [Product::class, Category::class, Cart::class], version = 1, exportSchema = false)
 abstract class BurgirRoomDatabase : RoomDatabase() {
 
   abstract fun productDao(): ProductDao
